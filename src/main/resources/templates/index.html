@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}+'--LeDao资源分享平台'"></title>
+    <link rel="short icon" th:href="@{/static/images/favicon.ico}">
+    <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}">
+    <script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+    <script>
+        layui.use('element', function () {
+            var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+            //监听导航点击
+            element.on('nav(demo)', function (elem) {
+                //console.log(elem)
+                layer.msg(elem.text());
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="layui-container">
+    <div th:include="common/head::#h"></div>
+    <div th:include="${mainPage}::${mainPageKey}"></div>
+    <div th:include="common/foot::#f"></div>
+</div>
+</body>
+</html>

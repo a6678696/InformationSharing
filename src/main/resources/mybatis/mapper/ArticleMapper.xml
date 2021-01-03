@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--suppress ALL-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ledao.mapper.ArticleMapper">
+    <resultMap id="ArticleResult" type="Article">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="publishDate" property="publishDate"/>
+        <result column="userId" property="userId"/>
+        <result column="articleTypeId" property="articleTypeId"/>
+        <result column="points" property="points"/>
+        <result column="content" property="content"/>
+        <result column="downloadLink" property="downloadLink"/>
+        <result column="password" property="password"/>
+        <result column="isHot" property="isHot"/>
+        <result column="state" property="state"/>
+        <result column="reason" property="reason"/>
+        <result column="checkDate" property="checkDate"/>
+        <result column="isUseful" property="isUseful"/>
+        <result column="click" property="click"/>
+    </resultMap>
+
+    <select id="list" parameterType="map" resultMap="ArticleResult">
+        select *
+        from t_article
+        <where>
+            <if test="name != null and name != ''">
+                and name like #{name}
+            </if>
+            <if test="userId != null">
+                and userId = #{userId}
+            </if>
+            <if test="articleTypeId != null">
+                and articleTypeId = #{articleTypeId}
+            </if>
+            <if test="isHot != null">
+                and isHot = #{isHot}
+            </if>
+            <if test="state != null">
+                and state like #{state}
+            </if>
+            <if test="isUseful != null">
+                and isUseful like #{isUseful}
+            </if>
+        </where>
+        <if test="start != null and size != null">
+            limit #{start},#{size}
+        </if>
+    </select>
+
+    <select id="getTotal" parameterType="map" resultType="java.lang.Long">
+        select count(*)
+        from t_article
+        <where>
+            <if test="name != null and name != ''">
+                and name like #{name}
+            </if>
+            <if test="userId != null">
+                and userId = #{userId}
+            </if>
+            <if test="articleTypeId != null">
+                and articleTypeId = #{articleTypeId}
+            </if>
+            <if test="isHot != null">
+                and isHot = #{isHot}
+            </if>
+            <if test="state != null">
+                and state like #{state}
+            </if>
+            <if test="isUseful != null">
+                and isUseful like #{isUseful}
+            </if>
+        </where>
+    </select>
+
+    <insert id="add" parameterType="Article">
+        insert into t_article(name, publishDate, userId, articleTypeId, points, content, downloadLink, password, isHot,state, isUseful, click)
+        values (#{name},now(),#{userId},#{articleTypeId},#{points},#{content},#{downloadLink},#{password},0,1,1,0);
+    </insert>
+
+    <update id="update">
+        update t_article
+        <set>
+            <if test="name != null and name != ''">
+                name=#{name},
+            </if>
+            <if test="articleTypeId != null">
+                articleTypeId=#{articleTypeId},
+            </if>
+            <if test="points != null">
+                points=#{points},
+            </if>
+            <if test="content != null and content != ''">
+                content=#{content},
+            </if>
+            <if test="downloadLink != null and downloadLink != ''">
+                downloadLink=#{downloadLink},
+            </if>
+            <if test="password != null and password != ''">
+                password=#{password},
+            </if>
+            <if test="isHot != null">
+                isHot=#{isHot},
+            </if>
+            <if test="state != null">
+                state=#{state},
+            </if>
+            <if test="reason != null and reason != ''">
+                reason=#{reason},
+            </if>
+            <if test="isUseful != null">
+                isUseful=#{isUseful},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <delete id="deleteById" parameterType="integer">
+        delete from t_article where id=#{id}
+    </delete>
+</mapper>

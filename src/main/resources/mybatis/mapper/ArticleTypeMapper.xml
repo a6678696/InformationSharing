@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--suppress ALL-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ledao.mapper.ArticleTypeMapper">
+
+    <resultMap id="ArticleTypeResult" type="ArticleType">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="remark" column="remark"/>
+        <result property="sortNum" column="sortNum"/>
+    </resultMap>
+
+    <select id="list" parameterType="map" resultMap="ArticleTypeResult">
+        select *
+        from t_article_type
+        <where>
+            <if test="name != null and name != ''">
+                and name like #{name}
+            </if>
+        </where>
+        <if test="start != null and size != null">
+            limit #{start},#{size}
+        </if>
+    </select>
+
+    <select id="getTotal" parameterType="map" resultType="java.lang.Long">
+        select count(*)
+        from t_article_type
+        <where>
+            <if test="name != null and name != ''">
+                and name like #{name}
+            </if>
+        </where>
+    </select>
+
+    <insert id="add" parameterType="ArticleType">
+        insert into t_article_type (name, remark, sortNum)
+        values (#{name}, #{remark}, #{sortNum});
+    </insert>
+
+    <update id="update" parameterType="ArticleType">
+        update t_article_type
+        <set>
+            <if test="name != null and name != ''">
+                name=#{name},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark=#{remark},
+            </if>
+            <if test="sortNum != null">
+                sortNum=#{sortNum},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <delete id="deleteById" parameterType="integer">
+        delete from t_article_type where id=#{id}
+    </delete>
+</mapper>

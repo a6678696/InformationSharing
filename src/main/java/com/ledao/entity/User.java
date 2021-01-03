@@ -1,5 +1,7 @@
 package com.ledao.entity;
 
+import java.util.Date;
+
 /**
  * 用户实体类
  *
@@ -33,6 +35,26 @@ public class User {
      * 用户头像存储地址
      */
     private String imageName;
+    /**
+     * 积分
+     */
+    private Integer points;
+    /**
+     * 是否是VIP 0代表不是,1代表是
+     */
+    private Integer isVip;
+    /**
+     * 是否被封禁 0代表没被封禁,1代表被封禁
+     */
+    private Integer isOff;
+    /**
+     * 角色名称(1.普通用户 2.会员 3.管理员)
+     */
+    private String roleName;
+    /**
+     * 注册日期
+     */
+    private Date registerDate;
 
     public Integer getId() {
         return id;
@@ -82,6 +104,46 @@ public class User {
         this.imageName = imageName;
     }
 
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
+    }
+
+    public Integer getIsVip() {
+        return isVip;
+    }
+
+    public void setIsVip(Integer isVip) {
+        this.isVip = isVip;
+    }
+
+    public Integer getIsOff() {
+        return isOff;
+    }
+
+    public void setIsOff(Integer isOff) {
+        this.isOff = isOff;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public Date getRegisterDate() {
+        return registerDate;
+    }
+
+    public void setRegisterDate(Date registerDate) {
+        this.registerDate = registerDate;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -91,6 +153,11 @@ public class User {
                 ", nickName='" + nickName + '\'' +
                 ", email='" + email + '\'' +
                 ", imageName='" + imageName + '\'' +
+                ", points=" + points +
+                ", isVip=" + isVip +
+                ", isOff=" + isOff +
+                ", roleName='" + roleName + '\'' +
+                ", registerDate=" + registerDate +
                 '}';
     }
 }

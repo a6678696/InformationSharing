@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="b">
+    <!--内容-->
+    <div>
+        <!--公告-->
+        <div class="layui-col-md12" style="margin-top: 5px">
+            <!--条件检索-->
+            <div style="margin-top: 2px;margin-right: 5px">
+                <blockquote class="layui-elem-quote" style="border-color: red">
+                    <i class="layui-icon layui-icon-reply-fill" style="font-size: 16px;color: red">公告</i>
+                    <hr class="layui-bg-red">
+                    <span style="color: red">本网站为个人项目,仅用于展示</span>
+                </blockquote>
+            </div>
+        </div>
+        <!--左边内容-->
+        <div class="layui-col-md9" style="margin-top: 5px">
+            <!--条件检索-->
+            <div style="margin-top: 2px;margin-right: 5px">
+                <blockquote class="layui-elem-quote" style="border-color: #1e9fff">
+                    <i class="layui-icon layui-icon-search" style="font-size: 16px">条件检索</i>
+                    <hr class="layui-bg-blue">
+                    <div>
+                        <div class="layui-col-md1">
+                            <span style="color: #8D8D8D">资源类别:</span>
+                        </div>
+                        <div class="layui-col-md11">
+                            <div th:each="articleType:${articleTypeList}">
+                                <a href="#" style="margin-left: 6px;float: left" th:text="${articleType.name}"></a>
+                            </div>
+                        </div>
+                        <hr style="background-color: #f2f2f2">
+                        <div style="margin-top: 10px">
+                            <div class="layui-col-md1">
+                                <span style="color: #8D8D8D">关键词:</span>
+                            </div>
+                            <div class="layui-col-md9">
+                                <input type="text" name="title" lay-verify="title" autocomplete="off"
+                                       placeholder="请输入关键词"
+                                       class="layui-input">
+                            </div>
+                            <div class="layui-col-md2">
+                                <button type="submit" class="layui-btn layui-btn-radius layui-btn-normal" lay-submit=""
+                                        lay-filter="demo1"
+                                        style="margin-left: 4px">立即提交
+                                </button>
+                            </div>
+                        </div>
+                        <hr style="background-color: #f2f2f2">
+                    </div>
+                </blockquote>
+            </div>
+            <!--资源列表-->
+            <div style="margin-top: 2px;margin-right: 5px">
+                <blockquote class="layui-elem-quote" style="border-color: #1e9fff">
+                    <i class="layui-icon layui-icon-template-1" style="font-size: 16px">资源列表</i>
+                    <hr class="layui-bg-blue">
+                    <table class="layui-table" lay-skin="line">
+                        <colgroup>
+                            <col width="500">
+                            <col width="140">
+                            <col width="200">
+                            <col width="200">
+                            <col width="200">
+                            <col>
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th style="text-align: center">资源名称</th>
+                            <th style="text-align: center">查看次数</th>
+                            <th style="text-align: center">上传者</th>
+                            <th style="text-align: center">上传日期</th>
+                            <th style="text-align: center">积分</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td style="text-align: center"><a href="">微服务项目-学成在线项目教程</a></td>
+                            <td style="text-align: center">201次</td>
+                            <td style="text-align: center">乐道</td>
+                            <td style="text-align: center">2021-01-01</td>
+                            <td style="text-align: center">2</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center"><a href="">微服务项目-学成在线项目教程</a></td>
+                            <td style="text-align: center">201次</td>
+                            <td style="text-align: center">乐道</td>
+                            <td style="text-align: center">2021-01-01</td>
+                            <td style="text-align: center">2</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center"><a href="">微服务项目-学成在线项目教程</a></td>
+                            <td style="text-align: center">201次</td>
+                            <td style="text-align: center">乐道</td>
+                            <td style="text-align: center">2021-01-01</td>
+                            <td style="text-align: center">2</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div align="center">
+                        <div class="layui-box layui-laypage">
+                            <a href="">首页</a>
+                            <a href="">上一页</a>
+                            <a href="">1</a>
+                            <span class="layui-laypage-curr" style="background-color: #1e9fff;color: white">2</span>
+                            <a href="">3</a>
+                            <a href="">4</a>
+                            <a href="">下一页</a>
+                            <a href="">尾页</a>
+                        </div>
+                    </div>
+                </blockquote>
+            </div>
+        </div>
+        <!--右边内容-->
+        <div class="layui-col-md3" style="margin-top: 7px">
+            <blockquote class="layui-elem-quote" style="border-color: #1e9fff">
+                <i class="layui-icon layui-icon-fire" style="font-size: 16px">热门资源</i>
+                <hr class="layui-bg-blue">
+                <p><a href="#">系统架构设计师视频教程系统架构设计</a></p>
+                <p><a href="#">系统架构设计师视频教程 下载</a></p>
+                <p><a href="#">系统架构设计师视频教程 下载</a></p>
+                <p><a href="#">系统架构设计师视频教程 下载</a></p>
+                <p><a href="#">系统架构设计师视频教程 下载</a></p>
+                <p><a href="#">系统架构设计师视频教程 下载</a></p>
+                <p><a href="#">系统架构设计师视频教程 下载</a></p>
+            </blockquote>
+        </div>
+        <!--友情链接-->
+        <div class="layui-col-md12">
+            <blockquote class="layui-elem-quote" style="border-color: #1e9fff">
+                <i class="layui-icon layui-icon-link" style="font-size: 16px">友情链接</i>
+                <hr class="layui-bg-blue">
+                <a href="http://www.zoutl.cn">LeDao的博客</a>
+                <a href="http://pethospital.zoutl.cn">宠物医院管理系统</a>
+                <a href="http://jxc.zoutl.cn">进销存管理系统</a>
+            </blockquote>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -21,6 +21,7 @@ public interface UserMapper {
      * @return
      */
     List<User> list(Map<String, Object> map);
+
     /**
      * 获取记录数
      *
@@ -28,6 +29,7 @@ public interface UserMapper {
      * @return
      */
     Long getTotal(Map<String, Object> map);
+
     /**
      * 添加用户
      *
@@ -35,6 +37,7 @@ public interface UserMapper {
      * @return
      */
     Integer add(User user);
+
     /**
      * 更新用户信息
      *
@@ -42,6 +45,7 @@ public interface UserMapper {
      * @return
      */
     Integer update(User user);
+
     /**
      * 根据id删除用户信息
      *
@@ -49,6 +53,7 @@ public interface UserMapper {
      * @return
      */
     Integer deleteById(Integer id);
+
     /**
      * 根据用户名查询用户信息
      *
