@@ -43,6 +43,9 @@
                 and isUseful like #{isUseful}
             </if>
         </where>
+        <if test="sortByPublishDate!=null">
+            order by publishDate desc
+        </if>
         <if test="start != null and size != null">
             limit #{start},#{size}
         </if>

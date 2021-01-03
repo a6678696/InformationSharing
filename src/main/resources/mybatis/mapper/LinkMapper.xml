@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--suppress ALL-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ledao.mapper.LinkMapper">
+    <resultMap id="LinkResult" type="Link">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="url" property="url"/>
+        <result column="sortNum" property="sortNum"/>
+    </resultMap>
+
+    <select id="list" parameterType="map" resultMap="LinkResult">
+        select *
+        from t_link
+        <where>
+            <if test="name != null and name != ''">
+                and name like #{name}
+            </if>
+        </where>
+        <if test="sortBySortNum!=null">
+            order by sortNum
+        </if>
+        <if test="start != null and size != null">
+            limit #{start},#{size}
+        </if>
+    </select>
+
+    <select id="getTotal" parameterType="map" resultType="java.lang.Long">
+        select count(*)
+        from t_link
+        <where>
+            <if test="name != null and name != ''">
+                and name like #{name}
+            </if>
+        </where>
+    </select>
+
+    <insert id="add" parameterType="Link">
+        insert into t_link (name,url,sortNum)
+        values (#{name}, #{url}, #{sortNum});
+    </insert>
+
+    <update id="update" parameterType="Link">
+        update t_link
+        <set>
+            <if test="name != null and name != ''">
+                name=#{name},
+            </if>
+            <if test="url != null and url != ''">
+                url=#{url},
+            </if>
+            <if test="sortNum != null">
+                sortNum=#{sortNum},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <delete id="deleteById" parameterType="integer">
+        delete from t_link where id=#{id}
+    </delete>
+</mapper>

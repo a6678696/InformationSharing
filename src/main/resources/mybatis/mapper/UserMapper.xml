@@ -96,4 +96,8 @@
         from t_user
         where userName = #{userName}
     </select>
+
+    <select id="findById" parameterType="integer" resultMap="UserResult">
+        select * from t_user where id=#{id}
+    </select>
 </mapper>

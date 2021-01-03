@@ -1,0 +1,10 @@
+-- auto Generated on 2021-01-04
+-- DROP TABLE IF EXISTS t_link;
+CREATE TABLE t_link(
+	id INT (11) NOT NULL AUTO_INCREMENT COMMENT '编号',
+	`name` VARCHAR (50) NOT NULL COMMENT '名称',
+	url VARCHAR (50) NOT NULL COMMENT '地址',
+	sortNum INT (11) NOT NULL COMMENT '排列序号',
+	INDEX(id),
+	PRIMARY KEY (id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT 't_link';

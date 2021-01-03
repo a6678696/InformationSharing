@@ -28,6 +28,10 @@ public class Article {
      */
     private Integer userId;
     /**
+     * 发布人实体(用于获取发布人信息)
+     */
+    private User user;
+    /**
      * 文章类型id
      */
     private Integer articleTypeId;
@@ -102,6 +106,14 @@ public class Article {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Integer getArticleTypeId() {
@@ -199,6 +211,7 @@ public class Article {
                 ", name='" + name + '\'' +
                 ", publishDate=" + publishDate +
                 ", userId=" + userId +
+                ", user=" + user +
                 ", articleTypeId=" + articleTypeId +
                 ", points=" + points +
                 ", content='" + content + '\'' +
