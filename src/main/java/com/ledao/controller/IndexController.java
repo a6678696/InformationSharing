@@ -102,4 +102,19 @@ public class IndexController {
         mav.setViewName("index");
         return mav;
     }
+
+    /**
+     * 跳转到找回密码页面
+     *
+     * @return
+     */
+    @RequestMapping("/toSearchPasswordPage")
+    public ModelAndView toSearchPasswordPage() {
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("title", "找回密码");
+        mav.addObject("mainPage", "page/searchPassword");
+        mav.addObject("mainPageKey", "#b");
+        mav.setViewName("index");
+        return mav;
+    }
 }

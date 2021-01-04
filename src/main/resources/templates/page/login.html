@@ -6,25 +6,51 @@
 </head>
 <body>
 <div id="b">
-    <form class="layui-form" action="" lay-filter="example">
-        <div class="layui-form-item" style="text-align: center">
-            <div class="layui-inline">
-                <label class="layui-form-label" style="margin-top: 62px">用户名:</label>
-                <div class="layui-input-block">
-                    <input type="text" name="username" style="width: 333px;border-color: gray;margin-top: 62px" lay-verify="title" autocomplete="off" placeholder="请输入用户名"
-                           class="layui-input">
+    <div class="layui-container" style="margin-top: 5%">
+        <div class="layui-col-md3"><span style="color: white">1</span></div>
+        <blockquote class="layui-elem-quote layui-col-md6" style="border-color: #1e9fff">
+            <h2 style="text-align: center">用户登录</h2>
+            <form class="layui-form" action="" lay-filter="example">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label" style="margin-top: 33px">用户名:</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="username" style="width: 388px;border-color: gray;margin-top: 33px"
+                                   lay-verify="title" autocomplete="off" placeholder="请输入用户名"
+                                   class="layui-input">
+                        </div>
+                        <label class="layui-form-label" style="margin-top: 12px">密码:</label>
+                        <div class="layui-input-block">
+                            <input type="password" name="password"
+                                   style="width: 388px;border-color: gray;margin-top: 12px" placeholder="请输入密码"
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">人机验证:</label>
+                            <div class="layui-input-block">
+                                <div data-vid="5b53cdb6fc650e53f84fd4c8"
+                                     style="width: 222px;height: 36px;margin-top: 12px">
+                                    <div id="nc" style="width: 388px"></div>
+                                </div>
+                                <a href="/toSearchPasswordPage">忘记密码?</a>
+                            </div>
+                        </div>
+                        <div class="layui-input-block" style="text-align: center">
+                            <button type="submit" style="margin-top: 12px" class="layui-btn layui-btn-normal"
+                                    lay-submit="" lay-filter="demo1">登录
+                            </button>
+                            <a href="/toRegisterPage">
+                                <button type="button" style="margin-top: 12px" class="layui-btn btn-info" lay-submit=""
+                                        lay-filter="demo1">去注册
+                                </button>
+                            </a>
+                            <input id="loginCheck" type="hidden" value="">
+                        </div>
+                    </div>
                 </div>
-                <label class="layui-form-label" style="margin-top: 12px">密码:</label>
-                <div class="layui-input-block">
-                    <input type="password" name="password" style="width: 333px;border-color: gray;margin-top: 12px" placeholder="请输入密码" autocomplete="off" class="layui-input">
-                </div>
-                <div class="layui-input-block" style="text-align: center">
-                    <button type="submit" style="margin-top: 12px" class="layui-btn layui-btn-normal" lay-submit="" lay-filter="demo1">登录</button>
-                    <a href="/toRegisterPage"><button type="button" style="margin-top: 12px" class="layui-btn btn-info" lay-submit="" lay-filter="demo1">去注册</button></a>
-                </div>
-            </div>
-        </div>
-    </form>
+            </form>
+        </blockquote>
+    </div>
 </div>
 </body>
 </html>

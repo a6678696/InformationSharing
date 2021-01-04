@@ -15,7 +15,15 @@
             </li>
             <li class="layui-nav-item"><a href="/"><strong style="font-size: 15px">首页</strong></a></li>
             <li class="layui-nav-item"><a href=""><strong style="font-size: 15px">源码下载</strong></a></li>
-            <div style="float: right;margin-top: 20px">
+            <li class="layui-nav-item" lay-unselect="" style="float: right" th:if="${session.currentCustomer!=null}">
+                <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">我</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;">修改信息</a></dd>
+                    <dd><a href="javascript:;">安全管理</a></dd>
+                    <dd><a href="javascript:;">退出</a></dd>
+                </dl>
+            </li>
+            <div style="float: right;margin-top: 20px" th:if="${session.currentCustomer==null}">
                 <a href="/toLoginPage" style="color: white">登录</a>
                 <a href="/toRegisterPage" style="color: white">注册</a>
             </div>

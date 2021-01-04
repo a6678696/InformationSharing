@@ -69,4 +69,12 @@ public interface UserMapper {
      * @return
      */
     User findById(Integer id);
+
+    /**
+     * 根据邮箱查找用户
+     *
+     * @param email
+     * @return
+     */
+    User findByEmail(String email);
 }

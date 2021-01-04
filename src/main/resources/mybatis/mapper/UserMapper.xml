@@ -100,4 +100,8 @@
     <select id="findById" parameterType="integer" resultMap="UserResult">
         select * from t_user where id=#{id}
     </select>
+
+    <select id="findByEmail" parameterType="string" resultMap="UserResult">
+        select * from t_user where email=#{email}
+    </select>
 </mapper>
