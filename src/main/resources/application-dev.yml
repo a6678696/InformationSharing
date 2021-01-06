@@ -28,8 +28,10 @@ spring:
   mail:
     # host不配置会注入失败
     host: smtp.qq.com
-    username: 1203007469@qq.com #自己的邮箱
-    password: exnhknuovfwyjhae #授权码
+    #自己的邮箱
+    username: 1203007469@qq.com
+    #授权码
+    password: zxtxzfocnnodjfcb
     default-encoding: utf-8
     protocol: smtp
     properties:
@@ -41,8 +43,8 @@ spring:
           ssl:
             enable: true #一定要开启ssl,不然会503 验证失败的（开启加密验证）
 
-#博客正文图片存储地址
-blogImageFilePath: C://Java/apache-tomcat-9.0.22-windows-x64/apache-tomcat-9.0.22-windows-x64/apache-tomcat-9.0.22/webapps/MyBlog/static/images/blogImage/
+#用户头像图片存储地址
+userImageFilePath: E://IdeaProjects/ActualCombat/InformationSharing/src/main/webapp/static/images/userImage/
 
 #mybatis的相关配置
 mybatis:

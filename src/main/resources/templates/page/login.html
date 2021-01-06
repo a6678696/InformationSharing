@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--suppress ALL-->
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -10,47 +11,131 @@
         <div class="layui-col-md3"><span style="color: white">1</span></div>
         <blockquote class="layui-elem-quote layui-col-md6" style="border-color: #1e9fff">
             <h2 style="text-align: center">用户登录</h2>
-            <form class="layui-form" action="" lay-filter="example">
+            <form class="layui-form" action="/user/login" method="post" lay-filter="example">
                 <div class="layui-form-item">
                     <div class="layui-inline">
                         <label class="layui-form-label" style="margin-top: 33px">用户名:</label>
                         <div class="layui-input-block">
-                            <input type="text" name="username" style="width: 388px;border-color: gray;margin-top: 33px"
-                                   lay-verify="title" autocomplete="off" placeholder="请输入用户名"
-                                   class="layui-input">
+                            <input type="text" name="userName" style="width: 100%;border-color: gray;margin-top: 33px"
+                                   lay-verify="title" autocomplete="off" placeholder="请输入用户名" required="required"
+                                   class="layui-input" th:value="${user==null?'':user.userName}">
                         </div>
                         <label class="layui-form-label" style="margin-top: 12px">密码:</label>
                         <div class="layui-input-block">
-                            <input type="password" name="password"
-                                   style="width: 388px;border-color: gray;margin-top: 12px" placeholder="请输入密码"
-                                   autocomplete="off" class="layui-input">
+                            <input type="password" name="password" required="required"
+                                   style="width: 100%;border-color: gray;margin-top: 12px" placeholder="请输入密码"
+                                   autocomplete="off" class="layui-input" th:value="${user==null?'':user.password}">
+
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">人机验证:</label>
                             <div class="layui-input-block">
-                                <div data-vid="5b53cdb6fc650e53f84fd4c8"
-                                     style="width: 222px;height: 36px;margin-top: 12px">
-                                    <div id="nc" style="width: 388px"></div>
+                                <div id="box" onselectstart="return false;">
+                                    <div class="bgColor"></div>
+                                    <div class="txt"><span style="color: red">向右滑动解锁后才可以登录</span></div>
+                                    <!--给i标签添加上相应字体图标的类名即可-->
+                                    <div class="slider"><i class="iconfont icon-double-right"></i></div>
                                 </div>
-                                <a href="/toSearchPasswordPage">忘记密码?</a>
+                                <a href="/toSearchPasswordPage" style="color: #1e9fff">忘记密码？</a>
                             </div>
                         </div>
                         <div class="layui-input-block" style="text-align: center">
-                            <button type="submit" style="margin-top: 12px" class="layui-btn layui-btn-normal"
-                                    lay-submit="" lay-filter="demo1">登录
+                            <button id="loginBtn" type="submit" style="margin-top: 12px"
+                                    class="layui-btn layui-btn-normal layui-btn-disabled"
+                                    lay-submit="" lay-filter="demo1" disabled="disabled">登录
                             </button>
                             <a href="/toRegisterPage">
                                 <button type="button" style="margin-top: 12px" class="layui-btn btn-info" lay-submit=""
                                         lay-filter="demo1">去注册
                                 </button>
                             </a>
-                            <input id="loginCheck" type="hidden" value="">
                         </div>
                     </div>
                 </div>
             </form>
         </blockquote>
     </div>
+    <script type="text/javascript">
+        //一、定义了一个获取元素的方法
+        function getEle(selector) {
+            return document.querySelector(selector);
+        }
+
+        //二、获取到需要用到的DOM元素
+        var box = getEle("#box"),//容器
+            bgColor = getEle(".bgColor"),//背景色
+            txt = getEle(".txt"),//文本
+            slider = getEle(".slider"),//滑块
+            icon = getEle(".slider>i"),
+            successMoveDistance = box.offsetWidth - slider.offsetWidth,//解锁需要滑动的距离
+            downX,//用于存放鼠标按下时的位置
+            isSuccess = false;//是否解锁成功的标志，默认不成功
+
+        //三、给滑块添加鼠标按下事件
+        slider.onmousedown = mousedownHandler;
+
+        //3.1鼠标按下事件的方法实现
+        function mousedownHandler(e) {
+            bgColor.style.transition = "";
+            slider.style.transition = "";
+            var e = e || window.event || e.which;
+            downX = e.clientX;
+            //在鼠标按下时，分别给鼠标添加移动和松开事件
+            document.onmousemove = mousemoveHandler;
+            document.onmouseup = mouseupHandler;
+        };
+
+        //四、定义一个获取鼠标当前需要移动多少距离的方法
+        function getOffsetX(offset, min, max) {
+            if (offset < min) {
+                offset = min;
+            } else if (offset > max) {
+                offset = max;
+            }
+            return offset;
+        }
+
+        //3.1.1鼠标移动事件的方法实现
+        function mousemoveHandler(e) {
+            var e = e || window.event || e.which;
+            var moveX = e.clientX;
+            var offsetX = getOffsetX(moveX - downX, 0, successMoveDistance);
+            bgColor.style.width = offsetX + "px";
+            slider.style.left = offsetX + "px";
+
+            if (offsetX == successMoveDistance) {
+                success();
+            }
+            //如果不设置滑块滑动时会出现问题（目前还不知道为什么）
+            e.preventDefault();
+        };
+
+        //3.1.2鼠标松开事件的方法实现
+        function mouseupHandler(e) {
+            if (!isSuccess) {
+                bgColor.style.width = 0 + "px";
+                slider.style.left = 0 + "px";
+                bgColor.style.transition = "width 0.8s linear";
+                slider.style.transition = "left 0.8s linear";
+            }
+            document.onmousemove = null;
+            document.onmouseup = null;
+        };
+
+        //五、定义一个滑块解锁成功的方法
+        function success() {
+            isSuccess = true;
+            txt.innerHTML = "解锁成功,可以登录了!";
+            document.getElementById("loginBtn").className = 'layui-btn layui-btn-normal';
+            document.getElementById("loginBtn").disabled = "";
+            bgColor.style.backgroundColor = "lightgreen";
+            slider.className = "slider active";
+            icon.className = "iconfont icon-xuanzhong";
+            //滑动成功时，移除鼠标按下事件和鼠标移动事件
+            slider.onmousedown = null;
+            document.onmousemove = null;
+        };
+    </script>
 </div>
 </body>
 </html>

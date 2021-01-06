@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="b">
+    <div>
+        <div class="layui-col-md3">
+            <div th:include="common/menuLeft::#m"></div>
+        </div>
+        <div class="layui-col-md9">
+            <div style="margin-top: 24px">
+                <p class="layui-breadcrumb">
+                    <i class="layui-icon layui-icon-location">当前位置：</i>
+                    <a href="">首页</a>
+                    <a href="/toUserBackstagePage">个人中心</a>
+                    <a><cite>个人信息</cite></a>
+                </p>
+                <label class="layui-form-label" style="margin-top: 33px">用户名:</label>
+                <div class="layui-input-block">
+                    <input type="text" style="width: 388px;border-color: gray;margin-top: 33px"
+                           lay-verify="title" autocomplete="off" required="required" disabled="disabled"
+                           class="layui-input" th:value="${session.currentUser.userName}">
+                </div>
+                <label class="layui-form-label" style="margin-top: 12px">个人邮箱:</label>
+                <div class="layui-input-block">
+                    <input type="text" required="required"
+                           style="width: 388px;border-color: gray;margin-top: 12px" disabled="disabled"
+                           autocomplete="off" class="layui-input" th:value="${session.currentUser.email}">
+                </div>
+                <label class="layui-form-label" style="margin-top: 12px">剩余积分:</label>
+                <div class="layui-input-block">
+                    <input type="text" required="required"
+                           style="width: 388px;border-color: gray;margin-top: 12px" disabled="disabled"
+                           autocomplete="off" class="layui-input" th:value="${session.currentUser.points}">
+                </div>
+                <label class="layui-form-label" style="margin-top: 12px">用户身份:</label>
+                <div class="layui-input-block">
+                    <input type="text" required="required"
+                           style="width: 388px;border-color: gray;margin-top: 12px" disabled="disabled"
+                           autocomplete="off" class="layui-input" th:value="${session.currentUser.roleName}">
+                </div>
+                <div class="layui-input-block">
+                    <a href="/toRegisterPage">
+                        <button type="button" style="margin-top: 12px" class="layui-btn layui-btn-normal" lay-submit=""
+                                lay-filter="demo1">修改
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

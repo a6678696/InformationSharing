@@ -111,7 +111,7 @@ public class StringUtil {
 
         for(int i = 0; i < length; ++i){
             int number = random.nextInt(2);
-            long result = 0;
+            long result =			0;
 
             switch(number){
                 case 0:

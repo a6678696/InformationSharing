@@ -15,15 +15,14 @@
             </li>
             <li class="layui-nav-item"><a href="/"><strong style="font-size: 15px">首页</strong></a></li>
             <li class="layui-nav-item"><a href=""><strong style="font-size: 15px">源码下载</strong></a></li>
-            <li class="layui-nav-item" lay-unselect="" style="float: right" th:if="${session.currentCustomer!=null}">
-                <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">我</a>
+            <li class="layui-nav-item" lay-unselect="" style="float: right" th:if="${session.currentUser!=null}">
+                <a href="javascript:;"><img th:src="@{'/static/images/userImage/'+${session.currentUser.imageName}}" class="layui-nav-img" th:if="${session.currentUser.imageName!=null}"><span th:text="${session.currentUser.nickName}"></span></a>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:;">修改信息</a></dd>
-                    <dd><a href="javascript:;">安全管理</a></dd>
-                    <dd><a href="javascript:;">退出</a></dd>
+                    <a href="/toUserBackstagePage">个人中心</a>
+                    <a href="/user/logout">注销</a>
                 </dl>
             </li>
-            <div style="float: right;margin-top: 20px" th:if="${session.currentCustomer==null}">
+            <div style="float: right;margin-top: 20px" th:if="${session.currentUser==null}">
                 <a href="/toLoginPage" style="color: white">登录</a>
                 <a href="/toRegisterPage" style="color: white">注册</a>
             </div>

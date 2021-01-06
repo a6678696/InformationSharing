@@ -6,8 +6,11 @@
     <title th:text="${title}+'--LeDao资源分享平台'"></title>
     <link rel="short icon" th:href="@{/static/images/favicon.ico}">
     <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}">
+    <link rel="stylesheet" th:href="@{/static/css/style.css}">
     <script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
-    <script src="https://g.alicdn.com/AWSC/AWSC/awsc.js"></script>
+    <script type="text/javascript" src="https://g.alicdn.com/AWSC/AWSC/awsc.js"></script>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!--layui-->
     <script>
         layui.use('element', function () {
             var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
@@ -20,7 +23,7 @@
     </script>
     <!--阿里云右划验证-->
     <script>
-        // 实例化nc
+        // 实例化nc--登录
         AWSC.use("nc", function (state, module) {
             // 初始化
             window.nc = module.init({
@@ -35,7 +38,38 @@
                     window.console && console.log(data.sessionId)
                     window.console && console.log(data.sig)
                     window.console && console.log(data.token)
-                    document.getElementById("loginCheck").value = 1;
+                    document.getElementById("loginBtn").className = 'layui-btn layui-btn-normal';
+                    document.getElementById("loginTip").textContent = '';
+                    document.getElementById("loginBtn").disabled = "";
+                },
+                // 滑动验证失败时触发该回调参数。
+                fail: function (failCode) {
+                    window.console && console.log(failCode)
+                },
+                // 验证码加载出现异常时触发该回调参数。
+                error: function (errorCode) {
+                    window.console && console.log(errorCode)
+                }
+            });
+        })
+        // 实例化nc2--注册
+        AWSC.use("nc", function (state, module) {
+            // 初始化
+            window.nc = module.init({
+                // 应用类型标识。它和使用场景标识（scene字段）一起决定了滑动验证的业务场景与后端对应使用的策略模型。您可以在人机验证控制台的配置管理页签找到对应的appkey字段值，请务必正确填写。
+                appkey: "CF_APP_1",
+                //使用场景标识。它和应用类型标识（appkey字段）一起决定了滑动验证的业务场景与后端对应使用的策略模型。您可以在人机验证控制台的配置管理页签找到对应的scene值，请务必正确填写。
+                scene: "register",
+                // 声明滑动验证需要渲染的目标ID。
+                renderTo: "nc2",
+                //前端滑动验证通过时会触发该回调参数。您可以在该回调参数中将会话ID（sessionId）、签名串（sig）、请求唯一标识（token）字段记录下来，随业务请求一同发送至您的服务端调用验签。
+                success: function (data) {
+                    window.console && console.log(data.sessionId)
+                    window.console && console.log(data.sig)
+                    window.console && console.log(data.token)
+                    document.getElementById("registerBtn").className = 'layui-btn layui-btn-normal';
+                    document.getElementById("registerTip").textContent = '';
+                    document.getElementById("registerBtn").disabled = "";
                 },
                 // 滑动验证失败时触发该回调参数。
                 fail: function (failCode) {
@@ -70,6 +104,148 @@
             setTimeout(function () {
                 setTime(val);
             }, 1000);
+        }
+    </script>
+    <!--其他-->
+    <script th:inline="javascript">
+        window.onload = function () {
+            var successLogin = [[${successLogin}]];
+            if (successLogin == true) {
+                alert("登录成功,跳转到主页...");
+            } else if (successLogin == false) {
+                alert("登录失败,用户名或密码错误!请重新登录...");
+            }
+            var successLogout = [[${successLogout}]];
+            if (successLogout == true) {
+                alert("注销成功");
+            }
+            var successRegister = [[${successRegister}]];
+            if (successRegister == true) {
+                alert("注册成功!现在可以登录了...");
+            }
+            var checkCodeFail = [[${checkCodeFail}]];
+            if (checkCodeFail == true) {
+                alert("验证码输入错误!请重新输入...");
+            }
+            var searchPasswordSuccess = [[${searchPasswordSuccess}]];
+            if (searchPasswordSuccess == true) {
+                alert("密码修改成功!可以登录了...");
+            }
+        }
+
+        //检验用户名是否存在
+        function checkUserName(userName) {
+            if (userName == "") {
+                $("#userNameFail").html("用户名不能为空！请输入用户名后再注册！");
+                $("#userNameSuccess").html("");
+                $("#userName").focus();
+                return;
+            }
+            $.post("/user/existUserWithUserName", {userName: userName},
+                function (result) {
+                    if (result.success) {
+                        $("#userNameFail").html("该用户名已被注册,请重新输入后再注册!");
+                        $("#userNameSuccess").html("");
+                        $("#userName").focus();
+                    } else {
+                        $("#userNameSuccess").html("");
+                        $("#userNameFail").html("");
+                    }
+                }
+            );
+        }
+
+        //检验邮箱是否存在--注册时
+        function checkEmail(email) {
+            if (email == "") {
+                $("#emailFail").html("邮箱不能为空！请输入邮箱后再注册！");
+                $("#email").focus();
+                return;
+            }
+            $.post("/user/existEmail", {email: email},
+                function (result) {
+                    if (result.success) {
+                        $("#emailFail").html("该邮箱已被注册,请重新输入后再注册!");
+                        $("#email").focus();
+                    } else {
+                        $("#emailFail").html("");
+                        $("#registerDiv").hidden = "hidden";
+                    }
+                }
+            );
+        }
+
+        //检验邮箱是否存在--忘记密码时
+        function checkEmail2(email) {
+            if (email == "") {
+                $("#emailFail2").html("邮箱不能为空！请输入邮箱后再注册！");
+                $("#emailSearchPassword").focus();
+                return;
+            }
+            $.post("/user/existEmail", {email: email},
+                function (result) {
+                    if (result.success) {
+                        $("#emailFail2").html("");
+                        $("#getCodeBtn").attr("disabled",false);
+                        $("#getCodeBtn").removeClass("layui-btn-disabled");
+                    } else {
+                        $("#emailFail2").html("该邮箱不存在，请重新输入!");
+                        $("#getCodeBtn").attr("disabled",true);
+                        $("#getCodeBtn").addClass("layui-btn-disabled");
+                        $("#emailSearchPassword").focus();
+                    }
+                }
+            );
+        }
+
+        //注册验证
+        function checkUserAddValue() {
+            var userName = $("#userName").val();
+            var password = $("#password").val();
+            var password2 = $("#password2").val();
+            var existEmail = 0;
+            var existUserWithUserName = 0;
+            if (password.length < 6) {
+                alert("密码长度要大于5!");
+                return false;
+            }
+            if (password != password2) {
+                alert("密码和确认密码不相同,请重新输入!");
+                return false;
+            }
+            alert("注册成功!现在可以登录了...");
+            return true;
+        }
+
+        //找回密码验证
+        function checkSearchPasswordValue() {
+            var userName = $("#userNameSearchPassword").val();
+            var password = $("#passwordSearchPassword").val();
+            var password2 = $("#password2SearchPassword").val();
+            if (password.length < 6) {
+                alert("密码长度要大于5!");
+                return false;
+            }
+            if (password != password2) {
+                alert("密码和确认密码不相同,请重新输入!");
+                return false;
+            }
+            return true;
+        }
+
+        //发送邮件
+        function sendEmail() {
+            var email = $("#emailSearchPassword").val();
+            $.post("/user/sendEmail", {email: email},
+                function (result) {
+                    if (result.success) {
+
+                    } else {
+                        alert(result.errorInfo);
+                    }
+                }
+            );
+            alert("验证码已发送到您的邮箱:"+email+",请查收...")
         }
     </script>
 </head>

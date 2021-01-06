@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="b">
+    <div>
+        <div class="layui-col-md3">
+            <div th:include="common/menuLeft::#m"></div>
+        </div>
+        <div class="layui-col-md9">
+            <div style="margin-top: 34px">
+                <h1>(●'◡'●)欢迎您, <span th:text="${session.currentUser.nickName}"></span></h1>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

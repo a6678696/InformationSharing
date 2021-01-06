@@ -8,49 +8,59 @@
 <div id="b">
     <div class="layui-container" style="margin-top: 1%">
         <div class="layui-col-md3"><span style="color: white">1</span></div>
-        <blockquote class="layui-elem-quote layui-col-md6" style="border-color: #1e9fff">
+        <blockquote class="layui-elem-quote" style="border-color: #1e9fff;width: 50%;margin-left: 25%">
             <h2 style="text-align: center">用户注册</h2>
-            <form class="layui-form" action="" lay-filter="example">
+            <form class="layui-form" action="/user/save" method="post" enctype="multipart/form-data" lay-filter="example" onsubmit="return checkUserAddValue()">
                 <div class="layui-form-item">
                     <div class="layui-inline">
                         <label class="layui-form-label" style="margin-top: 33px">用户名:</label>
                         <div class="layui-input-block">
-                            <input type="text" name="username" style="width: 388px;border-color: gray;margin-top: 33px" lay-verify="title" autocomplete="off" placeholder="请输入用户名"
-                                   class="layui-input">
+                            <input required="required" type="text" id="userName" name="userName" style="width: 100%;border-color: gray;margin-top: 33px" lay-verify="title" autocomplete="off" placeholder="请输入用户名"
+                                   class="layui-input" onblur="checkUserName(this.value)">
+                            <span id="userNameFail" style="color: red"></span>
+                            <span id="userNameSuccess" style="color: limegreen"></span>
                         </div>
                         <label class="layui-form-label" style="margin-top: 12px">密码:</label>
                         <div class="layui-input-block">
-                            <input type="password" name="password" style="width: 388px;border-color: gray;margin-top: 12px" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                            <input required="required" type="password" id="password" name="password" style="width: 100%;border-color: gray;margin-top: 12px" placeholder="请输入密码" autocomplete="off" class="layui-input">
                         </div>
                         <label class="layui-form-label" style="margin-top: 12px">确认密码:</label>
                         <div class="layui-input-block">
-                            <input type="password" name="password" style="width: 388px;border-color: gray;margin-top: 12px" placeholder="请输入确认密码" autocomplete="off" class="layui-input">
-                        </div>
-                        <label class="layui-form-label" style="margin-top: 12px;">昵称:</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="password" style="width: 388px;border-color: gray;margin-top: 12px" placeholder="请输入昵称" autocomplete="off" class="layui-input">
+                            <input required="required" type="password" id="password2" name="password2" style="width: 100%;border-color: gray;margin-top: 12px" placeholder="请输入确认密码" autocomplete="off" class="layui-input">
                         </div>
                         <label class="layui-form-label" style="margin-top: 12px;">邮箱:</label>
                         <div class="layui-input-block">
-                            <input type="email" name="password" style="width: 388px;border-color: gray;margin-top: 12px" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
+                            <input required="required" type="email" id="email" name="email" style="width: 100%;border-color: gray;margin-top: 12px" placeholder="请输入邮箱(找回密码时使用)" autocomplete="off" class="layui-input" onblur="checkEmail(this.value)">
+                            <span id="emailFail" style="color: red"></span>
+                        </div>
+                        <label class="layui-form-label" style="margin-top: 12px;">昵称:</label>
+                        <div class="layui-input-block">
+                            <input required="required" type="text" name="nickName" style="width: 100%;border-color: gray;margin-top: 12px" placeholder="请输入昵称" autocomplete="off" class="layui-input">
                         </div>
                         <div class="layui-form-item">
-                            <div class="layui-inline">
-                                <label class="layui-form-label" style="margin-top: 12px">验证码:</label>
-                                <div class="layui-input-inline" style="width: 200px;">
-                                    <input type="text" name="price_min" placeholder="输入验证码" autocomplete="off" class="layui-input" style="margin-top: 12px;border-color: gray;">
-                                </div>
-                                <div class="layui-input-inline" style="width: 100px;">
-                                    <input type="button" class="layui-btn layui-btn-warm" style="margin-top: 12px" value=" 获取验证码" onclick="setTime(this);">
+                            <label class="layui-form-label">头像:</label>
+                            <div class="layui-input-block">
+                                <div data-vid="5b53cdb6fc650e53f84fd4c8"
+                                     style="width: 100%;height: 36px;margin-top: 12px">
+                                    <div style="width: 388px">
+                                        <input type="file" name="userImage" style="margin-top: 8px">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <label class="layui-form-label" style="margin-top: -6px;">头像:</label>
-                        <div class="layui-input-block">
-                            <input type="file" name="password" autocomplete="off">
+                        <div id="registerDiv" class="layui-form-item">
+                            <label class="layui-form-label">人机验证:</label>
+                            <div class="layui-input-block" style="margin-left: 20px">
+                                <div id="box" onselectstart="return false;">
+                                    <div class="bgColor"></div>
+                                    <div class="txt"><span style="color: red">向右滑动解锁后才可以注册</span></div>
+                                    <!--给i标签添加上相应字体图标的类名即可-->
+                                    <div class="slider"><i class="iconfont icon-double-right"></i></div>
+                                </div>
+                            </div>
                         </div>
                         <div class="layui-input-block" style="text-align: center">
-                            <button type="submit" style="margin-top: 12px" class="layui-btn layui-btn-normal" lay-submit="" lay-filter="demo1">注册</button>
+                            <button id="registerBtn" type="submit" style="margin-top: 12px" class="layui-btn layui-btn-normal layui-btn-disabled" disabled="disabled" lay-submit="" lay-filter="demo1">注册</button>
                             <a href="/toLoginPage"><button type="button" style="margin-top: 12px" class="layui-btn btn-info" lay-submit="" lay-filter="demo1">去登录</button></a>
                         </div>
                     </div>
@@ -58,6 +68,86 @@
             </form>
         </blockquote>
     </div>
+    <script type="text/javascript">
+        //一、定义了一个获取元素的方法
+        function getEle(selector){
+            return document.querySelector(selector);
+        }
+        //二、获取到需要用到的DOM元素
+        var box = getEle("#box"),//容器
+            bgColor = getEle(".bgColor"),//背景色
+            txt = getEle(".txt"),//文本
+            slider = getEle(".slider"),//滑块
+            icon = getEle(".slider>i"),
+            successMoveDistance = box.offsetWidth- slider.offsetWidth,//解锁需要滑动的距离
+            downX,//用于存放鼠标按下时的位置
+            isSuccess = false;//是否解锁成功的标志，默认不成功
+
+        //三、给滑块添加鼠标按下事件
+        slider.onmousedown = mousedownHandler;
+
+        //3.1鼠标按下事件的方法实现
+        function mousedownHandler(e){
+            bgColor.style.transition = "";
+            slider.style.transition = "";
+            var e = e || window.event || e.which;
+            downX = e.clientX;
+            //在鼠标按下时，分别给鼠标添加移动和松开事件
+            document.onmousemove = mousemoveHandler;
+            document.onmouseup = mouseupHandler;
+        };
+
+        //四、定义一个获取鼠标当前需要移动多少距离的方法
+        function getOffsetX(offset,min,max){
+            if(offset < min){
+                offset = min;
+            }else if(offset > max){
+                offset = max;
+            }
+            return offset;
+        }
+
+        //3.1.1鼠标移动事件的方法实现
+        function mousemoveHandler(e){
+            var e = e || window.event || e.which;
+            var moveX = e.clientX;
+            var offsetX = getOffsetX(moveX - downX,0,successMoveDistance);
+            bgColor.style.width = offsetX + "px";
+            slider.style.left = offsetX + "px";
+
+            if(offsetX == successMoveDistance){
+                success();
+            }
+            //如果不设置滑块滑动时会出现问题（目前还不知道为什么）
+            e.preventDefault();
+        };
+
+        //3.1.2鼠标松开事件的方法实现
+        function mouseupHandler(e){
+            if(!isSuccess){
+                bgColor.style.width = 0 + "px";
+                slider.style.left = 0 + "px";
+                bgColor.style.transition = "width 0.8s linear";
+                slider.style.transition = "left 0.8s linear";
+            }
+            document.onmousemove = null;
+            document.onmouseup = null;
+        };
+
+        //五、定义一个滑块解锁成功的方法
+        function success(){
+            isSuccess = true;
+            txt.innerHTML = "解锁成功,可以注册了!";
+            document.getElementById("registerBtn").className = 'layui-btn layui-btn-normal';
+            document.getElementById("registerBtn").disabled = "";
+            bgColor.style.backgroundColor ="lightgreen";
+            slider.className = "slider active";
+            icon.className = "iconfont icon-xuanzhong";
+            //滑动成功时，移除鼠标按下事件和鼠标移动事件
+            slider.onmousedown = null;
+            document.onmousemove = null;
+        };
+    </script>
 </div>
 </body>
 </html>

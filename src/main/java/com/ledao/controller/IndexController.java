@@ -8,11 +8,15 @@ import com.ledao.service.ArticleService;
 import com.ledao.service.ArticleTypeService;
 import com.ledao.service.LinkService;
 import com.ledao.service.UserService;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,8 +29,24 @@ import java.util.Map;
  * @create 2021-01-03 21:50
  */
 @Controller
-public class IndexController {
+public class IndexController implements CommandLineRunner, ServletContextListener {
 
+    @Override
+    public void run(String... args) throws Exception {
+
+    }
+
+    @Override
+    public void contextInitialized(ServletContextEvent sce) {
+        application = sce.getServletContext();
+    }
+
+    @Override
+    public void contextDestroyed(ServletContextEvent sce) {
+
+    }
+
+    private ServletContext application;
     @Resource
     private ArticleTypeService articleTypeService;
 
@@ -46,7 +66,19 @@ public class IndexController {
      */
     @RequestMapping("/")
     public ModelAndView root() {
+        this.loadSomeData();
         ModelAndView mav = new ModelAndView();
+        mav.addObject("title", "首页");
+        mav.addObject("mainPage", "page/indexFirst");
+        mav.addObject("mainPageKey", "#b");
+        mav.setViewName("index");
+        return mav;
+    }
+
+    /**
+     * 加载首页数据
+     */
+    public void loadSomeData() {
         //文章类型列表
         List<ArticleType> articleTypeList = articleTypeService.list(null);
         Map<String, Object> map = new HashMap<>(16);
@@ -62,15 +94,10 @@ public class IndexController {
         map.put("sortBySortNum", 1);
         //友情链接列表
         List<Link> linkList = linkService.list(map);
-        mav.addObject("articleTypeList", articleTypeList);
-        mav.addObject("articleList", articleList);
-        mav.addObject("articleListHot", articleListHot);
-        mav.addObject("linkList", linkList);
-        mav.addObject("title", "首页");
-        mav.addObject("mainPage", "page/indexFirst");
-        mav.addObject("mainPageKey", "#b");
-        mav.setViewName("index");
-        return mav;
+        application.setAttribute("articleTypeList", articleTypeList);
+        application.setAttribute("articleList", articleList);
+        application.setAttribute("articleListHot", articleListHot);
+        application.setAttribute("linkList", linkList);
     }
 
     /**
@@ -113,6 +140,36 @@ public class IndexController {
         ModelAndView mav = new ModelAndView();
         mav.addObject("title", "找回密码");
         mav.addObject("mainPage", "page/searchPassword");
+        mav.addObject("mainPageKey", "#b");
+        mav.setViewName("index");
+        return mav;
+    }
+
+    /**
+     * 跳转到用户后台页面
+     *
+     * @return
+     */
+    @RequestMapping("/toUserBackstagePage")
+    public ModelAndView toUserBackstagePage(){
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("title", "用户后台");
+        mav.addObject("mainPage", "page/userBackstage");
+        mav.addObject("mainPageKey", "#b");
+        mav.setViewName("index");
+        return mav;
+    }
+
+    /**
+     * 跳转到个人信息页面
+     *
+     * @return
+     */
+    @RequestMapping("/toPersonMessagePage")
+    public ModelAndView toPersonMessagePage(){
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("title", "个人信息");
+        mav.addObject("mainPage", "page/personMessage");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
         return mav;

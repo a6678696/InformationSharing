@@ -55,6 +55,10 @@ public class User {
      * 注册日期
      */
     private Date registerDate;
+    /**
+     * 验证码（修改密码时使用）
+     */
+    private String checkCode;
 
     public Integer getId() {
         return id;
@@ -144,6 +148,14 @@ public class User {
         this.registerDate = registerDate;
     }
 
+    public String getCheckCode() {
+        return checkCode;
+    }
+
+    public void setCheckCode(String checkCode) {
+        this.checkCode = checkCode;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -158,6 +170,7 @@ public class User {
                 ", isOff=" + isOff +
                 ", roleName='" + roleName + '\'' +
                 ", registerDate=" + registerDate +
+                ", checkCode='" + checkCode + '\'' +
                 '}';
     }
 }
