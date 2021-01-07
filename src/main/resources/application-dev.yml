@@ -45,6 +45,8 @@ spring:
 
 #用户头像图片存储地址
 userImageFilePath: E://IdeaProjects/ActualCombat/InformationSharing/src/main/webapp/static/images/userImage/
+#文章图片存储地址
+articleImageFilePath: E://IdeaProjects/ActualCombat/InformationSharing/src/main/webapp/static/images/articleImage/
 
 #mybatis的相关配置
 mybatis:

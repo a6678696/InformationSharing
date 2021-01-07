@@ -8,6 +8,7 @@
     <link rel="stylesheet" th:href="@{/static/layui/css/layui.css}">
     <link rel="stylesheet" th:href="@{/static/css/style.css}">
     <script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+    <script type="text/javascript" th:src="@{/static/ckeditor/ckeditor.js}"></script>
     <script type="text/javascript" src="https://g.alicdn.com/AWSC/AWSC/awsc.js"></script>
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <!--layui-->
@@ -131,6 +132,15 @@
             if (searchPasswordSuccess == true) {
                 alert("密码修改成功!可以登录了...");
             }
+            var updateSuccess = [[${updateSuccess}]];
+            if (updateSuccess == true) {
+                alert("修改成功!");
+            }
+            var writeArticleSuccess = [[${writeArticleSuccess}]];
+            if (writeArticleSuccess == true) {
+                alert("发布资源成功!");
+            }
+            CKEDITOR.replace("content");
         }
 
         //检验用户名是否存在
@@ -233,6 +243,41 @@
             return true;
         }
 
+        //找回密码验证
+        function checkUpdateMessageValue() {
+            var password = $("#passwordUpdateMessage").val();
+            var password2 = $("#password2UpdateMessage").val();
+            if (password.length < 6) {
+                alert("密码长度要大于5!");
+                return false;
+            }
+            if (password != password2) {
+                alert("密码和确认密码不相同,请重新输入!");
+                return false;
+            }
+            return true;
+        }checkWriteArticleValue
+
+        //找回密码验证
+        function checkWriteArticleValue() {
+            var content = CKEDITOR.instances.content.getData();
+            var articleTypeId=$("#articleTypeId").val();
+            var points=$("#points").val();
+            if (content == "") {
+                alert("资源内容不能为空!");
+                return false;
+            }
+            if (articleTypeId==null||articleTypeId==""){
+                alert("资源类别不能为空!");
+                return false;
+            }
+            if (points==null||points==""){
+                alert("所需积分不能为空!");
+                return false;
+            }
+            return true;
+        }
+
         //发送邮件
         function sendEmail() {
             var email = $("#emailSearchPassword").val();
@@ -247,6 +292,12 @@
             );
             alert("验证码已发送到您的邮箱:"+email+",请查收...")
         }
+    </script>
+    <script>
+        layui.use(['form'], function(){
+            var form = layui.form
+                ,layer = layui.layer;
+        });
     </script>
 </head>
 <body>

@@ -25,6 +25,12 @@
                            lay-verify="title" autocomplete="off" required="required" disabled="disabled"
                            class="layui-input" th:value="${session.currentUser.userName}">
                 </div>
+                <label class="layui-form-label" style="margin-top: 12px">昵称:</label>
+                <div class="layui-input-block">
+                    <input type="text" style="width: 388px;border-color: gray;margin-top: 12px"
+                           lay-verify="title" autocomplete="off" required="required" disabled="disabled"
+                           class="layui-input" th:value="${session.currentUser.nickName}">
+                </div>
                 <label class="layui-form-label" style="margin-top: 12px">个人邮箱:</label>
                 <div class="layui-input-block">
                     <input type="text" required="required"
@@ -44,7 +50,7 @@
                            autocomplete="off" class="layui-input" th:value="${session.currentUser.roleName}">
                 </div>
                 <div class="layui-input-block">
-                    <a href="/toRegisterPage">
+                    <a href="/toPersonMessageUpdatePage">
                         <button type="button" style="margin-top: 12px" class="layui-btn layui-btn-normal" lay-submit=""
                                 lay-filter="demo1">修改
                         </button>

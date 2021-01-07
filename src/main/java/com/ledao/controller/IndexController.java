@@ -83,6 +83,7 @@ public class IndexController implements CommandLineRunner, ServletContextListene
         List<ArticleType> articleTypeList = articleTypeService.list(null);
         Map<String, Object> map = new HashMap<>(16);
         map.put("sortByPublishDate", 1);
+        map.put("state", 2);
         //资源列表
         List<Article> articleList = articleService.list(map);
         for (Article article : articleList) {
@@ -170,6 +171,38 @@ public class IndexController implements CommandLineRunner, ServletContextListene
         ModelAndView mav = new ModelAndView();
         mav.addObject("title", "个人信息");
         mav.addObject("mainPage", "page/personMessage");
+        mav.addObject("mainPageKey", "#b");
+        mav.setViewName("index");
+        return mav;
+    }
+
+    /**
+     * 跳转到修改个人信息页面
+     *
+     * @return
+     */
+    @RequestMapping("/toPersonMessageUpdatePage")
+    public ModelAndView toPersonMessageUpdatePage(){
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("title", "个人信息修改");
+        mav.addObject("mainPage", "page/updatePersonMessage");
+        mav.addObject("mainPageKey", "#b");
+        mav.setViewName("index");
+        return mav;
+    }
+
+    /**
+     * 跳转到发布资源页面
+     *
+     * @return
+     */
+    @RequestMapping("/toWriteArticlePage")
+    public ModelAndView toWriteArticlePage(){
+        List<ArticleType> articleTypeList = articleTypeService.list(null);
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("articleTypeList", articleTypeList);
+        mav.addObject("title", "发布资源");
+        mav.addObject("mainPage", "page/writeArticle");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
         return mav;

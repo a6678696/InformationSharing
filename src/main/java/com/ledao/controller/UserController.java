@@ -110,13 +110,14 @@ public class UserController {
             return mav;
         } else {
             userService.update(user);
+            User currentUser = userService.findById(user.getId());
+            session.setAttribute("currentUser", currentUser);
             ModelAndView mav = new ModelAndView();
-            mav.addObject("successModify", true);
-            mav.addObject("title", "个人中心");
+            mav.addObject("updateSuccess", true);
+            mav.addObject("title", "个人信息");
             mav.addObject("mainPage", "page/personMessage");
-            user.setImageName(userService.findById(user.getId()).getImageName());
-            session.setAttribute("currentUser", user);
             mav.addObject("mainPageKey", "#b");
+            mav.setViewName("index");
             return mav;
         }
     }
@@ -128,9 +129,9 @@ public class UserController {
      * @return
      */
     @RequestMapping("/searchPassword")
-    public ModelAndView searchPassword(User user,HttpSession session) {
+    public ModelAndView searchPassword(User user, HttpSession session) {
         ModelAndView mav = new ModelAndView();
-        String mailCode= (String) session.getAttribute("mailCode");
+        String mailCode = (String) session.getAttribute("mailCode");
         if (mailCode.equals(user.getCheckCode())) {
             //未修改密码前
             User oldUser = userService.findByEmail(user.getEmail());

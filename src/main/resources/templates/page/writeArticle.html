@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="b">
+    <div>
+        <div class="layui-col-md3">
+            <div th:include="common/menuLeft::#m"></div>
+        </div>
+        <div class="layui-col-md9">
+            <form action="/article/save" method="post" class="layui-form" onsubmit="return checkWriteArticleValue()">
+                <div style="margin-top: 24px">
+                    <p class="layui-breadcrumb">
+                        <i class="layui-icon layui-icon-location">当前位置：</i>
+                        <a href="">首页</a>
+                        <a href="/toUserBackstagePage">个人中心</a>
+                        <a><cite>发布资源</cite></a>
+                    </p>
+                    <label class="layui-form-label" style="margin-top: 33px">资源名称:</label>
+                    <div class="layui-input-block">
+                        <input type="text" id="name" name="name"
+                               style="width: 388px;border-color: gray;margin-top: 33px"
+                               lay-verify="title" autocomplete="off" required="required" placeholder="请输入资源名称"
+                               class="layui-input">
+                    </div>
+                    <label class="layui-form-label" style="margin-top: 12px">资源类别:</label>
+                    <div class="layui-input-block" style="margin-top: 12px;width: 388px">
+                        <select id="articleTypeId" name="articleTypeId" lay-filter="aihao">
+                            <option value="">请选择类别...</option>
+                            <div th:each="articleType:${articleTypeList}">
+                                <option th:value="${articleType.id}" th:text="${articleType.name}"></option>
+                            </div>
+                        </select>
+                    </div>
+                    <label class="layui-form-label" style="margin-top: 12px">资源描述:</label>
+                    <div class="layui-input-block" style="margin-top: 12px">
+                        <textarea id="content" name="content" rows="30" cols="90"></textarea>
+                    </div>
+                    <label class="layui-form-label" style="margin-top: 12px">分享地址:</label>
+                    <div class="layui-input-block">
+                        <input type="text" required="required" id="downloadLink" name="downloadLink"
+                               style="width: 388px;border-color: gray;margin-top: 12px" placeholder="请输入分享地址"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                    <label class="layui-form-label" style="margin-top: 12px">分享密码:</label>
+                    <div class="layui-input-block">
+                        <input type="text" required="required" id="password" name="password"
+                               style="width: 388px;border-color: gray;margin-top: 12px" placeholder="请输入分享密码"
+                               autocomplete="off" class="layui-input">
+                        <input type="hidden" id="userId" name="userId" th:value="${session.currentUser.id}">
+                    </div>
+                    <label class="layui-form-label" style="margin-top: 12px">积分:</label>
+                    <div class="layui-input-block" style="margin-top: 12px;width: 388px">
+                        <select id="points" name="points" lay-filter="aihao">
+                            <option value="">请选择下载所需积分...</option>
+                            <option value="0">0个积分</option>
+                            <option value="1">1个积分</option>
+                            <option value="2">2个积分</option>
+                            <option value="3">3个积分</option>
+                            <option value="4">4个积分</option>
+                            <option value="5">5个积分</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-block" style="margin-top: 12px">
+                        <input type="submit" class="layui-btn layui-btn-normal" value="发布"
+                                lay-filter="demo1">
+                        </input>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
