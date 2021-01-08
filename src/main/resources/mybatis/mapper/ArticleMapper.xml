@@ -114,6 +114,9 @@
             <if test="isUseful != null">
                 isUseful=#{isUseful},
             </if>
+            <if test="click != null">
+                click=#{click},
+            </if>
         </set>
         where id=#{id}
     </update>

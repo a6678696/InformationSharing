@@ -4,10 +4,12 @@ import com.ledao.entity.Article;
 import com.ledao.entity.ArticleType;
 import com.ledao.service.ArticleService;
 import com.ledao.service.ArticleTypeService;
+import com.ledao.service.UserService;
 import com.ledao.util.DateUtil;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,6 +41,9 @@ public class ArticleController {
 
     @Resource
     private ArticleTypeService articleTypeService;
+
+    @Resource
+    private UserService userService;
 
     /**
      * 添加或修改资源
@@ -105,4 +110,27 @@ public class ArticleController {
 
         return sb.toString();
     }
+
+    /**
+     * 查看资源详情
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("/{id}")
+    public ModelAndView details(@PathVariable("id") Integer id) {
+        ModelAndView mav = new ModelAndView();
+        Article article = articleService.findById(id);
+        article.setClick(article.getClick() + 1);
+        articleService.update(article);
+        article.setUser(userService.findById(article.getUserId()));
+        article.setArticleType(articleTypeService.findById(article.getArticleTypeId()));
+        mav.addObject("article", article);
+        mav.addObject("title", article.getName());
+        mav.addObject("mainPage", "page/articleView");
+        mav.addObject("mainPageKey", "#b");
+        mav.setViewName("index");
+        return mav;
+    }
+
 }
