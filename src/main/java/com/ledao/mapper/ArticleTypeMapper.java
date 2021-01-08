@@ -47,6 +47,14 @@ public interface ArticleTypeMapper {
     Integer update(ArticleType articleType);
 
     /**
+     * 根据id查询文章类型
+     *
+     * @param id
+     * @return
+     */
+    ArticleType findById(Integer id);
+
+    /**
      * 根据id删除文章类型
      *
      * @param id

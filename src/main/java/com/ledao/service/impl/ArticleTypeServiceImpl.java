@@ -43,6 +43,11 @@ public class ArticleTypeServiceImpl implements ArticleTypeService {
     }
 
     @Override
+    public ArticleType findById(Integer id) {
+        return articleTypeMapper.findById(id);
+    }
+
+    @Override
     public Integer deleteById(Integer id) {
         return articleTypeMapper.deleteById(id);
     }

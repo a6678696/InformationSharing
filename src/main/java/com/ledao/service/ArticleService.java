@@ -1,6 +1,7 @@
 package com.ledao.service;
 
 import com.ledao.entity.Article;
+import com.ledao.entity.ArticleType;
 
 import java.util.List;
 import java.util.Map;
@@ -53,4 +54,12 @@ public interface ArticleService {
      * @return
      */
     Integer deleteById(Integer id);
+
+    /**
+     * 根据id查询文章
+     *
+     * @param id
+     * @return
+     */
+    Article findById(Integer id);
 }

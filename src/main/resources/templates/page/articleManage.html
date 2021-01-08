@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="b">
+    <div>
+        <div class="layui-col-md3">
+            <div th:include="common/menuLeft::#m"></div>
+        </div>
+        <div class="layui-col-md9">
+            <form action="/toArticleManagePage" method="post" class="layui-form">
+                <div style="margin-top: 24px">
+                    <p class="layui-breadcrumb">
+                        <i class="layui-icon layui-icon-location">当前位置：</i>
+                        <a href="">首页</a>
+                        <a href="/toUserBackstagePage">个人中心</a>
+                        <a><cite>资源管理</cite></a>
+                    </p>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label" style="margin-top: 33px">资源名称:</label>
+                            <div class="layui-input-block">
+                                <input type="text" id="name" name="name" th:value="${articleSearch.name}"
+                                       style="width: 200px;margin-top: 33px"
+                                       lay-verify="title" autocomplete="off" placeholder="请输入资源名称"
+                                       class="layui-input">
+                            </div>
+                            <label class="layui-form-label" style="margin-top: 12px">审核状态:</label>
+                            <div class="layui-input-inline" style="width: 200px;margin-top: 12px">
+                                <select id="state" name="state" th:value="${articleSearch.state}" lay-filter="aihao">
+                                    <option value="">请选择审核状态...</option>
+                                    <option value="1">未审核</option>
+                                    <option value="2">审核通过</option>
+                                    <option value="3">审核未通过</option>
+                                </select>
+                            </div>
+                            <div class="layui-input-inline" style="width: 100px;">
+                                <button type="submit" style="margin-top: 12px" class="layui-btn layui-btn-normal"><i class="layui-icon layui-icon-search"></i>查询</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    ( <span style="color: red"> 1，鼠标移动到红色“审核未通过”字体上，能显示未通过原因；2，审核未通过的，请重新编辑帖子，然后提交审核；</span> )
+                    <table class="layui-table">
+                        <colgroup>
+                            <col width="450">
+                            <col width="220">
+                            <col width="80">
+                            <col width="140">
+                            <col width="160">
+                            <col width="250">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th style="text-align: center">资源名称</th>
+                            <th style="text-align: center">所属类别</th>
+                            <th style="text-align: center">积分</th>
+                            <th style="text-align: center">发布日期</th>
+                            <th style="text-align: center">审核状态</th>
+                            <th style="text-align: center">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="article:${articleList}">
+                            <td style="text-align: center" th:text="${#strings.abbreviate(article.name,16)}" th:title="${article.name}"></td>
+                            <td style="text-align: center" th:text="${article.articleType.name}"></td>
+                            <td style="text-align: center" th:text="${article.points}"></td>
+                            <td style="text-align: center" th:text="${#dates.format(article.publishDate,'yyyy-MM-dd')}"></td>
+                            <td style="text-align: center;color: blue" th:if="${article.state==1}">未审核</td>
+                            <td style="text-align: center;color: limegreen" th:if="${article.state==2}">审核通过</td>
+                            <td style="text-align: center;color: red" th:if="${article.state==3}" th:title="${'审核未通过原因:'+article.reason}">审核未通过</td>
+                            <td style="text-align: center">
+                                <a th:href="@{'/toUpdateArticlePage?id='+${article.id}}" class="layui-btn">编辑</a>
+                                <a th:href="'javascript:deleteArticle('+${article.id}+')'" class="layui-btn layui-btn-danger">删除</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

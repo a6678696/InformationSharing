@@ -40,10 +40,16 @@ public class ArticleController {
     @Resource
     private ArticleTypeService articleTypeService;
 
+    /**
+     * 添加或修改资源
+     *
+     * @param article
+     * @return
+     */
     @RequestMapping("/save")
-    public ModelAndView save(Article article){
-        ModelAndView mav=new ModelAndView();
+    public ModelAndView save(Article article) {
         if (article.getId() == null) {
+            ModelAndView mav = new ModelAndView();
             articleService.add(article);
             List<ArticleType> articleTypeList = articleTypeService.list(null);
             mav.addObject("writeArticleSuccess", true);
@@ -51,10 +57,26 @@ public class ArticleController {
             mav.addObject("title", "发布资源");
             mav.addObject("mainPage", "page/writeArticle");
             mav.addObject("mainPageKey", "#b");
+            mav.setViewName("index");
+            return mav;
         } else {
+            article.setState(1);
             articleService.update(article);
+            ModelAndView mav = new ModelAndView("redirect:/toArticleManagePage");
+            return mav;
         }
-        mav.setViewName("index");
+    }
+
+    /**
+     * 根据id删除资源
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("/delete")
+    public ModelAndView delete(Integer id) {
+        articleService.deleteById(id);
+        ModelAndView mav = new ModelAndView("redirect:/toArticleManagePage");
         return mav;
     }
 

@@ -53,4 +53,12 @@ public interface ArticleMapper {
      * @return
      */
     Integer deleteById(Integer id);
+
+    /**
+     * 根据id查询文章
+     *
+     * @param id
+     * @return
+     */
+    Article findById(Integer id);
 }

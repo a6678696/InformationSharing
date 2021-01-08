@@ -121,4 +121,8 @@
     <delete id="deleteById" parameterType="integer">
         delete from t_article where id=#{id}
     </delete>
+
+    <select id="findById" parameterType="integer" resultMap="ArticleResult">
+        select * from t_article where id=#{id}
+    </select>
 </mapper>

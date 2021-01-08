@@ -8,6 +8,7 @@ import com.ledao.service.ArticleService;
 import com.ledao.service.ArticleTypeService;
 import com.ledao.service.LinkService;
 import com.ledao.service.UserService;
+import com.ledao.util.StringUtil;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -203,6 +205,59 @@ public class IndexController implements CommandLineRunner, ServletContextListene
         mav.addObject("articleTypeList", articleTypeList);
         mav.addObject("title", "发布资源");
         mav.addObject("mainPage", "page/writeArticle");
+        mav.addObject("mainPageKey", "#b");
+        mav.setViewName("index");
+        return mav;
+    }
+
+    /**
+     * 跳转到资源管理页面
+     *
+     * @return
+     */
+    @RequestMapping("/toArticleManagePage")
+    public ModelAndView toArticleManagePage(Article articleSearch,HttpSession session){
+        Map<String, Object> map=new HashMap<>(16);
+        User currentUser = (User) session.getAttribute("currentUser");
+        map.put("userId",currentUser.getId());
+        map.put("sortByPublishDate",1);
+        map.put("isUseful",1);
+        if (articleSearch != null) {
+            map.put("name", StringUtil.formatLike(articleSearch.getName()));
+            map.put("state", articleSearch.getState());
+        }
+        List<Article> articleList = articleService.list(map);
+        for (Article article : articleList) {
+            article.setArticleType(articleTypeService.findById(article.getArticleTypeId()));
+        }
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("articleSearchState", articleSearch.getState());
+        mav.addObject("articleList", articleList);
+        mav.addObject("articleSearch", articleSearch);
+        mav.addObject("title", "资源管理");
+        mav.addObject("mainPage", "page/articleManage");
+        mav.addObject("mainPageKey", "#b");
+        mav.setViewName("index");
+        return mav;
+    }
+
+    /**
+     * 跳转到修改资源页面
+     *
+     * @return
+     */
+    @RequestMapping("/toUpdateArticlePage")
+    public ModelAndView toUpdateArticlePage(Integer id){
+        List<ArticleType> articleTypeList = articleTypeService.list(null);
+        ModelAndView mav = new ModelAndView();
+        Article article = articleService.findById(id);
+        mav.addObject("articleTypeIdUpdate", article.getArticleTypeId());
+        mav.addObject("articleUpdatePoints", article.getPoints());
+        mav.addObject("contentUpdate", article.getContent());
+        mav.addObject("article", article);
+        mav.addObject("articleTypeList", articleTypeList);
+        mav.addObject("title", "修改资源");
+        mav.addObject("mainPage", "page/updateArticle");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
         return mav;

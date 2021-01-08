@@ -36,6 +36,10 @@ public class Article {
      */
     private Integer articleTypeId;
     /**
+     * 文章类型实体
+     */
+    private ArticleType articleType;
+    /**
      * 下载所需积分
      */
     private Integer points;
@@ -202,6 +206,14 @@ public class Article {
 
     public void setClick(Integer click) {
         this.click = click;
+    }
+
+    public ArticleType getArticleType() {
+        return articleType;
+    }
+
+    public void setArticleType(ArticleType articleType) {
+        this.articleType = articleType;
     }
 
     @Override

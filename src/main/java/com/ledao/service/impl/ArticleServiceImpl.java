@@ -46,4 +46,9 @@ public class ArticleServiceImpl implements ArticleService {
     public Integer deleteById(Integer id) {
         return articleMapper.deleteById(id);
     }
+
+    @Override
+    public Article findById(Integer id) {
+        return articleMapper.findById(id);
+    }
 }

@@ -22,6 +22,12 @@
             });
         });
     </script>
+    <script>
+        layui.use(['form'], function () {
+            var form = layui.form
+                , layer = layui.layer;
+        });
+    </script>
     <!--阿里云右划验证-->
     <script>
         // 实例化nc--登录
@@ -140,7 +146,36 @@
             if (writeArticleSuccess == true) {
                 alert("发布资源成功!");
             }
+            var articleSearchState = [[${articleSearchState}]];
+            if (articleSearchState == null) {
+                $('#state').val();
+                layui.form.render();
+            } else if (articleSearchState != null) {
+                $('#state').val(articleSearchState);
+                layui.form.render();
+            }
+            var articleTypeIdUpdate = [[${articleTypeIdUpdate}]];
+            if (articleTypeIdUpdate == null) {
+                $('#articleTypeIdUpdate').val();
+                layui.form.render();
+            } else if (articleTypeIdUpdate != null) {
+                $('#articleTypeIdUpdate').val(articleTypeIdUpdate);
+                layui.form.render();
+            }
+            var articleUpdatePoints = [[${articleUpdatePoints}]];
+            if (articleUpdatePoints == null) {
+                $('#state').val();
+                layui.form.render();
+            } else if (articleUpdatePoints != null) {
+                $('#pointsUpdate').val(articleUpdatePoints);
+                layui.form.render();
+            }
+            contentUpdate
+            var contentUpdate = [[${contentUpdate}]];
             CKEDITOR.replace("content");
+            if (contentUpdate != null) {
+                CKEDITOR.instances.content.setData(contentUpdate);
+            }
         }
 
         //检验用户名是否存在
@@ -196,11 +231,11 @@
                 function (result) {
                     if (result.success) {
                         $("#emailFail2").html("");
-                        $("#getCodeBtn").attr("disabled",false);
+                        $("#getCodeBtn").attr("disabled", false);
                         $("#getCodeBtn").removeClass("layui-btn-disabled");
                     } else {
                         $("#emailFail2").html("该邮箱不存在，请重新输入!");
-                        $("#getCodeBtn").attr("disabled",true);
+                        $("#getCodeBtn").attr("disabled", true);
                         $("#getCodeBtn").addClass("layui-btn-disabled");
                         $("#emailSearchPassword").focus();
                     }
@@ -256,26 +291,54 @@
                 return false;
             }
             return true;
-        }checkWriteArticleValue
+        }
 
-        //找回密码验证
+        //发布资源验证
         function checkWriteArticleValue() {
             var content = CKEDITOR.instances.content.getData();
-            var articleTypeId=$("#articleTypeId").val();
-            var points=$("#points").val();
+            var articleTypeId = $("#articleTypeId").val();
+            var points = $("#points").val();
             if (content == "") {
                 alert("资源内容不能为空!");
                 return false;
             }
-            if (articleTypeId==null||articleTypeId==""){
+            if (articleTypeId == null || articleTypeId == "") {
                 alert("资源类别不能为空!");
                 return false;
             }
-            if (points==null||points==""){
+            if (points == null || points == "") {
                 alert("所需积分不能为空!");
                 return false;
             }
             return true;
+        }
+
+        //修改资源验证
+        function checkUpdateArticleValue() {
+            var content = CKEDITOR.instances.content.getData();
+            var articleTypeId = $("#articleTypeIdUpdate").val();
+            var points = $("#pointsUpdate").val();
+            if (content == "") {
+                alert("资源内容不能为空!");
+                return false;
+            }
+            if (articleTypeId == null || articleTypeId == "") {
+                alert("资源类别不能为空!");
+                return false;
+            }
+            if (points == null || points == "") {
+                alert("所需积分不能为空!");
+                return false;
+            }
+            return true;
+        }
+
+        //用户删除自己的资源
+        function deleteArticle(id) {
+            if (confirm("您确定要删除这个资源吗?")) {
+                window.location.href = "/article/delete?id=" + id;
+                alert("删除成功!");
+            }
         }
 
         //发送邮件
@@ -290,14 +353,8 @@
                     }
                 }
             );
-            alert("验证码已发送到您的邮箱:"+email+",请查收...")
+            alert("验证码已发送到您的邮箱:" + email + ",请查收...")
         }
-    </script>
-    <script>
-        layui.use(['form'], function(){
-            var form = layui.form
-                ,layer = layui.layer;
-        });
     </script>
 </head>
 <body>
