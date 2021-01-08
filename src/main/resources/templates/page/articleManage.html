@@ -39,13 +39,16 @@
                                 </select>
                             </div>
                             <div class="layui-input-inline" style="width: 100px;">
-                                <button type="submit" style="margin-top: 12px" class="layui-btn layui-btn-normal"><i class="layui-icon layui-icon-search"></i>查询</button>
+                                <button type="submit" style="margin-top: 12px" class="layui-btn layui-btn-normal"><i
+                                        class="layui-icon layui-icon-search"></i>查询
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div>
-                    ( <span style="color: red"> 1，鼠标移动到红色“审核未通过”字体上，能显示未通过原因；2，审核未通过的，请重新编辑帖子，然后提交审核；</span> )
+                    ( <span style="color: red"> 1，鼠标移动到红色“审核未通过”字体上，能显示未通过原因；2，审核未通过的，请重新编辑帖子，然后提交审核；</span> )<a
+                        href="/toWriteArticlePage" class="layui-btn layui-btn-sm layui-btn-warm"><i class="layui-icon layui-icon-release"></i>发布资源</a>
                     <table class="layui-table">
                         <colgroup>
                             <col width="450">
@@ -53,7 +56,7 @@
                             <col width="80">
                             <col width="140">
                             <col width="160">
-                            <col width="250">
+                            <col width="270">
                         </colgroup>
                         <thead>
                         <tr>
@@ -67,16 +70,21 @@
                         </thead>
                         <tbody>
                         <tr th:each="article:${articleList}">
-                            <td style="text-align: center" th:text="${#strings.abbreviate(article.name,16)}" th:title="${article.name}"></td>
+                            <td style="text-align: center" th:text="${#strings.abbreviate(article.name,16)}"
+                                th:title="${article.name}"></td>
                             <td style="text-align: center" th:text="${article.articleType.name}"></td>
                             <td style="text-align: center" th:text="${article.points}"></td>
-                            <td style="text-align: center" th:text="${#dates.format(article.publishDate,'yyyy-MM-dd')}"></td>
+                            <td style="text-align: center"
+                                th:text="${#dates.format(article.publishDate,'yyyy-MM-dd')}"></td>
                             <td style="text-align: center;color: blue" th:if="${article.state==1}">未审核</td>
                             <td style="text-align: center;color: limegreen" th:if="${article.state==2}">审核通过</td>
-                            <td style="text-align: center;color: red" th:if="${article.state==3}" th:title="${'审核未通过原因:'+article.reason}">审核未通过</td>
+                            <td style="text-align: center;color: red" th:if="${article.state==3}"
+                                th:title="${'审核未通过原因:'+article.reason}">审核未通过
+                            </td>
                             <td style="text-align: center">
-                                <a th:href="@{'/toUpdateArticlePage?id='+${article.id}}" class="layui-btn">编辑</a>
-                                <a th:href="'javascript:deleteArticle('+${article.id}+')'" class="layui-btn layui-btn-danger">删除</a>
+                                <a th:href="@{'/toUpdateArticlePage?id='+${article.id}}" class="layui-btn layui-btn-sm"><i class="layui-icon layui-icon-edit"></i>编辑</a>
+                                <a th:href="'javascript:deleteArticle('+${article.id}+')'"
+                                   class="layui-btn layui-btn-danger layui-btn-sm"><i class="layui-icon layui-icon-delete"></i>删除</a>
                             </td>
                         </tr>
                         </tbody>
