@@ -24,6 +24,10 @@ public class Article {
      */
     private Date publishDate;
     /**
+     * 发布日期字符串
+     */
+    private String publishDateStr;
+    /**
      * 发布人id
      */
     private Integer userId;
@@ -47,6 +51,10 @@ public class Article {
      * 内容
      */
     private String content;
+    /**
+     *
+     */
+    private String summary;
     /**
      * 百度云链接
      */
@@ -79,6 +87,14 @@ public class Article {
      * 点击次数
      */
     private Integer click;
+
+    public Article() {
+    }
+
+    public Article(String name, Integer state) {
+        this.name = name;
+        this.state = state;
+    }
 
     public Integer getId() {
         return id;
@@ -216,25 +232,19 @@ public class Article {
         this.articleType = articleType;
     }
 
-    @Override
-    public String toString() {
-        return "Article{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", publishDate=" + publishDate +
-                ", userId=" + userId +
-                ", user=" + user +
-                ", articleTypeId=" + articleTypeId +
-                ", points=" + points +
-                ", content='" + content + '\'' +
-                ", downloadLink='" + downloadLink + '\'' +
-                ", password='" + password + '\'' +
-                ", isHot=" + isHot +
-                ", state=" + state +
-                ", reason='" + reason + '\'' +
-                ", checkDate=" + checkDate +
-                ", isUseful=" + isUseful +
-                ", click=" + click +
-                '}';
+    public String getPublishDateStr() {
+        return publishDateStr;
+    }
+
+    public void setPublishDateStr(String publishDateStr) {
+        this.publishDateStr = publishDateStr;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 }

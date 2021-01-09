@@ -9,6 +9,7 @@
         <result column="userId" property="userId"/>
         <result column="articleTypeId" property="articleTypeId"/>
         <result column="points" property="points"/>
+        <result column="summary" property="summary"/>
         <result column="content" property="content"/>
         <result column="downloadLink" property="downloadLink"/>
         <result column="password" property="password"/>
@@ -77,8 +78,8 @@
     </select>
 
     <insert id="add" parameterType="Article">
-        insert into t_article(name, publishDate, userId, articleTypeId, points, content, downloadLink, password, isHot,state, isUseful, click)
-        values (#{name},now(),#{userId},#{articleTypeId},#{points},#{content},#{downloadLink},#{password},0,1,1,0);
+        insert into t_article(name, publishDate, userId, articleTypeId, points,summary, content, downloadLink, password, isHot,state, isUseful, click)
+        values (#{name},now(),#{userId},#{articleTypeId},#{points},#{summary},#{content},#{downloadLink},#{password},0,1,1,0);
     </insert>
 
     <update id="update">
@@ -116,6 +117,9 @@
             </if>
             <if test="click != null">
                 click=#{click},
+            </if>
+            <if test="summary != null and summary != ''">
+                summary=#{summary},
             </if>
         </set>
         where id=#{id}

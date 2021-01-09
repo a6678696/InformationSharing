@@ -116,6 +116,14 @@
     <!--其他-->
     <script th:inline="javascript">
 
+        if(window.name != "refresh"){
+            location.reload();
+            window.name = "refresh";
+        }
+        else{
+            window.name = "";
+        }
+
         window.onload = function () {
             var successLogin = [[${successLogin}]];
             if (successLogin == true) {
@@ -340,6 +348,20 @@
                 window.location.href = "/article/delete?id=" + id;
                 alert("删除成功!");
             }
+        }
+
+        //查询资源
+        function searchArticle() {
+            var articleName=$("#nameManage").val();
+            var state=$("#state").val();
+            window.location.href = "/toArticleManagePage?name=" + articleName+"&state="+state;
+        }
+
+        //查询失效资源
+        function searchArticleFailure() {
+            var articleName=$("#nameManage").val();
+            var state=$("#state").val();
+            window.location.href = "/toArticleFailureManagePage?name=" + articleName+"&state="+state;
         }
 
         //发送邮件

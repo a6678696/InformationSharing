@@ -18,6 +18,9 @@
                 and name like #{name}
             </if>
         </where>
+        <if test="sortBySortNum != null">
+            order by sortNum
+        </if>
         <if test="start != null and size != null">
             limit #{start},#{size}
         </if>
@@ -31,6 +34,9 @@
                 and name like #{name}
             </if>
         </where>
+        <if test="sortBySortNum != null">
+            order by sortNum
+        </if>
     </select>
 
     <insert id="add" parameterType="ArticleType">

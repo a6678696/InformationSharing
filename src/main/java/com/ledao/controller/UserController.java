@@ -50,10 +50,10 @@ public class UserController {
      */
     @RequestMapping("/login")
     public ModelAndView login(User user, HttpSession session) {
-        ModelAndView mav = new ModelAndView();
         User currentUser = userService.findByUserName(user.getUserName());
         //用户名不正确时
         if (currentUser == null) {
+            ModelAndView mav = new ModelAndView();
             mav.addObject("user", user);
             mav.addObject("successLogin", false);
             mav.addObject("title", "用户登录");
@@ -65,13 +65,10 @@ public class UserController {
             //密码正确时
             if (currentUser.getPassword().equals(user.getPassword())) {
                 session.setAttribute("currentUser", currentUser);
-                mav.addObject("successLogin", true);
-                mav.addObject("title", "首页");
-                mav.addObject("mainPage", "page/indexFirst");
-                mav.addObject("mainPageKey", "#b");
-                mav.setViewName("index");
+                ModelAndView mav = new ModelAndView("redirect:/");
                 return mav;
             } else {
+                ModelAndView mav = new ModelAndView();
                 mav.addObject("user", user);
                 mav.addObject("successLogin", false);
                 mav.addObject("title", "用户登录");
@@ -199,12 +196,7 @@ public class UserController {
     @RequestMapping("/logout")
     public ModelAndView logout(HttpSession session) {
         session.invalidate();
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("title", "首页");
-        mav.addObject("successLogout", true);
-        mav.addObject("mainPage", "page/indexFirst");
-        mav.addObject("mainPageKey", "#b");
-        mav.setViewName("index");
+        ModelAndView mav = new ModelAndView("redirect:/");
         return mav;
     }
 

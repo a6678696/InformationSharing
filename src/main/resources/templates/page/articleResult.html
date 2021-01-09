@@ -63,50 +63,22 @@
                     </div>
                 </blockquote>
             </div>
-            <!--资源列表-->
+            <!--检索结果-->
             <div style="margin-top: 2px;margin-right: 5px">
                 <blockquote class="layui-elem-quote" style="border-color: #1e9fff">
-                    <strong><i class="layui-icon layui-icon-template-1" style="font-size: 16px">资源列表</i></strong><span
-                        style="color: green">（当前有 <span th:text="${total}" style="color: red"></span> 个资源）</span><i
-                        class="layui-icon-tips layui-icon"
-                        style="color: #1e9fff;font-size: 16px;float: right">点击名称可查看详情</i>
+                    <strong><i class="layui-icon layui-icon-template-1" style="font-size: 16px">搜索结果</i></strong><span style="float: right">(关于<span style="color: red" th:text="${q}"></span>的资源,共有 <span style="color: red" th:text="${resultTotal}"></span> 个)</span></span>
                     <hr class="layui-bg-blue">
-                    <table class="layui-table" lay-skin="line">
-                        <colgroup>
-                            <col width="400">
-                            <col width="140">
-                            <col width="140">
-                            <col width="140">
-                            <col width="140">
-                            <col>
-                        </colgroup>
-                        <thead>
-                        <tr>
-                            <th style="text-align: center">资源名称</th>
-                            <th style="text-align: center">查看次数</th>
-                            <th style="text-align: center">上传者</th>
-                            <th style="text-align: center">上传日期</th>
-                            <th style="text-align: center">所需积分</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="article:${articleList}">
-                            <td style="text-align: center"><a th:href="@{'/article/'+${article.id}}"
-                                                              th:text="${#strings.abbreviate(article.name,22)}"
-                                                              th:title="${article.name}"></a></td>
-                            <td style="text-align: center"><span th:text="${article.click}"></span>&nbsp;次</td>
-                            <td style="text-align: center"><span th:text="${article.user.nickName}"></span></td>
-                            <td style="text-align: center"><span
-                                    th:text="${#dates.format(article.publishDate,'yyyy-MM-dd')}"></span></td>
-                            <td style="text-align: center"><span th:text="${article.points}"></span></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <div align="center">
-                        <div class="layui-box layui-laypage" th:utext="${pageCode}">
-
-                        </div>
+                    <div th:each="article:${articleList}">
+                        <a th:href="'/article/'+${article.getId()}" style="text-decoration: none;color: #0f74a8"><h3
+                                th:utext="${article.name}"></h3></a>
+                        <p style="color: grey;margin-top: 10px">上传者:<span th:text="${article.user.nickName}"></span>&nbsp;&nbsp;上传时间:<span th:text="${#dates.format(article.publishDate,'yyyy-MM-dd')}"></span>&nbsp;&nbsp;类别:<span th:text="${article.articleType.name}"></span>&nbsp;&nbsp;所需积分:<span th:text="${article.points}"></span></p>
+                        <p style="margin-top: 10px" th:utext="${article.content}"></p>
+                        <a th:href="@{'/article/'+${article.id}}" class="layui-btn layui-btn-sm" style="margin-top: 5px">查看详情</a>
+                        <hr style="color: grey">
                     </div>
+                    <p style="text-align: center" th:if="${articleList.size>=3}">
+                        <font th:utext="${pageCode}"></font>
+                    </p>
                 </blockquote>
             </div>
         </div>
@@ -115,7 +87,7 @@
             <blockquote class="layui-elem-quote" style="border-color: #1e9fff">
                 <strong><i class="layui-icon layui-icon-fire" style="font-size: 16px">热门资源</i></strong>
                 <hr class="layui-bg-blue">
-                <div th:each="articleHot:${application.articleListHot}" th:if="${articleHotStat.count<=30}">
+                <div th:each="articleHot:${application.articleListHot}">
                     <p><a th:href="@{'/article/'+${articleHot.id}}" th:text="${#strings.abbreviate(articleHot.name,20)}"
                           th:title="${articleHot.name}"></a></p>
                 </div>
