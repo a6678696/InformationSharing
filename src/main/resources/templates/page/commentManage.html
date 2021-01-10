@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="b">
+    <div>
+        <div class="layui-col-md3">
+            <div th:include="common/menuLeft::#m"></div>
+        </div>
+        <div class="layui-col-md9">
+            <form action="/toArticleManagePage" method="post" class="layui-form">
+                <div style="margin-top: 24px">
+                    <p class="layui-breadcrumb">
+                        <i class="layui-icon layui-icon-location">当前位置：</i>
+                        <a href="">首页</a>
+                        <a href="/toUserBackstagePage">个人中心</a>
+                        <a><cite>评论管理</cite></a>
+                    </p>
+                </div>
+                <div>
+                    <p style="margin-top: 10px">(<span style="color: red">友情提示:把鼠标停在评论内容和评论帖子上可以看到详细信息</span>)</p>
+                    <table class="layui-table">
+                        <colgroup>
+                            <col width="400">
+                            <col width="250">
+                            <col width="150">
+                            <col width="170">
+                            <col width="100">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th style="text-align: center">评论内容</th>
+                            <th style="text-align: center">评论帖子</th>
+                            <th style="text-align: center">评论日期</th>
+                            <th style="text-align: center">评论用户</th>
+                            <th style="text-align: center">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="comment:${commentList}">
+                            <td style="text-align: center" th:text="${#strings.abbreviate(comment.commentContent,18)}" th:title="${comment.commentContent}"></td>
+                            <td style="text-align: center" th:text="${#strings.abbreviate(comment.article.name,16)}" th:title="${comment.article.name}"></td>
+                            <td style="text-align: center"
+                                th:text="${#dates.format(comment.date,'yyyy-MM-dd')}"></td>
+                            <td style="text-align: center" th:text="${comment.user.nickName}"></td>
+                            <td style="text-align: center">
+                                <a th:href="'javascript:deleteComment('+${comment.id}+')'"
+                                   class="layui-btn layui-btn-danger layui-btn-sm"><i
+                                        class="layui-icon layui-icon-delete"></i>删除</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div align="center">
+                        <div class="layui-box layui-laypage" th:utext="${pageCode}">
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -81,6 +81,9 @@
             <if test="roleName != null and roleName != ''">
                 roleName=#{roleName},
             </if>
+            <if test="points != null">
+                points=#{points},
+            </if>
         </set>
         where id = #{id}
     </update>

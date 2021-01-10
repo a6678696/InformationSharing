@@ -2,9 +2,11 @@ package com.ledao.controller;
 
 import com.ledao.entity.Article;
 import com.ledao.entity.ArticleType;
+import com.ledao.entity.Comment;
 import com.ledao.lucene.ArticleIndex;
 import com.ledao.service.ArticleService;
 import com.ledao.service.ArticleTypeService;
+import com.ledao.service.CommentService;
 import com.ledao.service.UserService;
 import com.ledao.util.DateUtil;
 import com.ledao.util.StringUtil;
@@ -48,6 +50,9 @@ public class ArticleController {
     @Resource
     private UserService userService;
 
+    @Resource
+    private CommentService commentService;
+
     private ArticleIndex articleIndex = new ArticleIndex();
 
     /**
@@ -88,6 +93,7 @@ public class ArticleController {
             }
             article.setIsUseful(trueArticle.getIsUseful());
             article.setState(1);
+            article.setIsUseful(1);
             articleService.update(article);
             articleIndex.updateIndex(article);
             if (article.getIsUseful() == 1) {
@@ -155,6 +161,13 @@ public class ArticleController {
         articleService.update(article);
         article.setUser(userService.findById(article.getUserId()));
         article.setArticleType(articleTypeService.findById(article.getArticleTypeId()));
+        Map<String, Object> map = new HashMap<>(16);
+        map.put("articleId", id);
+        List<Comment> commentList = commentService.list(map);
+        for (Comment comment1 : commentList) {
+            comment1.setUser(userService.findById(comment1.getUserId()));
+        }
+        mav.addObject("commentList", commentList);
         mav.addObject("article", article);
         mav.addObject("title", article.getName());
         mav.addObject("mainPage", "page/articleView");
@@ -171,7 +184,7 @@ public class ArticleController {
      * @throws Exception
      */
     @RequestMapping("/q")
-    public ModelAndView search(@RequestParam(value = "q", required = false) String q, @RequestParam(value = "page", required = false) String page, HttpServletRequest request) throws Exception {
+    public ModelAndView search(String q, @RequestParam(value = "page", required = false) String page, HttpServletRequest request) throws Exception {
         int pageSize = 3;
         if (StringUtil.isEmpty(page)) {
             page = "1";

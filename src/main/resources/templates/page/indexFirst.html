@@ -45,19 +45,18 @@
                             <div class="layui-col-md1">
                                 <span style="color: #8D8D8D">关键词:</span>
                             </div>
-                            <form action="/article/q" method="post">
-                                <div class="layui-col-md9">
-                                    <input type="text" name="q" lay-verify="title" autocomplete="off"
-                                           placeholder="请输入关键词"
-                                           class="layui-input">
-                                </div>
-                                <div class="layui-col-md2">
-                                    <button type="submit" class="layui-btn layui-btn-normal" lay-submit=""
-                                            lay-filter="demo1"
-                                            style="margin-left: 4px">检索
-                                    </button>
-                                </div>
-                            </form>
+                            <div class="layui-col-md9">
+                                <input type="text" id="q" name="q" lay-verify="title" autocomplete="off"
+                                       placeholder="请输入关键词"
+                                       class="layui-input">
+                            </div>
+                            <div class="layui-col-md2">
+                                <button type="button" onclick="searchQ()" class="layui-btn layui-btn-normal"
+                                        lay-submit=""
+                                        lay-filter="demo1"
+                                        style="margin-left: 4px">检索
+                                </button>
+                            </div>
                         </div>
                         <hr style="background-color: #f2f2f2">
                     </div>

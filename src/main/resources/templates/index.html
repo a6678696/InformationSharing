@@ -116,14 +116,6 @@
     <!--其他-->
     <script th:inline="javascript">
 
-        if(window.name != "refresh"){
-            location.reload();
-            window.name = "refresh";
-        }
-        else{
-            window.name = "";
-        }
-
         window.onload = function () {
             var successLogin = [[${successLogin}]];
             if (successLogin == true) {
@@ -364,6 +356,21 @@
             window.location.href = "/toArticleFailureManagePage?name=" + articleName+"&state="+state;
         }
 
+        function submitData() {
+            var articleId=$("#commentArticleId").val();
+            var content=$("#commentContent").val();
+            window.location.href = "/comment/add?content=" + content+"&articleId="+articleId;
+        }
+
+        function searchQ() {
+            var q=$("#q").val();
+            if (q==null||q==""){
+                alert("请输入关键词");
+                return false;
+            }
+            window.location.href = "/article/q?q=" + q;
+        }
+
         //发送邮件
         function sendEmail() {
             var email = $("#emailSearchPassword").val();
@@ -377,6 +384,38 @@
                 }
             );
             alert("验证码已发送到您的邮箱:" + email + ",请查收...")
+        }
+
+        function deleteComment(id) {
+            if (confirm("您确定要删除这个评论吗?")) {
+                window.location.href = "/comment/delete?id=" + id;
+                alert("删除成功!");
+            }
+        }
+
+        //用户下载资源
+        function download(articleId) {
+            $.post("/checkIsDownload", {articleId: articleId},
+                function (result) {
+                    if (result.success) {
+                        if (confirm("您已经下载过这个资源,再次下载不需要积分,确定要继续下载吗?")) {
+                            window.location.href = "/toDownloadLink?articleId=" + articleId;
+                        }
+                    } else {
+                        $.post("/checkPoints", {articleId: articleId},
+                            function (result) {
+                                if (result.success) {
+                                    if (confirm("您确定要下载这个资源吗?")) {
+                                        window.location.href = "/toDownloadLink?articleId=" + articleId;
+                                    }
+                                } else {
+                                    alert("您的积分不够,不能下载!!")
+                                }
+                            }
+                        );
+                    }
+                }
+            );
         }
     </script>
 </head>

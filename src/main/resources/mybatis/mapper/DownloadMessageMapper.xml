@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--suppress ALL-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ledao.mapper.DownloadMessageMapper">
+    <resultMap id="DownloadMessageResult" type="DownloadMessage">
+        <result column="id" property="id"/>
+        <result column="userId" property="userId"/>
+        <result column="articleId" property="articleId"/>
+        <result column="message" property="message"/>
+        <result column="downloadDate" property="downloadDate"/>
+    </resultMap>
+
+    <select id="list" parameterType="map" resultMap="DownloadMessageResult">
+        select *
+        from t_download_message
+        <where>
+            <if test="articleId != null">
+                and articleId = #{articleId}
+            </if>
+            <if test="userId != null">
+                and userId=#{userId}
+            </if>
+        </where>
+        order by downloadDate desc
+        <if test="start != null and size != null">
+            limit #{start}, #{size}
+        </if>
+    </select>
+
+    <select id="getTotal" parameterType="map" resultType="java.lang.Long">
+        select count(*)
+        from t_download_message
+        <where>
+            <if test="articleId != null">
+                and articleId = #{articleId}
+            </if>
+            <if test="userId != null">
+                and userId=#{userId}
+            </if>
+        </where>
+    </select>
+
+    <insert id="add" parameterType="DownloadMessage">
+        insert into t_download_message (userId, articleId, message, downloadDate)
+        values (#{userId}, #{articleId}, #{message}, now());
+    </insert>
+</mapper>

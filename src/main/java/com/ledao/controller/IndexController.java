@@ -1,19 +1,14 @@
 package com.ledao.controller;
 
-import com.ledao.entity.Article;
-import com.ledao.entity.ArticleType;
-import com.ledao.entity.Link;
-import com.ledao.entity.User;
-import com.ledao.service.ArticleService;
-import com.ledao.service.ArticleTypeService;
-import com.ledao.service.LinkService;
-import com.ledao.service.UserService;
+import com.ledao.entity.*;
+import com.ledao.service.*;
 import com.ledao.util.PageUtil;
 import com.ledao.util.StringUtil;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -63,20 +58,26 @@ public class IndexController implements CommandLineRunner, ServletContextListene
     @Resource
     private LinkService linkService;
 
+    @Resource
+    private CommentService commentService;
+
+    @Resource
+    private DownloadMessageService downloadMessageService;
+
     /**
      * 首页地址
      *
      * @return
      */
     @RequestMapping("/")
-    public ModelAndView root(@RequestParam(value = "page",required = false)Integer page,@RequestParam(value = "articleTypeId",required = false)String articleTypeId) {
+    public ModelAndView root(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "articleTypeId", required = false) String articleTypeId) {
         this.loadSomeData();
         ModelAndView mav = new ModelAndView();
         if (page == null) {
-            page=1;
+            page = 1;
         }
-        int pageSize=10;
-        Map<String, Object> map=new HashMap<>(16);
+        int pageSize = 10;
+        Map<String, Object> map = new HashMap<>(16);
         map.put("start", (page - 1) * pageSize);
         map.put("size", pageSize);
         map.put("state", 2);
@@ -173,7 +174,7 @@ public class IndexController implements CommandLineRunner, ServletContextListene
      * @return
      */
     @RequestMapping("/toUserBackstagePage")
-    public ModelAndView toUserBackstagePage(){
+    public ModelAndView toUserBackstagePage() {
         ModelAndView mav = new ModelAndView();
         mav.addObject("title", "用户后台");
         mav.addObject("mainPage", "page/userBackstage");
@@ -188,7 +189,7 @@ public class IndexController implements CommandLineRunner, ServletContextListene
      * @return
      */
     @RequestMapping("/toPersonMessagePage")
-    public ModelAndView toPersonMessagePage(){
+    public ModelAndView toPersonMessagePage() {
         ModelAndView mav = new ModelAndView();
         mav.addObject("title", "个人信息");
         mav.addObject("mainPage", "page/personMessage");
@@ -203,7 +204,7 @@ public class IndexController implements CommandLineRunner, ServletContextListene
      * @return
      */
     @RequestMapping("/toPersonMessageUpdatePage")
-    public ModelAndView toPersonMessageUpdatePage(){
+    public ModelAndView toPersonMessageUpdatePage() {
         ModelAndView mav = new ModelAndView();
         mav.addObject("title", "个人信息修改");
         mav.addObject("mainPage", "page/updatePersonMessage");
@@ -218,7 +219,7 @@ public class IndexController implements CommandLineRunner, ServletContextListene
      * @return
      */
     @RequestMapping("/toWriteArticlePage")
-    public ModelAndView toWriteArticlePage(){
+    public ModelAndView toWriteArticlePage() {
         List<ArticleType> articleTypeList = articleTypeService.list(null);
         ModelAndView mav = new ModelAndView();
         mav.addObject("articleTypeList", articleTypeList);
@@ -235,24 +236,24 @@ public class IndexController implements CommandLineRunner, ServletContextListene
      * @return
      */
     @RequestMapping("/toArticleManagePage")
-    public ModelAndView toArticleManagePage(@RequestParam(value = "page",required = false)Integer page,@RequestParam(value = "name",required = false)String name,@RequestParam(value = "state",required = false)Integer state,HttpSession session){
+    public ModelAndView toArticleManagePage(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "state", required = false) Integer state, HttpSession session) {
         if (page == null) {
-            page=1;
+            page = 1;
         }
-        int pageSize=7;
-        Map<String, Object> map=new HashMap<>(16);
+        int pageSize = 7;
+        Map<String, Object> map = new HashMap<>(16);
         map.put("start", (page - 1) * pageSize);
         map.put("size", pageSize);
         User currentUser = (User) session.getAttribute("currentUser");
-        map.put("userId",currentUser.getId());
-        map.put("sortByPublishDate",1);
-        map.put("isUseful",1);
+        map.put("userId", currentUser.getId());
+        map.put("sortByPublishDate", 1);
+        map.put("isUseful", 1);
         StringBuffer param = new StringBuffer();
         if (StringUtil.isNotEmpty(name)) {
             param.append("&name=" + name);
             map.put("name", StringUtil.formatLike(name));
         }
-        if (state!=null) {
+        if (state != null) {
             param.append("&state=" + state);
             map.put("state", state);
         }
@@ -279,7 +280,7 @@ public class IndexController implements CommandLineRunner, ServletContextListene
      * @return
      */
     @RequestMapping("/toUpdateArticlePage")
-    public ModelAndView toUpdateArticlePage(Integer id){
+    public ModelAndView toUpdateArticlePage(Integer id) {
         List<ArticleType> articleTypeList = articleTypeService.list(null);
         ModelAndView mav = new ModelAndView();
         Article article = articleService.findById(id);
@@ -301,24 +302,24 @@ public class IndexController implements CommandLineRunner, ServletContextListene
      * @return
      */
     @RequestMapping("/toArticleFailureManagePage")
-    public ModelAndView toArticleFailureManagePage(@RequestParam(value = "page",required = false)Integer page,@RequestParam(value = "name",required = false)String name,@RequestParam(value = "state",required = false)Integer state,HttpSession session){
+    public ModelAndView toArticleFailureManagePage(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "state", required = false) Integer state, HttpSession session) {
         if (page == null) {
-            page=1;
+            page = 1;
         }
-        int pageSize=7;
-        Map<String, Object> map=new HashMap<>(16);
+        int pageSize = 7;
+        Map<String, Object> map = new HashMap<>(16);
         map.put("start", (page - 1) * pageSize);
         map.put("size", pageSize);
         User currentUser = (User) session.getAttribute("currentUser");
-        map.put("userId",currentUser.getId());
-        map.put("sortByPublishDate",1);
-        map.put("isUseful",0);
+        map.put("userId", currentUser.getId());
+        map.put("sortByPublishDate", 1);
+        map.put("isUseful", 0);
         StringBuffer param = new StringBuffer();
         if (StringUtil.isNotEmpty(name)) {
             param.append("&name=" + name);
             map.put("name", StringUtil.formatLike(name));
         }
-        if (state!=null) {
+        if (state != null) {
             param.append("&state=" + state);
             map.put("state", state);
         }
@@ -334,6 +335,180 @@ public class IndexController implements CommandLineRunner, ServletContextListene
         mav.addObject("pageCode", PageUtil.genPagination2("/toArticleFailureManagePage", total, page, pageSize, param.toString()));
         mav.addObject("title", "失效资源管理");
         mav.addObject("mainPage", "page/FailureResourceManage");
+        mav.addObject("mainPageKey", "#b");
+        mav.setViewName("index");
+        return mav;
+    }
+
+    /**
+     * 跳转到评论管理页面
+     *
+     * @return
+     */
+    @RequestMapping("/toCommentManagePage")
+    public ModelAndView toCommentManagePage(@RequestParam(value = "page", required = false) Integer page, HttpSession session) {
+        if (page == null) {
+            page = 1;
+        }
+        int pageSize = 10;
+        ModelAndView mav = new ModelAndView();
+        Map<String, Object> map = new HashMap<>(16);
+        User currentUser = (User) session.getAttribute("currentUser");
+        map.put("articleAuthorId", currentUser.getId());
+        map.put("start", (page - 1) * pageSize);
+        map.put("size", pageSize);
+        List<Comment> commentList = commentService.list(map);
+        for (Comment comment : commentList) {
+            comment.setArticle(articleService.findById(comment.getArticleId()));
+            comment.setUser(userService.findById(comment.getUserId()));
+        }
+        Long total = commentService.getTotal(map);
+        mav.addObject("pageCode", PageUtil.genPagination2("/toCommentManagePage", total, page, pageSize, "&"));
+        mav.addObject("commentList", commentList);
+        mav.addObject("title", "评论管理");
+        mav.addObject("mainPage", "page/commentManage");
+        mav.addObject("mainPageKey", "#b");
+        mav.setViewName("index");
+        return mav;
+    }
+
+    @RequestMapping("/toDownloadLink")
+    public ModelAndView toDownloadLink(Integer articleId, HttpSession session) {
+        Article article = articleService.findById(articleId);
+        User currentUser = (User) session.getAttribute("currentUser");
+        User author = userService.findById(article.getUserId());
+        String roleName = "普通用户";
+        Map<String, Object> map = new HashMap<>(16);
+        map.put("articleId", articleId);
+        map.put("userId", currentUser.getId());
+        Long total = downloadMessageService.getTotal(map);
+        //用户没下载过这个资源
+        if (total == 0) {
+            if (currentUser.getRoleName().equals(roleName)) {
+                //下载者积分充足
+                if (currentUser.getPoints() >= article.getPoints()) {
+                    //下载者减去积分
+                    currentUser.setPoints(currentUser.getPoints() - article.getPoints());
+                    userService.update(currentUser);
+                    session.setAttribute("currentUser", userService.findById(currentUser.getId()));
+                    //资源作者获得积分
+                    author.setPoints(author.getPoints() + article.getPoints());
+                    userService.update(author);
+                    DownloadMessage downloadMessage = new DownloadMessage();
+                    downloadMessage.setArticleId(articleId);
+                    downloadMessage.setMessage("下载了：" + article.getName());
+                    downloadMessage.setUserId(currentUser.getId());
+                    downloadMessageService.add(downloadMessage);
+                    ModelAndView mav = new ModelAndView();
+                    mav.addObject("article", article);
+                    mav.addObject("title", "资源分享链接(" + article.getName() + ")");
+                    mav.addObject("mainPage", "page/downloadLink");
+                    mav.addObject("mainPageKey", "#b");
+                    mav.setViewName("index");
+                    return mav;
+                } else {
+                    ModelAndView mav = new ModelAndView("redirect:/article/" + articleId);
+                    return mav;
+                }
+            } else {
+                //资源被VIP用户下载只能获得一半的积分
+                author.setPoints(author.getPoints() + article.getPoints()/2);
+                userService.update(author);
+                DownloadMessage downloadMessage = new DownloadMessage();
+                downloadMessage.setArticleId(articleId);
+                downloadMessage.setMessage("下载了：" + article.getName());
+                downloadMessage.setUserId(currentUser.getId());
+                downloadMessageService.add(downloadMessage);
+                ModelAndView mav = new ModelAndView();
+                mav.addObject("article", article);
+                mav.addObject("title", "资源分享链接(" + article.getName() + ")");
+                mav.addObject("mainPage", "page/downloadLink");
+                mav.addObject("mainPageKey", "#b");
+                mav.setViewName("index");
+                return mav;
+            }
+        } else {
+            ModelAndView mav = new ModelAndView();
+            mav.addObject("article", article);
+            mav.addObject("title", "资源分享链接(" + article.getName() + ")");
+            mav.addObject("mainPage", "page/downloadLink");
+            mav.addObject("mainPageKey", "#b");
+            mav.setViewName("index");
+            return mav;
+        }
+    }
+
+    /**
+     * 用户下载资源时判断积分是否足够
+     *
+     * @param articleId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/checkPoints")
+    public Map<String, Object> checkPoints(Integer articleId, HttpSession session) {
+        String roleNameVIP = "VIP用户";
+        Article article = articleService.findById(articleId);
+        User currentUser = (User) session.getAttribute("currentUser");
+        Map<String, Object> resultMap = new HashMap<>(16);
+        if (currentUser.getPoints() >= article.getPoints()) {
+            resultMap.put("success", true);
+        } else {
+            if (currentUser.getRoleName().equals(roleNameVIP)) {
+                resultMap.put("success", true);
+            } else {
+                resultMap.put("success", false);
+            }
+        }
+        return resultMap;
+    }
+
+    /**
+     * 用户是否下载过资源
+     *
+     * @param articleId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/checkIsDownload")
+    public Map<String, Object> checkIsDownload(Integer articleId, HttpSession session) {
+        User currentUser = (User) session.getAttribute("currentUser");
+        Map<String, Object> map = new HashMap<>(16);
+        map.put("articleId", articleId);
+        map.put("userId", currentUser.getId());
+        Long total = downloadMessageService.getTotal(map);
+        Map<String, Object> resultMap = new HashMap<>(16);
+        if (total > 0) {
+            resultMap.put("success", true);
+        } else {
+            resultMap.put("success", false);
+        }
+        return resultMap;
+    }
+
+    /**
+     * 跳转到查看我的下载页面
+     *
+     * @return
+     */
+    @RequestMapping("/toMyDownloadPage")
+    public ModelAndView toMyDownloadPage(@RequestParam(value = "page", required = false) Integer page, HttpSession session) {
+        if (page == null) {
+            page = 1;
+        }
+        int pageSize = 10;
+        ModelAndView mav = new ModelAndView();
+        Map<String, Object> map = new HashMap<>(16);
+        User currentUser = (User) session.getAttribute("currentUser");
+        map.put("userId", currentUser.getId());
+        map.put("start", (page - 1) * pageSize);
+        map.put("size", pageSize);
+        List<DownloadMessage> downloadMessageList = downloadMessageService.list(map);
+        Long total = downloadMessageService.getTotal(map);
+        mav.addObject("pageCode", PageUtil.genPagination2("/toMyDownloadPage", total, page, pageSize, "&"));
+        mav.addObject("downloadMessageList", downloadMessageList);
+        mav.addObject("title", "评论管理");
+        mav.addObject("mainPage", "page/myDownload");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
         return mav;

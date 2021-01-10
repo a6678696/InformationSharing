@@ -45,19 +45,17 @@
                             <div class="layui-col-md1">
                                 <span style="color: #8D8D8D">关键词:</span>
                             </div>
-                            <form action="/article/q" method="post">
                                 <div class="layui-col-md9">
-                                    <input type="text" name="q" lay-verify="title" autocomplete="off"
+                                    <input type="text" id="q" name="q" lay-verify="title" autocomplete="off"
                                            placeholder="请输入关键词"
                                            class="layui-input">
                                 </div>
                                 <div class="layui-col-md2">
-                                    <button type="submit" class="layui-btn layui-btn-normal" lay-submit=""
-                                            lay-filter="demo1"
+                                    <button type="button" class="layui-btn layui-btn-normal" lay-submit=""
+                                            lay-filter="demo1" onclick="searchQ()"
                                             style="margin-left: 4px">检索
                                     </button>
                                 </div>
-                            </form>
                         </div>
                         <hr style="background-color: #f2f2f2">
                     </div>
@@ -76,7 +74,7 @@
                         <a th:href="@{'/article/'+${article.id}}" class="layui-btn layui-btn-sm" style="margin-top: 5px">查看详情</a>
                         <hr style="color: grey">
                     </div>
-                    <p style="text-align: center" th:if="${articleList.size>=3}">
+                    <p style="text-align: center">
                         <font th:utext="${pageCode}"></font>
                     </p>
                 </blockquote>
