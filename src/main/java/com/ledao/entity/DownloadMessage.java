@@ -24,6 +24,10 @@ public class DownloadMessage {
      */
     private Integer articleId;
     /**
+     * 资源实体
+     */
+    private Article article;
+    /**
      * 下载信息
      */
     private String message;
@@ -70,5 +74,13 @@ public class DownloadMessage {
 
     public void setDownloadDate(Date downloadDate) {
         this.downloadDate = downloadDate;
+    }
+
+    public Article getArticle() {
+        return article;
+    }
+
+    public void setArticle(Article article) {
+        this.article = article;
     }
 }

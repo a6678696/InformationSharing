@@ -47,6 +47,10 @@ public class Comment {
      * 资源作者实体
      */
     private User articleAuthor;
+    /**
+     * 状态 0表示未审核 1代表审核通过 2.代表审核不通过
+     */
+    private Integer state;
 
     public Integer getId() {
         return id;
@@ -118,5 +122,13 @@ public class Comment {
 
     public void setArticleAuthor(User articleAuthor) {
         this.articleAuthor = articleAuthor;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 }

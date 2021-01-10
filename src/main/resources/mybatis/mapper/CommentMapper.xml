@@ -9,6 +9,7 @@
         <result column="commentContent" property="commentContent"/>
         <result column="date" property="date"/>
         <result column="articleAuthorId" property="articleAuthorId"/>
+        <result column="state" property="state"/>
     </resultMap>
 
     <select id="list" parameterType="map" resultMap="CommentResult">
@@ -23,6 +24,9 @@
             </if>
             <if test="articleAuthorId != null">
                 and articleAuthorId=#{articleAuthorId}
+            </if>
+            <if test="state != null">
+                and state=#{state}
             </if>
         </where>
         order by date desc
@@ -44,12 +48,15 @@
             <if test="articleAuthorId != null">
                 and articleAuthorId=#{articleAuthorId}
             </if>
+            <if test="state != null">
+                and state=#{state}
+            </if>
         </where>
     </select>
 
     <insert id="add" parameterType="Comment">
-        insert into t_comment (userId, articleId, commentContent,date,articleAuthorId)
-        values (#{userId}, #{articleId}, #{commentContent},now(),#{articleAuthorId});
+        insert into t_comment (userId, articleId, commentContent,date,articleAuthorId,state)
+        values (#{userId}, #{articleId}, #{commentContent},now(),#{articleAuthorId},#{state});
     </insert>
 
     <delete id="deleteById" parameterType="integer">

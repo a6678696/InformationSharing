@@ -428,6 +428,11 @@ public class IndexController implements CommandLineRunner, ServletContextListene
                 return mav;
             }
         } else {
+            DownloadMessage downloadMessage = new DownloadMessage();
+            downloadMessage.setArticleId(articleId);
+            downloadMessage.setMessage("下载了：" + article.getName());
+            downloadMessage.setUserId(currentUser.getId());
+            downloadMessageService.add(downloadMessage);
             ModelAndView mav = new ModelAndView();
             mav.addObject("article", article);
             mav.addObject("title", "资源分享链接(" + article.getName() + ")");
@@ -504,10 +509,13 @@ public class IndexController implements CommandLineRunner, ServletContextListene
         map.put("start", (page - 1) * pageSize);
         map.put("size", pageSize);
         List<DownloadMessage> downloadMessageList = downloadMessageService.list(map);
+        for (DownloadMessage downloadMessage : downloadMessageList) {
+            downloadMessage.setArticle(articleService.findById(downloadMessage.getArticleId()));
+        }
         Long total = downloadMessageService.getTotal(map);
         mav.addObject("pageCode", PageUtil.genPagination2("/toMyDownloadPage", total, page, pageSize, "&"));
         mav.addObject("downloadMessageList", downloadMessageList);
-        mav.addObject("title", "评论管理");
+        mav.addObject("title", "已下载资源");
         mav.addObject("mainPage", "page/myDownload");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");

@@ -33,10 +33,10 @@
                             <span style="color: #8D8D8D">资源类别:</span>
                         </div>
                         <div class="layui-col-md11">
-                            <a href="/" th:style="${articleTypeId==null?'color:red;float: left':'float: left'}">全部</a>
+                            <a href="/" th:style="${articleTypeId==null?'color:red;float: left':'float: left;color:#1e9fff'}">全部</a>
                             <div th:each="articleType:${application.articleTypeList}">
                                 <a th:href="@{'/?page=1&articleTypeId='+${articleType.id}}"
-                                   th:style="${articleTypeId == ''+articleType.id+''?'margin-left: 6px;color:red;float: left':'margin-left: 6px;float: left'}"
+                                   th:style="${articleTypeId == ''+articleType.id+''?'margin-left: 6px;color:red;float: left':'margin-left: 6px;float: left;color:#1e9fff'}"
                                    th:text="${articleType.name}"></a>
                             </div>
                         </div>
@@ -90,7 +90,7 @@
                         </thead>
                         <tbody>
                         <tr th:each="article:${articleList}">
-                            <td style="text-align: center"><a th:href="@{'/article/'+${article.id}}"
+                            <td style="text-align: center"><a style="color: #1e9fff" th:href="@{'/article/'+${article.id}}"
                                                               th:text="${#strings.abbreviate(article.name,22)}"
                                                               th:title="${article.name}"></a></td>
                             <td style="text-align: center"><span th:text="${article.click}"></span>&nbsp;次</td>
@@ -115,7 +115,7 @@
                 <strong><i class="layui-icon layui-icon-fire" style="font-size: 16px">热门资源</i></strong>
                 <hr class="layui-bg-blue">
                 <div th:each="articleHot:${application.articleListHot}" th:if="${articleHotStat.count<=30}">
-                    <p><a th:href="@{'/article/'+${articleHot.id}}" th:text="${#strings.abbreviate(articleHot.name,20)}"
+                    <p><a style="color: #1e9fff" th:href="@{'/article/'+${articleHot.id}}" th:text="${#strings.abbreviate(articleHot.name,20)}"
                           th:title="${articleHot.name}"></a></p>
                 </div>
             </blockquote>
@@ -126,7 +126,7 @@
                 <strong><i class="layui-icon layui-icon-link" style="font-size: 16px">友情链接</i></strong>
                 <hr class="layui-bg-blue">
                 <div th:each="link:${application.linkList}">
-                    <a th:href="${link.url}" th:text="${link.name+'&nbsp;&nbsp;'}" style="float: left"></a>
+                    <a th:href="${link.url}" th:text="${link.name+'&nbsp;&nbsp;'}" style="float: left;color: #1e9fff"></a>
                 </div>
                 <span style="color: #f2f2f2">1</span>
             </blockquote>

@@ -73,7 +73,7 @@
                         </thead>
                         <tbody>
                         <tr th:each="article:${articleList}">
-                            <td style="text-align: center" th:text="${#strings.abbreviate(article.name,16)}"
+                            <td style="text-align: center;color: #1e9fff" th:text="${#strings.abbreviate(article.name,16)}"
                                 th:title="${article.name}"></td>
                             <td style="text-align: center" th:text="${article.articleType.name}"></td>
                             <td style="text-align: center" th:text="${article.points}"></td>

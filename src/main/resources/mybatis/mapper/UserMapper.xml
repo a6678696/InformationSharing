@@ -54,7 +54,7 @@
     <insert id="add" parameterType="User">
         insert into t_user (userName, password, nickName, email, imageName, points, isVip, isOff, roleName,
                             registerDate)
-        values (#{userName}, #{password}, #{nickName}, #{email}, #{imageName}, 0, 0, 0, "普通用户", now());
+        values (#{userName}, #{password}, #{nickName}, #{email}, #{imageName}, 100, 0, 0, "普通用户", now());
     </insert>
 
     <update id="update" parameterType="User">

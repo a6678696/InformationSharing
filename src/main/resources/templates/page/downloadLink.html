@@ -29,7 +29,7 @@
                     <strong><i class="layui-icon layui-icon-component" style="font-size: 16px">资源分享地址</i></strong>
                     <hr class="layui-bg-blue">
                     <p>
-                    <h2>资源名称:<span style="color: #0f74a8" th:text="${article.name}"></span></h2></p>
+                    <h2>资源名称:<span style="color: #1e9fff" th:text="${article.name}"></span></h2></p>
                     <p style="margin-top: 10px">
                     <h2>分享地址:<span style="color: red" th:text="${article.downloadLink}"></span></h2></p>
                     <p style="margin-top: 10px">
@@ -46,7 +46,7 @@
                 <strong><i class="layui-icon layui-icon-fire" style="font-size: 16px">热门资源</i></strong>
                 <hr class="layui-bg-blue">
                 <div th:each="articleHot:${application.articleListHot}">
-                    <p><a th:href="@{'/article/'+${articleHot.id}}" th:text="${#strings.abbreviate(articleHot.name,20)}"
+                    <p><a style="color: #1e9fff" th:href="@{'/article/'+${articleHot.id}}" th:text="${#strings.abbreviate(articleHot.name,20)}"
                           th:title="${articleHot.name}"></a></p>
                 </div>
             </blockquote>
@@ -57,7 +57,7 @@
                 <strong><i class="layui-icon layui-icon-link" style="font-size: 16px">友情链接</i></strong>
                 <hr class="layui-bg-blue">
                 <div th:each="link:${application.linkList}">
-                    <a th:href="${link.url}" th:text="${link.name+'&nbsp;&nbsp;'}" style="float: left"></a>
+                    <a th:href="${link.url}" th:text="${link.name+'&nbsp;&nbsp;'}" style="float: left;color: #1e9fff"></a>
                 </div>
                 <span style="color: #f2f2f2">1</span>
             </blockquote>

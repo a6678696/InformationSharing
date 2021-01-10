@@ -23,7 +23,7 @@
                 </div>
                 <div>
                     <div th:each="downloadMessage:${downloadMessageList}">
-                        <h3><p style="margin-top: 10px">[<span th:text="${#dates.format(downloadMessage.downloadDate,'yyyy-MM-dd HH:mm:ss')}"></span>]&nbsp;&nbsp;<span th:text="${downloadMessage.message}"></span></p></h3>
+                        <h3><p style="margin-top: 10px">[<span th:text="${#dates.format(downloadMessage.downloadDate,'yyyy-MM-dd HH:mm:ss')}"></span>]&nbsp;&nbsp;-----下载了：<a style="color: #1e9fff" th:href="${'/article/'+downloadMessage.articleId}" th:text="${downloadMessage.article.name}"></a></p></h3>
                     </div>
                     <div align="center">
                         <div class="layui-box layui-laypage" th:utext="${pageCode}">

@@ -22,13 +22,13 @@
                     </p>
                 </div>
                 <div>
-                    <p style="margin-top: 10px">(<span style="color: red">友情提示:把鼠标停在评论内容和评论帖子上可以看到详细信息</span>)</p>
+                    <p style="margin-top: 10px">(<span style="color: red">友情提示:把鼠标停在评论内容和评论帖子上可以看到详细信息,停在评论用户上可以看到评论的状态,用户名如果是蓝色则代表评论未审核,绿色代表审核通过,红色代表审核不通过</span>)</p>
                     <table class="layui-table">
                         <colgroup>
-                            <col width="400">
+                            <col width="322">
                             <col width="250">
-                            <col width="150">
-                            <col width="170">
+                            <col width="122">
+                            <col width="122">
                             <col width="100">
                         </colgroup>
                         <thead>
@@ -43,10 +43,10 @@
                         <tbody>
                         <tr th:each="comment:${commentList}">
                             <td style="text-align: center" th:text="${#strings.abbreviate(comment.commentContent,18)}" th:title="${comment.commentContent}"></td>
-                            <td style="text-align: center" th:text="${#strings.abbreviate(comment.article.name,16)}" th:title="${comment.article.name}"></td>
+                            <td style="text-align: center" th:title="${comment.article.name}"><a style="color: #1e9fff" th:href="${'/article/'+comment.articleId}" th:text="${#strings.abbreviate(comment.article.name,16)}"></a></td>
                             <td style="text-align: center"
                                 th:text="${#dates.format(comment.date,'yyyy-MM-dd')}"></td>
-                            <td style="text-align: center" th:text="${comment.user.nickName}"></td>
+                            <td th:text="${comment.user.nickName}" th:title="${comment.state==0?'未审核':(comment.state==1?'审核通过':'审核不通过')}" th:style="${comment.state==0?'color:blue;text-align: center':(comment.state==1?'color:green;text-align: center':'color:red;text-align: center')}"></td>
                             <td style="text-align: center">
                                 <a th:href="'javascript:deleteComment('+${comment.id}+')'"
                                    class="layui-btn layui-btn-danger layui-btn-sm"><i

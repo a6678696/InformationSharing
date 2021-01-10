@@ -33,10 +33,10 @@
                             <span style="color: #8D8D8D">资源类别:</span>
                         </div>
                         <div class="layui-col-md11">
-                            <a href="/" th:style="${articleTypeId==null?'color:red;float: left':'float: left'}">全部</a>
+                            <a href="/" th:style="${articleTypeId==null?'color:red;float: left':'float: left;color:#1e9fff'}">全部</a>
                             <div th:each="articleType:${application.articleTypeList}">
                                 <a th:href="@{'/?page=1&articleTypeId='+${articleType.id}}"
-                                   th:style="${articleTypeId == ''+articleType.id+''?'margin-left: 6px;color:red;float: left':'margin-left: 6px;float: left'}"
+                                   th:style="${articleTypeId == ''+articleType.id+''?'margin-left: 6px;color:red;float: left':'margin-left: 6px;float: left;color:#1e9fff'}"
                                    th:text="${articleType.name}"></a>
                             </div>
                         </div>
@@ -67,7 +67,7 @@
                     <strong><i class="layui-icon layui-icon-template-1" style="font-size: 16px">搜索结果</i></strong><span style="float: right">(关于<span style="color: red" th:text="${q}"></span>的资源,共有 <span style="color: red" th:text="${resultTotal}"></span> 个)</span></span>
                     <hr class="layui-bg-blue">
                     <div th:each="article:${articleList}">
-                        <a th:href="'/article/'+${article.getId()}" style="text-decoration: none;color: #0f74a8"><h3
+                        <a th:href="'/article/'+${article.getId()}" style="text-decoration: none;color: #1e9fff"><h3
                                 th:utext="${article.name}"></h3></a>
                         <p style="color: grey;margin-top: 10px">上传者:<span th:text="${article.user.nickName}"></span>&nbsp;&nbsp;上传时间:<span th:text="${#dates.format(article.publishDate,'yyyy-MM-dd')}"></span>&nbsp;&nbsp;类别:<span th:text="${article.articleType.name}"></span>&nbsp;&nbsp;所需积分:<span th:text="${article.points}"></span></p>
                         <p style="margin-top: 10px" th:utext="${article.content}"></p>
@@ -86,7 +86,7 @@
                 <strong><i class="layui-icon layui-icon-fire" style="font-size: 16px">热门资源</i></strong>
                 <hr class="layui-bg-blue">
                 <div th:each="articleHot:${application.articleListHot}">
-                    <p><a th:href="@{'/article/'+${articleHot.id}}" th:text="${#strings.abbreviate(articleHot.name,20)}"
+                    <p><a style="color: #1e9fff" th:href="@{'/article/'+${articleHot.id}}" th:text="${#strings.abbreviate(articleHot.name,20)}"
                           th:title="${articleHot.name}"></a></p>
                 </div>
             </blockquote>
@@ -97,7 +97,7 @@
                 <strong><i class="layui-icon layui-icon-link" style="font-size: 16px">友情链接</i></strong>
                 <hr class="layui-bg-blue">
                 <div th:each="link:${application.linkList}">
-                    <a th:href="${link.url}" th:text="${link.name+'&nbsp;&nbsp;'}" style="float: left"></a>
+                    <a th:href="${link.url}" th:text="${link.name+'&nbsp;&nbsp;'}" style="float: left;color: #1e9fff"></a>
                 </div>
                 <span style="color: #f2f2f2">1</span>
             </blockquote>

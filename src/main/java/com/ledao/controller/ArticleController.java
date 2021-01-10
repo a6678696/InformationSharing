@@ -163,6 +163,7 @@ public class ArticleController {
         article.setArticleType(articleTypeService.findById(article.getArticleTypeId()));
         Map<String, Object> map = new HashMap<>(16);
         map.put("articleId", id);
+        map.put("state", 1);
         List<Comment> commentList = commentService.list(map);
         for (Comment comment1 : commentList) {
             comment1.setUser(userService.findById(comment1.getUserId()));
