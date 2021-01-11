@@ -59,6 +59,7 @@ public class CommentController {
         article.setUser(currentUser);
         article.setArticleType(articleTypeService.findById(article.getArticleTypeId()));
         Map<String, Object> map = new HashMap<>(16);
+        map.put("state", 1);
         map.put("articleId", articleId);
         comment.setUserId(currentUser.getId());
         comment.setArticleId(articleId);
@@ -69,6 +70,7 @@ public class CommentController {
         for (Comment comment1 : commentList) {
             comment1.setUser(userService.findById(comment1.getUserId()));
         }
+        mav.addObject("addCommentSuccess", true);
         mav.addObject("article", article);
         mav.addObject("commentList", commentList);
         mav.addObject("title", article.getName());

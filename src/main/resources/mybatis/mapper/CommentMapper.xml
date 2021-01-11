@@ -56,7 +56,7 @@
 
     <insert id="add" parameterType="Comment">
         insert into t_comment (userId, articleId, commentContent,date,articleAuthorId,state)
-        values (#{userId}, #{articleId}, #{commentContent},now(),#{articleAuthorId},#{state});
+        values (#{userId}, #{articleId}, #{commentContent},now(),#{articleAuthorId},0);
     </insert>
 
     <delete id="deleteById" parameterType="integer">

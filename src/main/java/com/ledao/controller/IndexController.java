@@ -129,13 +129,19 @@ public class IndexController implements CommandLineRunner, ServletContextListene
      * @return
      */
     @RequestMapping("/toLoginPage")
-    public ModelAndView toLoginPage() {
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("title", "用户登录");
-        mav.addObject("mainPage", "page/login");
-        mav.addObject("mainPageKey", "#b");
-        mav.setViewName("index");
-        return mav;
+    public ModelAndView toLoginPage(HttpSession session) {
+        User currentUser = (User) session.getAttribute("currentUser");
+        if (currentUser != null) {
+            ModelAndView mav = new ModelAndView("redirect:/");
+            return mav;
+        } else {
+            ModelAndView mav = new ModelAndView();
+            mav.addObject("title", "用户登录");
+            mav.addObject("mainPage", "page/login");
+            mav.addObject("mainPageKey", "#b");
+            mav.setViewName("index");
+            return mav;
+        }
     }
 
     /**
@@ -144,13 +150,19 @@ public class IndexController implements CommandLineRunner, ServletContextListene
      * @return
      */
     @RequestMapping("/toRegisterPage")
-    public ModelAndView toRegisterPage() {
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("title", "用户注册");
-        mav.addObject("mainPage", "page/register");
-        mav.addObject("mainPageKey", "#b");
-        mav.setViewName("index");
-        return mav;
+    public ModelAndView toRegisterPage(HttpSession session) {
+        User currentUser = (User) session.getAttribute("currentUser");
+        if (currentUser != null) {
+            ModelAndView mav = new ModelAndView("redirect:/");
+            return mav;
+        } else {
+            ModelAndView mav = new ModelAndView();
+            mav.addObject("title", "用户注册");
+            mav.addObject("mainPage", "page/register");
+            mav.addObject("mainPageKey", "#b");
+            mav.setViewName("index");
+            return mav;
+        }
     }
 
     /**

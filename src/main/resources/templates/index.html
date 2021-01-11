@@ -147,6 +147,10 @@
             if (writeArticleSuccess == true) {
                 alert("发布资源成功!");
             }
+            var addCommentSuccess = [[${addCommentSuccess}]];
+            if (addCommentSuccess == true) {
+                alert("评论成功,通过审核后才能显示!");
+            }
             var articleSearchState = [[${articleSearchState}]];
             if (articleSearchState == null) {
                 $('#state').val();
