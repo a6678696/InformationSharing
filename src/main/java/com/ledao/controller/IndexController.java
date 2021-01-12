@@ -64,6 +64,9 @@ public class IndexController implements CommandLineRunner, ServletContextListene
     @Resource
     private DownloadMessageService downloadMessageService;
 
+    @Resource
+    private InformationService informationService;
+
     /**
      * 首页地址
      *
@@ -424,7 +427,7 @@ public class IndexController implements CommandLineRunner, ServletContextListene
                 }
             } else {
                 //资源被VIP用户下载只能获得一半的积分
-                author.setPoints(author.getPoints() + article.getPoints()/2);
+                author.setPoints(author.getPoints() + article.getPoints() / 2);
                 userService.update(author);
                 DownloadMessage downloadMessage = new DownloadMessage();
                 downloadMessage.setArticleId(articleId);
@@ -529,6 +532,35 @@ public class IndexController implements CommandLineRunner, ServletContextListene
         mav.addObject("downloadMessageList", downloadMessageList);
         mav.addObject("title", "已下载资源");
         mav.addObject("mainPage", "page/myDownload");
+        mav.addObject("mainPageKey", "#b");
+        mav.setViewName("index");
+        return mav;
+    }
+
+    /**
+     * 跳转到系统消息页面
+     *
+     * @param session
+     * @return
+     */
+    @RequestMapping("/toInformationPage")
+    public ModelAndView toInformationPage(@RequestParam(value = "page",required = false)Integer page,HttpSession session) {
+        if (page == null) {
+            page=1;
+        }
+        int pageSize=10;
+        User currentUser = (User) session.getAttribute("currentUser");
+        Map<String, Object> map = new HashMap<>(16);
+        map.put("userId", currentUser.getId());
+        map.put("start", (page - 1) * pageSize);
+        map.put("size", pageSize);
+        List<Information> informationList = informationService.list(map);
+        Long total = informationService.getTotal(map);
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("informationList", informationList);
+        mav.addObject("pageCode", PageUtil.genPagination2("/toInformationPage", total, page, pageSize, "&"));
+        mav.addObject("title", "系统消息");
+        mav.addObject("mainPage", "page/myInformation");
         mav.addObject("mainPageKey", "#b");
         mav.setViewName("index");
         return mav;

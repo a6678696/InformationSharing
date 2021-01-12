@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="b">
+    <div>
+        <div class="layui-col-md3">
+            <div th:include="common/menuLeft::#m"></div>
+        </div>
+        <div class="layui-col-md9">
+            <form action="/toArticleManagePage" method="post" class="layui-form">
+                <div style="margin-top: 24px">
+                    <p class="layui-breadcrumb">
+                        <i class="layui-icon layui-icon-location">当前位置：</i>
+                        <a href="">首页</a>
+                        <a href="/toUserBackstagePage">个人中心</a>
+                        <a><cite>系统消息</cite><span style="color: red">（鼠标停在<span style="color: #1e9fff">消息内容</span>上可以看到详细信息）</span></a>
+                    </p>
+                </div>
+                <div>
+                    <div th:each="information:${informationList}">
+                        <h3><p style="margin-top: 10px">[<span th:text="${#dates.format(information.date,'yyyy-MM-dd HH:mm:ss')}"></span>]&nbsp;&nbsp;：<span style="color: #1e9fff" th:title="${information.content}" th:text="${#strings.abbreviate(information.content,40)}"></span></p></h3>
+                    </div>
+                    <div align="center">
+                        <div class="layui-box layui-laypage" th:utext="${pageCode}">
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
