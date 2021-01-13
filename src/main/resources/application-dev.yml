@@ -49,10 +49,11 @@ userImageFilePath: E://IdeaProjects/ActualCombat/InformationSharing/src/main/web
 #文章图片存储地址
 articleImageFilePath: E://IdeaProjects/ActualCombat/InformationSharing/src/main/webapp/static/images/articleImage/
 
-#mybatis的相关配置
+#mybatis配置
 mybatis:
-  #mapper配置文件
+  #配置SQL映射文件路径
   mapper-locations: classpath:mybatis/mapper/*.xml
+  #配置别名
   type-aliases-package: com.ledao.entity
   #开启驼峰命名
   configuration:
