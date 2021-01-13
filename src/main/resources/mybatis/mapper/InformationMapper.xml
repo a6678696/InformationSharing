@@ -11,7 +11,7 @@
 
     <select id="list" parameterType="map" resultMap="InformationResult">
         select *
-        from int_formation
+        from t_information
         <where>
             <if test="userId != null">
                 and userId = #{userId}
@@ -25,7 +25,7 @@
 
     <select id="getTotal" parameterType="map" resultType="java.lang.Long">
         select count(*)
-        from int_formation
+        from t_information
         <where>
             <if test="userId != null">
                 and userId = #{userId}
@@ -34,12 +34,12 @@
     </select>
 
     <insert id="add" parameterType="Information">
-        insert into int_formation (userId, content, date)
+        insert into t_information (userId, content, date)
         values (#{userId}, #{content}, now());
     </insert>
 
     <update id="update" parameterType="Information">
-        update int_formation
+        update t_information
         <set>
             <if test="userId != null">
                 userId=#{userId},

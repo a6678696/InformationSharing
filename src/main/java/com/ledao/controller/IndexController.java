@@ -565,4 +565,49 @@ public class IndexController implements CommandLineRunner, ServletContextListene
         mav.setViewName("index");
         return mav;
     }
+
+    /**
+     * 登录请求
+     *
+     * @return
+     */
+    @RequestMapping("/login")
+    public Object login(HttpSession session) {
+        User user = userService.findByUserName("admin");
+        session.setAttribute("currentUserNickName", user.getNickName());
+        return "/login";
+    }
+
+    /**
+     * 进入后台管理请求
+     *
+     * @return
+     */
+    @RequestMapping("/admin")
+    public String toAdmin() {
+        return "/admin/main";
+    }
+
+    /**
+     * 验证码是否正确
+     *
+     * @param imageCode
+     * @param session
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/checkCodeIsSuccess")
+    public Map<String, Object> checkCodeIsSuccess(String imageCode, HttpSession session) {
+        Map<String, Object> resultMap = new HashMap<>(16);
+        String checkCode = (String) session.getAttribute("checkCode");
+        resultMap.put("checkCode", checkCode);
+        if (StringUtil.isNotEmpty(checkCode)) {
+            if (imageCode.equals(checkCode)) {
+                resultMap.put("success", true);
+            } else {
+                resultMap.put("success", false);
+            }
+        }
+        return resultMap;
+    }
 }

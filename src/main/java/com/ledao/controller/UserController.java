@@ -3,7 +3,7 @@ package com.ledao.controller;
 import com.ledao.entity.User;
 import com.ledao.service.UserService;
 import com.ledao.util.DateUtil;
-import com.ledao.util.Md5;
+import com.ledao.util.MyEncryption;
 import com.ledao.util.StringUtil;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -64,7 +64,7 @@ public class UserController {
             return mav;
         } else {
             //密码正确时
-            if (currentUser.getPassword().equals(Md5.getResult(user.getPassword()))) {
+            if (currentUser.getPassword().equals(MyEncryption.jiami(user.getPassword()))) {
                 session.setAttribute("currentUser", currentUser);
                 ModelAndView mav = new ModelAndView("redirect:/");
                 return mav;
@@ -103,12 +103,12 @@ public class UserController {
             user.setImageName(newFileName);
         }
         if (user.getId() == null) {
-            user.setPassword(Md5.getResult(user.getPassword()));
+            user.setPassword(MyEncryption.jiami(user.getPassword()));
             userService.add(user);
             ModelAndView mav = new ModelAndView("redirect:/toLoginPage");
             return mav;
         } else {
-            user.setPassword(Md5.getResult(user.getPassword()));
+            user.setPassword(MyEncryption.jiami(user.getPassword()));
             userService.update(user);
             User currentUser = userService.findById(user.getId());
             session.setAttribute("currentUser", currentUser);
@@ -136,7 +136,7 @@ public class UserController {
             //未修改密码前
             User oldUser = userService.findByEmail(user.getEmail());
             //获取新的密码
-            oldUser.setPassword(Md5.getResult(user.getPassword()));
+            oldUser.setPassword(MyEncryption.jiami(user.getPassword()));
             userService.update(oldUser);
             mav.addObject("title", "用户登录");
             mav.addObject("searchPasswordSuccess", true);
