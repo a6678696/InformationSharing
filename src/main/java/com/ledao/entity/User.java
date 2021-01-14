@@ -24,6 +24,10 @@ public class User {
      */
     private String password;
     /**
+     * 确认密码
+     */
+    private String password2;
+    /**
      * 昵称
      */
     private String nickName;
@@ -156,21 +160,11 @@ public class User {
         this.checkCode = checkCode;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                ", nickName='" + nickName + '\'' +
-                ", email='" + email + '\'' +
-                ", imageName='" + imageName + '\'' +
-                ", points=" + points +
-                ", isVip=" + isVip +
-                ", isOff=" + isOff +
-                ", roleName='" + roleName + '\'' +
-                ", registerDate=" + registerDate +
-                ", checkCode='" + checkCode + '\'' +
-                '}';
+    public String getPassword2() {
+        return password2;
+    }
+
+    public void setPassword2(String password2) {
+        this.password2 = password2;
     }
 }

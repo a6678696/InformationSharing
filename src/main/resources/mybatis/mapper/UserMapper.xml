@@ -23,11 +23,20 @@
             <if test="userName != null and userName != ''">
                 and userName like #{userName}
             </if>
+            <if test="email != null and email != ''">
+                and email like #{email}
+            </if>
+            <if test="roleName != null and roleName != ''">
+                and roleName = #{roleName}
+            </if>
             <if test="isVip != null">
                 and isVip = #{isVip}
             </if>
             <if test="isOff != null">
                 and isOff = #{isOff}
+            </if>
+            <if test="key != null">
+                and roleName!='管理员'
             </if>
         </where>
         <if test="start != null and size != null">
@@ -42,11 +51,20 @@
             <if test="userName != null and userName != ''">
                 and userName like #{userName}
             </if>
+            <if test="email != null and email != ''">
+                and email like #{email}
+            </if>
+            <if test="roleName != null and roleName != ''">
+                and roleName = #{roleName}
+            </if>
             <if test="isVip != null">
                 and isVip = #{isVip}
             </if>
             <if test="isOff != null">
                 and isOff = #{isOff}
+            </if>
+            <if test="key != null">
+                and roleName!='管理员'
             </if>
         </where>
     </select>

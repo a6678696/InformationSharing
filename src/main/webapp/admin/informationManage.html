@@ -10,7 +10,23 @@
     <script type="text/javascript" src="/static/jquery-easyui-1.7.0/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="/static/jquery-easyui-1.7.0/locale/easyui-lang-zh_CN.js"></script>
 </head>
-<body>
-消息管理
+<body style="margin: 1px">
+<table id="dg" title="用户管理" class="easyui-datagrid" striped="true"
+       fitColumns="true" pagination="true" rownumbers="true"
+       url="/admin/user/list" fit="true" toolbar="#tb">
+    <thead>
+    <th field="cb" checkbox="true" align="center"></th>
+    <th field="id" width="20" align="center" hidden="hidden">编号</th>
+    <th field="userName" width="50" align="center">名称</th>
+    <th field="nickName" width="50" align="center">名称</th>
+    <th field="email" width="50" align="center">名称</th>
+    <th field="imageName" width="50" align="center">名称</th>
+    <th field="points" width="50" align="center">名称</th>
+    <th field="isVip" width="50" align="center">名称</th>
+    <th field="isOff" width="50" align="center">名称</th>
+    <th field="roleName" width="50" align="center">名称</th>
+    <th field="registerDate" width="50" align="center">名称</th>
+    </thead>
+</table>
 </body>
 </html>

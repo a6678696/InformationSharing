@@ -8,7 +8,7 @@ package com.ledao.util;
 public class MyEncryption {
 
     public static void main(String[] args) {
-        String str = "111111";
+        String str = "abcd6666122";
         System.out.println(jiami(str));
     }
 
