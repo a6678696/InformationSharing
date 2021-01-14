@@ -151,6 +151,10 @@
             if (addCommentSuccess == true) {
                 alert("评论成功,通过审核后才能显示!");
             }
+            var isOff = [[${isOff}]];
+            if (isOff == true) {
+                alert("你的账户已被封禁!如要解封,请联系管理员!");
+            }
             var articleSearchState = [[${articleSearchState}]];
             if (articleSearchState == null) {
                 $('#state').val();
@@ -175,7 +179,7 @@
                 $('#pointsUpdate').val(articleUpdatePoints);
                 layui.form.render();
             }
-            contentUpdate
+
             var contentUpdate = [[${contentUpdate}]];
             CKEDITOR.replace("content");
             if (contentUpdate != null) {

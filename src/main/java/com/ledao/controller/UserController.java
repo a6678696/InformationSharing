@@ -65,9 +65,21 @@ public class UserController {
         } else {
             //密码正确时
             if (currentUser.getPassword().equals(MyEncryption.jiami(user.getPassword()))) {
-                session.setAttribute("currentUser", currentUser);
-                ModelAndView mav = new ModelAndView("redirect:/");
-                return mav;
+                //账户没有被封禁
+                if (currentUser.getIsOff() != 1) {
+                    session.setAttribute("currentUser", currentUser);
+                    ModelAndView mav = new ModelAndView("redirect:/");
+                    return mav;
+                } else {
+                    ModelAndView mav = new ModelAndView();
+                    mav.addObject("user", user);
+                    mav.addObject("isOff", true);
+                    mav.addObject("title", "用户登录");
+                    mav.addObject("mainPage", "page/login");
+                    mav.addObject("mainPageKey", "#b");
+                    mav.setViewName("index");
+                    return mav;
+                }
             } else {
                 ModelAndView mav = new ModelAndView();
                 mav.addObject("user", user);

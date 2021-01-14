@@ -5,14 +5,12 @@ import com.ledao.entity.User;
 import com.ledao.service.UserService;
 import com.ledao.util.MyEncryption;
 import com.ledao.util.StringUtil;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -72,18 +70,18 @@ public class UserAdminController {
         User user1 = userService.findByEmail(user.getEmail());
         //当id为空时,添加用户
         if (user.getId() == null) {
-            //判断邮箱是否被注册
+            //邮箱被注册
             if (user1 != null) {
                 resultMap.put("success", false);
                 resultMap.put("errorInfo", "该邮箱已被注册,请重新输入!!");
             } else {
-                //判断密码和确认密码是否一致
+                //密码和确认密码不一致
                 if (!user.getPassword().equals(user.getPassword2())) {
                     resultMap.put("success", false);
                     resultMap.put("errorInfo", "密码和确认密码不一样,请重新输入!!");
                 } else {
                     User user2 = userService.findByUserName(user.getUserName());
-                    //判断用户名是否被注册
+                    //用户名被注册
                     if (user2 != null) {
                         resultMap.put("success", false);
                         resultMap.put("errorInfo", "该用户名已被注册,请重新输入!!");
@@ -97,12 +95,12 @@ public class UserAdminController {
         } else {
             //要修改的用户原来的信息
             User user3 = userService.findById(user.getId());
-            //判断邮箱是否被注册并且修改后的邮箱和之前的邮箱是否相同
+            //邮箱被注册并且修改后的邮箱和之前的邮箱不相同
             if (user1 != null && (!user.getEmail().equals(user3.getEmail()))) {
                 resultMap.put("success", false);
                 resultMap.put("errorInfo", "该邮箱已被注册,请重新输入!!");
             } else {
-                //判断密码和确认密码是否一致
+                //密码和确认密码不一致
                 if (!user.getPassword().equals(user.getPassword2())) {
                     resultMap.put("success", false);
                     resultMap.put("errorInfo", "密码和确认密码不一样,请重新输入!!");
