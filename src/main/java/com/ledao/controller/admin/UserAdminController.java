@@ -131,4 +131,68 @@ public class UserAdminController {
         resultMap.put("success", true);
         return resultMap;
     }
+
+    /**
+     * 修改账号状态(封禁或解封)
+     *
+     * @param id
+     * @param isOff
+     * @return
+     */
+    @RequestMapping("/modifyOff")
+    public Map<String, Object> modifyOff(Integer id, Integer isOff) {
+        Map<String, Object> resultMap = new HashMap<>(16);
+        User user = userService.findById(id);
+        user.setIsOff(isOff);
+        userService.update(user);
+        resultMap.put("success", true);
+        return resultMap;
+    }
+
+    /**
+     * 修改用户类型(普通用户或VIP用户)
+     *
+     * @param id
+     * @param roleName
+     * @return
+     */
+    @RequestMapping("/modifyRoleType")
+    public Map<String, Object> modifyRoleType(Integer id, String roleName) {
+        Map<String, Object> resultMap = new HashMap<>(16);
+        User user = userService.findById(id);
+        user.setRoleName(roleName);
+        userService.update(user);
+        resultMap.put("success", true);
+        return resultMap;
+    }
+
+    /**
+     * 给用户加或减积分
+     *
+     * @param id
+     * @param status 1代表加积分,2代表减积分
+     * @param points
+     * @return
+     */
+    @RequestMapping("/addOrReducePoints")
+    public Map<String, Object> addOrReducePoints(Integer id, Integer status, Integer points) {
+        Map<String, Object> resultMap = new HashMap<>(16);
+        User user = userService.findById(id);
+        //加积分
+        if (status == 1) {
+            user.setPoints(user.getPoints() + points);
+            resultMap.put("success", true);
+        } else {
+            //用户当前剩余积分大于要扣除的积分
+            if (user.getPoints() >= points) {
+                user.setPoints(user.getPoints() - points);
+                resultMap.put("success", true);
+            } else {
+                resultMap.put("success", false);
+                resultMap.put("errorInfo", "用户当前剩余积分少于要扣除的积分,不能扣除积分!");
+            }
+        }
+        userService.update(user);
+        return resultMap;
+    }
 }

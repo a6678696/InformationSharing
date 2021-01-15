@@ -13,11 +13,11 @@
         var url;
 
         function searchUser() {
-            $("#dg").datagrid('load',{
-                "userName":$("#s_userName").val(),
-                "email":$("#s_email").val(),
-                "roleName":$("#s_roleName").val(),
-                "isOff":$("#s_isOff").val()
+            $("#dg").datagrid('load', {
+                "userName": $("#s_userName").val(),
+                "email": $("#s_email").val(),
+                "roleName": $("#s_roleName").val(),
+                "isOff": $("#s_isOff").val()
             });
         }
 
@@ -31,11 +31,16 @@
             $("#email").textbox("setValue", "");
             $("#password").passwordbox("setValue", "");
             $("#password2").passwordbox("setValue", "");
+            //添加或减少积分
+            $("#userNameAddOrReducePoints").textbox("setValue", "");
+            $("#idAddOrReducePoints").val();
+            $("#status").val();
+            $("#points").numberbox("setValue", "");
         }
 
         function openUserAddDialog() {
             $("#dlg").dialog("open").dialog("setTitle", "添加用户信息");
-            $('#userName').textbox('readonly',false);
+            $('#userName').textbox('readonly', false);
             url = "/admin/user/save";
         }
 
@@ -49,12 +54,17 @@
             $("#dlg").dialog("open").dialog("setTitle", "修改用户信息");
             $("#fm").form("load", row);
             $("#password2").passwordbox("setValue", $("#password").val());
-            $('#userName').textbox('readonly',true);
+            $('#userName').textbox('readonly', true);
             url = "/admin/user/save?id=" + row.id;
         }
 
         function closeUserDialog() {
             $("#dlg").dialog("close");
+            resetValue();
+        }
+
+        function closeAddOrReducePointsDialog() {
+            $("#dlg2").dialog("close");
             resetValue();
         }
 
@@ -89,7 +99,7 @@
                 strIds.push(selectedRows[i].id);
             }
             var ids = strIds.join(",");
-            $.messager.confirm("系统提示", "您确定要删除<span style='color: red'>"+selectedRows.length+"</span>这条数据吗?", function (r) {
+            $.messager.confirm("系统提示", "您确定要删除<span style='color: red'>" + selectedRows.length + "</span>这条数据吗?", function (r) {
                 if (r) {
                     $.post("/admin/user/delete", {ids: ids}, function (result) {
                         if (result.success) {
@@ -110,21 +120,123 @@
                     $("#dlg").dialog("open").dialog("setTitle", "修改用户信息");
                     $("#fm").form("load", row);
                     $("#password2").passwordbox("setValue", $("#password").val());
-                    $('#userName').textbox('readonly',true);
+                    $('#userName').textbox('readonly', true);
                     url = "/admin/user/save?id=" + row.id;
                 }
             });
 
         });
 
-        function formatIsOff(val,row) {
-            if (val==0) return "否";
-            if (val==1) return "<span style='color: red'>是</span>";
+        function modifyOff() {
+            var selectedRows = $("#dg").datagrid("getSelections");
+            if (selectedRows.length != 1) {
+                $.messager.alert("系统提示", "请选择一个用户！");
+                return;
+            }
+            var id = selectedRows[0].id;
+            var isOff = selectedRows[0].isOff;
+            if (isOff == 0) {
+                var str = "封禁";
+            } else if (isOff == 1) {
+                var str = "解封";
+            }
+            $.messager.confirm("系统提示", "确定要<span style='color: red'>" + str + "</span>这个用户吗?", function (r) {
+                if (r) {
+                    $.post("/admin/user/modifyOff", {id: id, isOff: isOff == 0 ? 1 : 0}, function (result) {
+                        if (result.success) {
+                            $("#dg").datagrid("reload");
+                            $.messager.alert("系统提示", str + "成功!");
+                        } else {
+                            $.messager.alert("系统提示", result.errorInfo);
+                        }
+                    })
+                }
+            });
         }
 
-        function formatRoleName(val,row) {
-            if (val=="普通用户") return "普通用户";
-            if (val=="VIP用户") return "<span style='color: red'>VIP用户</span>";
+        function modifyRoleType() {
+            var selectedRows = $("#dg").datagrid("getSelections");
+            if (selectedRows.length != 1) {
+                $.messager.alert("系统提示", "请选择一个用户！");
+                return;
+            }
+            var id = selectedRows[0].id;
+            var roleName = selectedRows[0].roleName;
+            var userName = selectedRows[0].userName;
+            if (roleName == "普通用户") {
+                var str = "VIP用户";
+            } else if (roleName == "VIP用户") {
+                var str = "普通用户";
+            }
+            $.messager.confirm("系统提示", "确定要将用户名为<span style='color: red'>" + userName + "</span>的用户设置为<span style='color: red'>" + str + "</span>吗?", function (r) {
+                if (r) {
+                    $.post("/admin/user/modifyRoleType", {
+                        id: id,
+                        roleName: roleName == "普通用户" ? "VIP用户" : "普通用户"
+                    }, function (result) {
+                        if (result.success) {
+                            $("#dg").datagrid("reload");
+                            $.messager.alert("系统提示", "已经成功将该用户设置为" + str);
+                        } else {
+                            $.messager.alert("系统提示", result.errorInfo);
+                        }
+                    })
+                }
+            });
+        }
+
+        function openAddOrReducePointsDialog(status) {
+            var selectedRows = $("#dg").datagrid("getSelections");
+            if (selectedRows.length != 1) {
+                $.messager.alert("系统提示", "请选择一个用户！");
+                return;
+            }
+            if (status == 1) {
+                $("#dlg2").dialog("open").dialog("setTitle", "加积分");
+            } else {
+                $("#dlg2").dialog("open").dialog("setTitle", "减积分");
+            }
+            $("#userNameAddOrReducePoints").textbox("setValue", selectedRows[0].userName);
+            $("#idAddOrReducePoints").val(selectedRows[0].id);
+            $("#status").val(status);
+        }
+
+        function submitMyData() {
+            var userId = $("#idAddOrReducePoints").val();
+            var status = $("#status").val();
+            var points = $("#points").numberbox("getValue");
+            if (status == 1) {
+                var str = "加";
+            } else {
+                var str = "减";
+            }
+            $.messager.confirm("系统提示", "确定要给这个用户<span style='color: red'>" + str + "</span><span style='color:green'>" + points + "</span>积分吗?", function (r) {
+                if (r) {
+                    $.post("/admin/user/addOrReducePoints", {
+                        id: userId,
+                        status: status,
+                        points: points
+                    }, function (result) {
+                        if (result.success) {
+                            $("#dg").datagrid("reload");
+                            $.messager.alert("系统提示", str+"积分成功!");
+                            closeAddOrReducePointsDialog();
+                        } else {
+                            $.messager.alert("系统提示", result.errorInfo);
+                        }
+                    })
+                }
+            });
+        }
+
+        function formatIsOff(val, row) {
+            if (val == 0) return "否";
+            if (val == 1) return "<span style='color: red'>是</span>";
+        }
+
+        function formatRoleName(val, row) {
+            if (val == "普通用户") return "普通用户";
+            if (val == "VIP用户") return "<span style='color: red'>VIP用户</span>";
         }
     </script>
 </head>
@@ -150,6 +262,12 @@
         <a href="javascript:openUserModifyDialog()" class="easyui-linkbutton" iconCls="icon-edit"
            plain="true">修改</a>
         <a href="javascript:deleteUser()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
+        <a href="javascript:modifyOff()" class="easyui-linkbutton" iconCls="icon-modifyOff" plain="true">封禁或解封</a>
+        <a href="javascript:modifyRoleType()" class="easyui-linkbutton" iconCls="icon-modifyRoleType" plain="true">切换用户类型</a>
+        <a href="javascript:openAddOrReducePointsDialog(1)" class="easyui-linkbutton" iconCls="icon-addPoints"
+           plain="true">加积分</a>
+        <a href="javascript:openAddOrReducePointsDialog(2)" class="easyui-linkbutton" iconCls="icon-reducePoints"
+           plain="true">减积分</a>
     </div>
     <div>
         &nbsp;用户名：&nbsp;<input type="text" id="s_userName" size="20" onkeydown="if(event.keyCode==13) searchUser()"/>
@@ -184,14 +302,16 @@
             <tr>
                 <td>密码：</td>
                 <td>
-                    <input type="text" id="password" name="password" class="easyui-passwordbox" showEye="true" required="true"
+                    <input type="text" id="password" name="password" class="easyui-passwordbox" showEye="true"
+                           required="true"
                            style="width: 250px"/>
                 </td>
             </tr>
             <tr>
                 <td>确认密码：</td>
                 <td>
-                    <input type="text" id="password2" name="password2" class="easyui-passwordbox" showEye="true" required="true"
+                    <input type="text" id="password2" name="password2" class="easyui-passwordbox" showEye="true"
+                           required="true"
                            style="width: 250px"/>
                 </td>
             </tr>
@@ -212,9 +332,36 @@
         </table>
     </form>
 </div>
+<div id="dlg2" class="easyui-dialog" style="width: 433px;height: 200px;padding: 10px 20px"
+     closed="true" buttons="#dlg2-buttons" data-options="onClose:function(){resetValue()}">
+    <form id="fm" method="post">
+        <table cellspacing="8px">
+            <tr>
+                <td>用户名：</td>
+                <td>
+                    <input type="text" id="userNameAddOrReducePoints" class="easyui-textbox" required="true"
+                           style="width: 250px"/>
+                    <input type="hidden" id="idAddOrReducePoints" style="width: 250px"/>
+                    <input type="hidden" id="status" style="width: 250px"/>
+                </td>
+            </tr>
+            <tr>
+                <td>积分数：</td>
+                <td>
+                    <input type="text" id="points" class="easyui-numberbox" showEye="true" required="true"
+                           style="width: 250px"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
 <div id="dlg-buttons">
     <a href="javascript:saveUser()" class="easyui-linkbutton" iconCls="icon-ok">保存</a>
     <a href="javascript:closeUserDialog()" class="easyui-linkbutton" iconCls="icon-cancel">关闭</a>
+</div>
+<div id="dlg2-buttons">
+    <a href="javascript:submitMyData()" class="easyui-linkbutton" iconCls="icon-ok">保存</a>
+    <a href="javascript:closeAddOrReducePointsDialog()" class="easyui-linkbutton" iconCls="icon-cancel">关闭</a>
 </div>
 </body>
 </html>
