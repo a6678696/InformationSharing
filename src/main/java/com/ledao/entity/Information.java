@@ -20,6 +20,10 @@ public class Information {
      */
     private Integer userId;
     /**
+     * 消息所属者实体
+     */
+    private User user;
+    /**
      * 内容
      */
     private String content;
@@ -58,5 +62,13 @@ public class Information {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

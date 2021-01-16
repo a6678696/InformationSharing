@@ -125,4 +125,13 @@
     <select id="findByEmail" parameterType="string" resultMap="UserResult">
         select * from t_user where email=#{email}
     </select>
+
+    <select id="findByName" parameterType="string" resultMap="UserResult">
+        select * from t_user
+        <where>
+            <if test="userName != null and userName != ''">
+                and userName like #{userName}
+            </if>
+        </where>
+    </select>
 </mapper>

@@ -77,4 +77,12 @@ public interface UserMapper {
      * @return
      */
     User findByEmail(String email);
+
+    /**
+     * 根据用户名称搜索用户
+     *
+     * @param userName
+     * @return
+     */
+    List<User> findByName(String userName);
 }

@@ -236,6 +236,10 @@
     background: url('usericons/reducePoints.gif') no-repeat center center;
 }
 
+.icon-sendMessage{
+    background: url('usericons/sendMessage.gif') no-repeat center center;
+}
+
 .icon-exit {
     background: url('usericons/exit.gif') no-repeat center center;
 }

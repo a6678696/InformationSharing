@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +28,29 @@ public class UserAdminController {
 
     @Resource
     private UserService userService;
+
+    /**
+     * 下拉框模糊查询
+     *
+     * @param q
+     * @return
+     */
+    @RequestMapping("/comboList")
+    public List<User> comboList(String q) {
+        if (q == null) {
+            q = "";
+        }
+        String removeUserName = "admin";
+        List<User> userList = userService.findByName(StringUtil.formatLike(q));
+        Iterator iterator = userList.iterator();
+        if (iterator.hasNext()) {
+            User user = (User) iterator.next();
+            if (removeUserName.equals(user.getUserName())) {
+                iterator.remove();
+            }
+        }
+        return userList;
+    }
 
     /**
      * 根据条件分页条件查询用户

@@ -41,4 +41,9 @@ public class InformationServiceImpl implements InformationService {
     public Integer update(Information information) {
         return informationMapper.update(information);
     }
+
+    @Override
+    public Integer deleteById(Integer id) {
+        return informationMapper.deleteById(id);
+    }
 }

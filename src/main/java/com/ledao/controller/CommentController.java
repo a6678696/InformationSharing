@@ -54,29 +54,12 @@ public class CommentController {
     public ModelAndView add(String content, Integer articleId, HttpSession session) {
         Comment comment = new Comment();
         User currentUser = (User) session.getAttribute("currentUser");
-        ModelAndView mav = new ModelAndView();
-        Article article = articleService.findById(articleId);
-        article.setUser(currentUser);
-        article.setArticleType(articleTypeService.findById(article.getArticleTypeId()));
-        Map<String, Object> map = new HashMap<>(16);
-        map.put("state", 1);
-        map.put("articleId", articleId);
         comment.setUserId(currentUser.getId());
         comment.setArticleId(articleId);
         comment.setCommentContent(content);
         comment.setArticleAuthorId(articleService.findById(articleId).getUserId());
         commentService.add(comment);
-        List<Comment> commentList = commentService.list(map);
-        for (Comment comment1 : commentList) {
-            comment1.setUser(userService.findById(comment1.getUserId()));
-        }
-        mav.addObject("addCommentSuccess", true);
-        mav.addObject("article", article);
-        mav.addObject("commentList", commentList);
-        mav.addObject("title", article.getName());
-        mav.addObject("mainPage", "page/articleView");
-        mav.addObject("mainPageKey", "#b");
-        mav.setViewName("index");
+        ModelAndView mav = new ModelAndView("redirect:/article/" + articleId);
         return mav;
     }
 

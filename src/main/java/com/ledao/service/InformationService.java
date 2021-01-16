@@ -45,4 +45,12 @@ public interface InformationService {
      * @return
      */
     Integer update(Information information);
+
+    /**
+     * 根据id删除消息
+     *
+     * @param id
+     * @return
+     */
+    Integer deleteById(Integer id);
 }

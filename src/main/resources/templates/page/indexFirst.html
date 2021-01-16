@@ -126,7 +126,7 @@
                 <strong><i class="layui-icon layui-icon-link" style="font-size: 16px">友情链接</i></strong>
                 <hr class="layui-bg-blue">
                 <div th:each="link:${application.linkList}">
-                    <a th:href="${link.url}" th:text="${link.name+'&nbsp;&nbsp;'}" style="float: left;color: #1e9fff"></a>
+                    <a th:href="${link.url}" target="_blank" th:text="${link.name+'&nbsp;&nbsp;'}" style="float: left;color: #1e9fff"></a>
                 </div>
                 <span style="color: #f2f2f2">1</span>
             </blockquote>

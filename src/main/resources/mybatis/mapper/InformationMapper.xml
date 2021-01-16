@@ -50,4 +50,8 @@
         </set>
         where id=#{id}
     </update>
+
+    <delete id="deleteById" parameterType="integer">
+        delete from t_information where id=#{id}
+    </delete>
 </mapper>
