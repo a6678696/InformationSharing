@@ -37,4 +37,12 @@ public interface DownloadMessageService {
      * @return
      */
     Integer add(DownloadMessage downloadMessage);
+
+    /**
+     * 根据id删除下载信息
+     *
+     * @param id
+     * @return
+     */
+    Integer deleteById(Integer id);
 }

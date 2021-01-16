@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 后台管理友情链接controller层
+ * 后台管理友情链接Controller层
  *
  * @author LeDao
  * @company

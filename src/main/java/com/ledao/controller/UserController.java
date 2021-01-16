@@ -67,6 +67,7 @@ public class UserController {
             if (currentUser.getPassword().equals(MyEncryption.jiami(user.getPassword()))) {
                 //账户没有被封禁
                 if (currentUser.getIsOff() != 1) {
+                    currentUser.setPassword(MyEncryption.jiemi(currentUser.getPassword()));
                     session.setAttribute("currentUser", currentUser);
                     ModelAndView mav = new ModelAndView("redirect:/");
                     return mav;

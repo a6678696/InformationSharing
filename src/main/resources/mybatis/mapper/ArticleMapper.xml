@@ -109,6 +109,9 @@
             <if test="state != null">
                 state=#{state},
             </if>
+            <if test="checkDate != null">
+                checkDate=now(),
+            </if>
             <if test="reason != null and reason != ''">
                 reason=#{reason},
             </if>

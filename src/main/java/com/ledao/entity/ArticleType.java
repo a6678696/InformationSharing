@@ -25,6 +25,10 @@ public class ArticleType {
      * 排列顺序
      */
     private Integer sortNum;
+    /**
+     * 该类别下的资源数量
+     */
+    private Integer num;
 
     public Integer getId() {
         return id;
@@ -56,5 +60,13 @@ public class ArticleType {
 
     public void setSortNum(Integer sortNum) {
         this.sortNum = sortNum;
+    }
+
+    public Integer getNum() {
+        return num;
+    }
+
+    public void setNum(Integer num) {
+        this.num = num;
     }
 }

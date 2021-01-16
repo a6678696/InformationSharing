@@ -36,4 +36,9 @@ public class DownloadMessageServiceImpl implements DownloadMessageService {
     public Integer add(DownloadMessage downloadMessage) {
         return downloadMessageMapper.add(downloadMessage);
     }
+
+    @Override
+    public Integer deleteById(Integer id) {
+        return downloadMessageMapper.deleteById(id);
+    }
 }

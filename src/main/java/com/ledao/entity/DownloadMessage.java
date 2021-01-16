@@ -20,6 +20,10 @@ public class DownloadMessage {
      */
     private Integer userId;
     /**
+     * 下载者实体
+     */
+    private User user;
+    /**
      * 资源id
      */
     private Integer articleId;
@@ -82,5 +86,13 @@ public class DownloadMessage {
 
     public void setArticle(Article article) {
         this.article = article;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

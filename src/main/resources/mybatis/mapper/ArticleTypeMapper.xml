@@ -67,4 +67,14 @@
     <select id="findById" parameterType="integer" resultMap="ArticleTypeResult">
         select * from t_article_type where id=#{id}
     </select>
+
+    <select id="findByName" parameterType="string" resultMap="ArticleTypeResult">
+        select * from t_article_type
+        <where>
+            <if test="name != null and name != ''">
+                and name like #{name}
+            </if>
+        </where>
+        order by sortNum asc
+    </select>
 </mapper>

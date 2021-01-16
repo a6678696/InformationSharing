@@ -51,4 +51,9 @@ public class ArticleTypeServiceImpl implements ArticleTypeService {
     public Integer deleteById(Integer id) {
         return articleTypeMapper.deleteById(id);
     }
+
+    @Override
+    public List<ArticleType> findByName(String name) {
+        return articleTypeMapper.findByName(name);
+    }
 }

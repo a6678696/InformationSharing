@@ -186,6 +186,7 @@
         }
 
         function openAddOrReducePointsDialog(status) {
+            $('#userNameAddOrReducePoints').textbox('readonly', true);
             var selectedRows = $("#dg").datagrid("getSelections");
             if (selectedRows.length != 1) {
                 $.messager.alert("系统提示", "请选择一个用户！");

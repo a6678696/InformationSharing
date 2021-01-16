@@ -111,7 +111,6 @@ public class IndexController implements CommandLineRunner, ServletContextListene
      */
     public void loadSomeData() {
         //文章类型列表
-        List<ArticleType> articleTypeList = articleTypeService.list(null);
         Map<String, Object> map = new HashMap<>(16);
         map.put("isHot", 1);
         map.put("state", 2);
@@ -119,6 +118,7 @@ public class IndexController implements CommandLineRunner, ServletContextListene
         //热门资源列表
         List<Article> articleListHot = articleService.list(map);
         map.put("sortBySortNum", 1);
+        List<ArticleType> articleTypeList = articleTypeService.list(map);
         //友情链接列表
         List<Link> linkList = linkService.list(map);
         application.setAttribute("articleTypeList", articleTypeList);

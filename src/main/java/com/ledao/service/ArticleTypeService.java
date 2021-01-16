@@ -61,4 +61,12 @@ public interface ArticleTypeService {
      * @return
      */
     Integer deleteById(Integer id);
+
+    /**
+     * 根据名称查询
+     *
+     * @param name
+     * @return
+     */
+    List<ArticleType> findByName(String name);
 }

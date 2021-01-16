@@ -44,4 +44,8 @@
         insert into t_download_message (userId, articleId, message, downloadDate)
         values (#{userId}, #{articleId}, #{message}, now());
     </insert>
+
+    <delete id="deleteById" parameterType="integer">
+        delete from t_download_message where id=#{id}
+    </delete>
 </mapper>
