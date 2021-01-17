@@ -136,14 +136,13 @@ public class ArticleController {
         String fileName = file.getOriginalFilename();
         // 获取文件的后缀
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
-        String newFileName = DateUtil.getCurrentDateStr2() + suffixName;
+        //拼接新的文件名
+        String newFileName = DateUtil.getCurrentDateStr2() + ".jpg";
         FileUtils.copyInputStreamToFile(file.getInputStream(), new File(articleImageFilePath + newFileName));
-
         StringBuffer sb = new StringBuffer();
         sb.append("<script type=\"text/javascript\">");
         sb.append("window.parent.CKEDITOR.tools.callFunction(" + CKEditorFuncNum + ",'" + "/static/images/articleImage/" + newFileName + "','')");
         sb.append("</script>");
-
         return sb.toString();
     }
 

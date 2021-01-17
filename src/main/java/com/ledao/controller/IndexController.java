@@ -544,11 +544,11 @@ public class IndexController implements CommandLineRunner, ServletContextListene
      * @return
      */
     @RequestMapping("/toInformationPage")
-    public ModelAndView toInformationPage(@RequestParam(value = "page",required = false)Integer page,HttpSession session) {
+    public ModelAndView toInformationPage(@RequestParam(value = "page", required = false) Integer page, HttpSession session) {
         if (page == null) {
-            page=1;
+            page = 1;
         }
-        int pageSize=10;
+        int pageSize = 10;
         User currentUser = (User) session.getAttribute("currentUser");
         Map<String, Object> map = new HashMap<>(16);
         map.put("userId", currentUser.getId());
@@ -609,5 +609,20 @@ public class IndexController implements CommandLineRunner, ServletContextListene
             }
         }
         return resultMap;
+    }
+
+    /**
+     * 跳转到源码下载页面
+     *
+     * @return
+     */
+    @RequestMapping("/toDownloadCodePage")
+    public ModelAndView toDownloadCodePage() {
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("title", "源码下载");
+        mav.addObject("mainPage", "page/downloadCode");
+        mav.addObject("mainPageKey", "#b");
+        mav.setViewName("index");
+        return mav;
     }
 }

@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 80
   servlet:
     context-path: /
   tomcat:
@@ -32,7 +32,7 @@ spring:
     #自己的邮箱
     username: 1203007469@qq.com
     #授权码
-    password: zxtxzfocnnodjfcb
+    password: jhdzwxbnpfzxhsss
     default-encoding: utf-8
     protocol: smtp
     properties:
@@ -45,9 +45,9 @@ spring:
             enable: true #一定要开启ssl,不然会503 验证失败的（开启加密验证）
 
 #用户头像图片存储地址
-userImageFilePath: E://IdeaProjects/ActualCombat/InformationSharing/src/main/webapp/static/images/userImage/
+userImageFilePath: C://Java/apache-tomcat-9.0.22-windows-x64/apache-tomcat-9.0.22-windows-x64/apache-tomcat-9.0.22/webapps/InformationSharing/static/images/userImage/
 #文章图片存储地址
-articleImageFilePath: E://IdeaProjects/ActualCombat/InformationSharing/src/main/webapp/static/images/articleImage/
+articleImageFilePath: C://Java/apache-tomcat-9.0.22-windows-x64/apache-tomcat-9.0.22-windows-x64/apache-tomcat-9.0.22/webapps/InformationSharing/static/images/articleImage/
 
 #mybatis配置
 mybatis:

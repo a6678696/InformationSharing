@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--suppress ALL-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="b">
+    <!--内容-->
+    <div>
+        <!--公告-->
+        <div class="layui-col-md12" style="margin-top: 5px">
+            <!--条件检索-->
+            <div style="margin-top: 2px;margin-right: 5px">
+                <blockquote class="layui-elem-quote" style="border-color: red">
+                    <strong><i class="layui-icon layui-icon-reply-fill"
+                               style="font-size: 16px;color: red">公告</i></strong>
+                    <hr class="layui-bg-red">
+                    <span style="color: red">本网站为个人项目,仅用于展示</span>
+                </blockquote>
+            </div>
+        </div>
+        <!--左边内容-->
+        <div class="layui-col-md9" style="margin-top: 5px">
+            <div style="margin-top: 2px;margin-right: 5px">
+                <blockquote class="layui-elem-quote" style="border-color: #1e9fff">
+                    <strong><i class="layui-icon layui-icon-component" style="font-size: 16px">资源下载</i></strong>
+                    <hr class="layui-bg-blue">
+                    <p>
+                    <h2>GitHub地址:<a href="https://github.com/a6678696/InformationSharing" target="_blank" style="color: #1e9fff">a6678696/InformationSharing: 资源共享平台</a></h2></p>
+                    <p style="margin-top: 10px">
+                    <h2>详细介绍地址:<a href="http://www.zoutl.cn/blog/98" target="_blank" style="color: #1e9fff">LeDao资源分享平台</a></h2></p>
+                </blockquote>
+            </div>
+        </div>
+        <!--右边内容-->
+        <div class="layui-col-md3" style="margin-top: 7px">
+            <blockquote class="layui-elem-quote" style="border-color: #1e9fff">
+                <strong><i class="layui-icon layui-icon-fire" style="font-size: 16px">热门资源</i></strong>
+                <hr class="layui-bg-blue">
+                <div th:each="articleHot:${application.articleListHot}">
+                    <p><a style="color: #1e9fff" th:href="@{'/article/'+${articleHot.id}}" th:text="${#strings.abbreviate(articleHot.name,20)}"
+                          th:title="${articleHot.name}"></a></p>
+                </div>
+            </blockquote>
+        </div>
+        <!--友情链接-->
+        <div class="layui-col-md12">
+            <blockquote class="layui-elem-quote" style="border-color: #1e9fff">
+                <strong><i class="layui-icon layui-icon-link" style="font-size: 16px">友情链接</i></strong>
+                <hr class="layui-bg-blue">
+                <div th:each="link:${application.linkList}">
+                    <a th:href="${link.url}" th:text="${link.name+'&nbsp;&nbsp;'}" style="float: left;color: #1e9fff"></a>
+                </div>
+                <span style="color: #f2f2f2">1</span>
+            </blockquote>
+        </div>
+    </div>
+</div>
+</body>
+</html>
