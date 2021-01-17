@@ -174,8 +174,64 @@
                         if (result.success) {
                             closeFailReasonDialog();
                             $("#dg").datagrid("reload");
-                            $.messager.alert("系统提示", "该资源状态已经设置未<span style='color: red'>审核不通过!</span>");
+                            $.messager.alert("系统提示", "该资源状态已经设置为<span style='color: red'>审核不通过!</span>");
                             $("#failReason").val("");
+                        } else {
+                            $.messager.alert("系统提示", result.errorInfo);
+                        }
+                    })
+                }
+            });
+        }
+
+        function modifyIsHot() {
+            var selectedRows = $("#dg").datagrid("getSelections");
+            if (selectedRows.length != 1) {
+                $.messager.alert("系统提示", "请选择一个资源!");
+                return;
+            }
+            var articleId = selectedRows[0].id;
+            var isHot = selectedRows[0].isHot;
+            if (isHot == 0) {
+                var str = "热门";
+            } else {
+                var str = "不热门";
+            }
+            $.messager.confirm("系统提示", "确定将这个资源设置为<span style='color: red'>" + str + "</span>吗?", function (r) {
+                if (r) {
+                    $.post("/admin/article/modifyIsHot", {articleId: articleId}, function (result) {
+                        if (result.success) {
+                            closeFailReasonDialog();
+                            $("#dg").datagrid("reload");
+                            $.messager.alert("系统提示", "该资源已经设置为<span style='color: red'>" + str + "</span>");
+                        } else {
+                            $.messager.alert("系统提示", result.errorInfo);
+                        }
+                    })
+                }
+            });
+        }
+
+        function modifyIsOff() {
+            var selectedRows = $("#dg").datagrid("getSelections");
+            if (selectedRows.length != 1) {
+                $.messager.alert("系统提示", "请选择一个资源!");
+                return;
+            }
+            var articleId = selectedRows[0].id;
+            var isUseful = selectedRows[0].isUseful;
+            if (isUseful == 0) {
+                var str = "有效";
+            } else {
+                var str = "无效";
+            }
+            $.messager.confirm("系统提示", "确定将这个资源设置为<span style='color: red'>" + str + "</span>吗?", function (r) {
+                if (r) {
+                    $.post("/admin/article/modifyIsOff", {articleId: articleId}, function (result) {
+                        if (result.success) {
+                            closeFailReasonDialog();
+                            $("#dg").datagrid("reload");
+                            $.messager.alert("系统提示", "该资源已经设置为<span style='color: red'>" + str + "</span>");
                         } else {
                             $.messager.alert("系统提示", result.errorInfo);
                         }
@@ -213,6 +269,14 @@
                 return "<span style='color: green'>是</span>";
             }
         }
+
+        function formatName(val, row) {
+            if (val.length > 15) {
+                return "<span title='"+val+"'>"+val.substring(0, 15)+"</span>...";
+            } else {
+                return val;
+            }
+        }
     </script>
 </head>
 <body style="margin: 1px">
@@ -224,13 +288,13 @@
         <th field="cb" checkbox="true" align="center"></th>
         <th field="id" width="20" align="center" hidden="true">编号</th>
         <th field="publishDate" width="90" align="center">发布日期</th>
-        <th field="articleType" width="50" align="center" formatter="formatType">资源类型</th>
+        <th field="articleType" width="100" align="center" formatter="formatType">资源类型</th>
         <th field="user" width="50" align="center" formatter="formatUser">发布人用户名</th>
         <th field="state" width="50" align="center" formatter="formatState">当前状态</th>
         <th field="points" width="50" align="center">下载所需积分</th>
         <th field="isHot" width="50" align="center" formatter="formatIsHot">是否热门</th>
         <th field="isUseful" width="50" align="center" formatter="formatIsUseful">是否有效</th>
-        <th field="name" width="200" align="center">资源名称</th>
+        <th field="name" width="160" align="center" formatter="formatName">资源名称</th>
     </tr>
     </thead>
 </table>
@@ -242,6 +306,7 @@
         <a href="javascript:fail()" class="easyui-linkbutton" iconCls="icon-cancel" plain="true">审核不通过</a>
         <a href="javascript:modifyIsHot()" class="easyui-linkbutton" iconCls="icon-isHot" plain="true">设置热门与否</a>
         <a href="javascript:modifyIsOff()" class="easyui-linkbutton" iconCls="icon-isUseful" plain="true">设置有效与否</a>
+        <span style="color: red">(鼠标停在审核不通过上面可以看到不通过的原因)</span>
     </div>
     <div>
         &nbsp;名称:&nbsp;<input type="text" id="s_name" size="15"

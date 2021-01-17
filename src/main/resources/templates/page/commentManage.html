@@ -43,7 +43,7 @@
                         <tbody>
                         <tr th:each="comment:${commentList}">
                             <td style="text-align: center" th:text="${#strings.abbreviate(comment.commentContent,18)}" th:title="${comment.commentContent}"></td>
-                            <td style="text-align: center" th:title="${comment.article.name}"><a style="color: #1e9fff" th:href="${'/article/'+comment.articleId}" th:text="${#strings.abbreviate(comment.article.name,16)}"></a></td>
+                            <td style="text-align: center" th:title="${comment.article.name}"><span style="color: #1e9fff" th:text="${#strings.abbreviate(comment.article.name,16)}"></span></td>
                             <td style="text-align: center"
                                 th:text="${#dates.format(comment.date,'yyyy-MM-dd')}"></td>
                             <td th:text="${comment.user.nickName}" th:title="${comment.state==0?'未审核':(comment.state==1?'审核通过':'审核不通过')}" th:style="${comment.state==0?'color:blue;text-align: center':(comment.state==1?'color:green;text-align: center':'color:red;text-align: center')}"></td>

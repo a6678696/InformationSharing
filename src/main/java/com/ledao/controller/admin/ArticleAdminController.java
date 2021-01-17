@@ -4,6 +4,7 @@ import com.ledao.entity.Article;
 import com.ledao.entity.ArticleType;
 import com.ledao.entity.PageBean;
 import com.ledao.entity.User;
+import com.ledao.lucene.ArticleIndex;
 import com.ledao.service.ArticleService;
 import com.ledao.service.ArticleTypeService;
 import com.ledao.service.UserService;
@@ -34,6 +35,8 @@ public class ArticleAdminController {
 
     @Resource
     private UserService userService;
+
+    private ArticleIndex articleIndex = new ArticleIndex();
 
     /**
      * 分页分条件查询文章
@@ -68,6 +71,25 @@ public class ArticleAdminController {
     }
 
     /**
+     * 删除资源(可批量删除)
+     *
+     * @param ids
+     * @return
+     */
+    @RequestMapping("/delete")
+    public Map<String, Object> delete(String ids) throws Exception {
+        Map<String, Object> resultMap = new HashMap<>(16);
+        String[] idsStr = ids.split(",");
+        for (int i = 0; i < idsStr.length; i++) {
+            int id = Integer.parseInt(idsStr[i]);
+            articleIndex.deleteIndex(String.valueOf(id));
+            articleService.deleteById(id);
+        }
+        resultMap.put("success", true);
+        return resultMap;
+    }
+
+    /**
      * 审核通过资源
      *
      * @param articleId
@@ -98,7 +120,7 @@ public class ArticleAdminController {
      * @return
      */
     @RequestMapping("/fail")
-    public Map<String, Object> fail(Integer articleId,String reason) {
+    public Map<String, Object> fail(Integer articleId, String reason) {
         Map<String, Object> resultMap = new HashMap<>(16);
         Article article = articleService.findById(articleId);
         //资源本来已经是审核不通过
@@ -112,6 +134,46 @@ public class ArticleAdminController {
             articleService.update(article);
             resultMap.put("success", true);
         }
+        return resultMap;
+    }
+
+    /**
+     * 设置资源是否热门
+     *
+     * @param articleId
+     * @return
+     */
+    @RequestMapping("/modifyIsHot")
+    public Map<String, Object> modifyIsHot(Integer articleId) {
+        Map<String, Object> resultMap = new HashMap<>(16);
+        Article article = articleService.findById(articleId);
+        if (article.getIsHot() == 0) {
+            article.setIsHot(1);
+        } else {
+            article.setIsHot(0);
+        }
+        articleService.update(article);
+        resultMap.put("success", true);
+        return resultMap;
+    }
+
+    /**
+     * 设置资源是否有效
+     *
+     * @param articleId
+     * @return
+     */
+    @RequestMapping("/modifyIsOff")
+    public Map<String, Object> modifyIsOff(Integer articleId) {
+        Map<String, Object> resultMap = new HashMap<>(16);
+        Article article = articleService.findById(articleId);
+        if (article.getIsUseful() == 0) {
+            article.setIsUseful(1);
+        } else {
+            article.setIsUseful(0);
+        }
+        articleService.update(article);
+        resultMap.put("success", true);
         return resultMap;
     }
 }
