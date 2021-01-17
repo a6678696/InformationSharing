@@ -62,4 +62,18 @@
     <delete id="deleteById" parameterType="integer">
         delete from t_comment where id=#{id}
     </delete>
+
+    <update id="update" parameterType="Comment">
+        update t_comment
+        <set>
+            <if test="state != null">
+                state=#{state},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <select id="findById" parameterType="integer" resultMap="CommentResult">
+        select * from t_comment where id=#{id}
+    </select>
 </mapper>

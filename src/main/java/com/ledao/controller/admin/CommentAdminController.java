@@ -84,4 +84,46 @@ public class CommentAdminController {
         }
         return resultMap;
     }
+
+    /**
+     * 审核通过评论
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("/passComment")
+    public Map<String, Object> passComment(Integer id) {
+        Map<String, Object> resultMap = new HashMap<>(16);
+        Comment comment = commentService.findById(id);
+        if (comment.getState() == 1) {
+            resultMap.put("success", false);
+            resultMap.put("errorInfo", "该评论本来已经是审核通过了,无需操作!");
+        } else {
+            comment.setState(1);
+            commentService.update(comment);
+            resultMap.put("success", true);
+        }
+        return resultMap;
+    }
+
+    /**
+     * 审核通过评论
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("/failComment")
+    public Map<String, Object> failComment(Integer id) {
+        Map<String, Object> resultMap = new HashMap<>(16);
+        Comment comment = commentService.findById(id);
+        if (comment.getState() == 2) {
+            resultMap.put("success", false);
+            resultMap.put("errorInfo", "该评论本来已经是审核不通过了,无需操作!");
+        } else {
+            comment.setState(2);
+            commentService.update(comment);
+            resultMap.put("success", true);
+        }
+        return resultMap;
+    }
 }

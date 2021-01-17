@@ -49,6 +49,48 @@
             });
         }
 
+        function passComment() {
+            var selectedRows = $("#dg").datagrid("getSelections");
+            if (selectedRows.length != 1) {
+                $.messager.alert("系统提示", "请选择一个要审核通过的评论!");
+                return;
+            }
+            var id = selectedRows[0].id;
+            $.messager.confirm("系统提示", "确定将这个评论设置为<span style='color: red'>审核通过</span>吗?", function (r) {
+                if (r) {
+                    $.post("/admin/comment/passComment", {id: id}, function (result) {
+                        if (result.success) {
+                            $("#dg").datagrid("reload");
+                            $.messager.alert("系统提示", "该评论的状态已经设置为<span style='color: red'>审核通过</span>!");
+                        } else {
+                            $.messager.alert("系统提示", result.errorInfo);
+                        }
+                    })
+                }
+            });
+        }
+
+        function failComment() {
+            var selectedRows = $("#dg").datagrid("getSelections");
+            if (selectedRows.length != 1) {
+                $.messager.alert("系统提示", "请选择一个要审核不通过的评论!");
+                return;
+            }
+            var id = selectedRows[0].id;
+            $.messager.confirm("系统提示", "确定将这个评论设置为<span style='color: red'>审核不通过</span>吗?", function (r) {
+                if (r) {
+                    $.post("/admin/comment/failComment", {id: id}, function (result) {
+                        if (result.success) {
+                            $("#dg").datagrid("reload");
+                            $.messager.alert("系统提示", "该评论的状态已经设置为<span style='color: red'>审核不通过</span>!");
+                        } else {
+                            $.messager.alert("系统提示", result.errorInfo);
+                        }
+                    })
+                }
+            });
+        }
+
         function formatUser(val,row) {
             return val.userName;
         }
@@ -98,6 +140,8 @@
 <div id="tb">
     <div>
         <a href="javascript:deleteComment()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
+        <a href="javascript:passComment()" class="easyui-linkbutton" iconCls="icon-ok" plain="true">审核通过</a>
+        <a href="javascript:failComment()" class="easyui-linkbutton" iconCls="icon-cancel" plain="true">审核不通过</a>
     </div>
     <div>
         &nbsp;用户名：&nbsp;

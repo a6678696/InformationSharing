@@ -240,6 +240,14 @@
     background: url('usericons/sendMessage.gif') no-repeat center center;
 }
 
+.icon-isHot{
+    background: url('usericons/isHot.gif') no-repeat center center;
+}
+
+.icon-isUseful{
+    background: url('usericons/isUseful.gif') no-repeat center center;
+}
+
 .icon-exit {
     background: url('usericons/exit.gif') no-repeat center center;
 }

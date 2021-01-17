@@ -45,4 +45,20 @@ public interface CommentService {
      * @return
      */
     Integer deleteById(Integer id);
+
+    /**
+     * 修改评论
+     *
+     * @param comment
+     * @return
+     */
+    Integer update(Comment comment);
+
+    /**
+     * 根据id查询评论
+     *
+     * @param id
+     * @return
+     */
+    Comment findById(Integer id);
 }

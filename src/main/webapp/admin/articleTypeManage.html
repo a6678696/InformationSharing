@@ -103,6 +103,14 @@
             });
 
         });
+
+        function formatNum(val,row) {
+            if (val == 0) {
+                return "<span style='color: red'>" + val + "</span>";
+            } else {
+                return val;
+            }
+        }
     </script>
 </head>
 <body style="margin: 1px">
@@ -115,7 +123,7 @@
     <th field="name" width="50" align="center">名称</th>
     <th field="remark" width="50" align="center">描述</th>
     <th field="sortNum" width="50" align="center">排列顺序</th>
-    <th field="num" width="50" align="center">博客数量</th>
+    <th field="num" width="50" align="center" formatter="formatNum">博客数量</th>
     </thead>
 </table>
 
