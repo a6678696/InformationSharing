@@ -9,5 +9,5 @@ http://share.zoutl.cn
 详细介绍地址：
 http://www.zoutl.cn/blog/98
 
-关于使用QQ邮箱给用户发送邮件的配置请查看博客:(根据该博客获取发邮件的邮箱的授权码,在配置文件中填上即可)
+关于使用QQ邮箱给用户发送邮件的配置请查看博客:
 http://www.zoutl.cn/blog/83
