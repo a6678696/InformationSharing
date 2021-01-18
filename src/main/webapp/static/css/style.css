@@ -48,3 +48,6 @@
 .slider.active>i{
     color:green;
 }
+img{
+    max-width:100%;
+}

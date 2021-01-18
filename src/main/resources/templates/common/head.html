@@ -16,7 +16,7 @@
             <li class="layui-nav-item"><a href="/"><strong style="font-size: 15px">首页</strong></a></li>
             <li class="layui-nav-item"><a href="/toDownloadCodePage"><strong style="font-size: 15px">源码下载</strong></a></li>
             <li class="layui-nav-item" lay-unselect="" style="float: right" th:if="${session.currentUser!=null}">
-                <a href="javascript:;"><img th:src="@{'/static/images/userImage/'+${session.currentUser.imageName}}" class="layui-nav-img" th:if="${session.currentUser.imageName!=null}"><span th:text="${session.currentUser.nickName}"></span></a>
+                <a href="javascript:;"><a href="/toUserBackstagePage"><img th:src="@{'/static/images/userImage/'+${session.currentUser.imageName}}" class="layui-nav-img" th:if="${session.currentUser.imageName!=null}"><span th:text="${session.currentUser.nickName}"></span></a></a>
                 <dl class="layui-nav-child">
                     <a href="/toUserBackstagePage">个人中心</a>
                     <a href="/user/logout">注销</a>

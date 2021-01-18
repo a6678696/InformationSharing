@@ -16,7 +16,7 @@
             $("#dg").datagrid('load', {
                 "name": $("#s_name").val(),
                 "articleTypeId": $("#s_articleTypeId").val(),
-                "userId": $("#s_userId").val(),
+                "userId": $("#s_userId").combogrid("getValue"),
                 "state": $("#s_state").val(),
                 "isUseful": $("#s_isUseful").val()
             });
@@ -97,7 +97,7 @@
 
         function resetValue() {
             $("#s_name").val("");
-            $("#s_userId").combobox("setValue", "");
+            $("#s_userId").combogrid("setValue", "");
             $("#s_articleTypeId").combobox("setValue", "");
             $("#s_state").combobox("setValue", "");
             $("#s_isUseful").combobox("setValue", "");
@@ -309,24 +309,37 @@
         <span style="color: red">(鼠标停在审核不通过上面可以看到不通过的原因)</span>
     </div>
     <div>
-        &nbsp;名称:&nbsp;<input type="text" id="s_name" size="15"
+        &nbsp;名称:&nbsp;<input type="text" id="s_name" style="width:140px"
                               onkeydown="if(window.event.keyCode===13) searchArticle()"/>
         &nbsp;用户名:&nbsp;
-        <input class="easyui-combobox" id="s_userId" name="userId" style="width: 140px" editable="true"
-               onkeydown="if(event.keyCode==13) searchInformation()"
-               data-options="panelHeight:'auto',valueField:'id',textField:'userName',url:'/admin/user/comboList'"/>
+        <select id="s_userId" name="userId" class="easyui-combogrid" style="width:140px" data-options="
+			panelWidth: 800,
+			idField: 'id',
+			textField: 'userName',
+			url: '/admin/user/comboList',
+			method: 'get',
+			columns: [[
+				{field:'id',title:'编号',width:40},
+				{field:'userName',title:'用户名',width:60},
+				{field:'nickName',title:'昵称',width:60,align:'right'},
+				{field:'roleName',title:'身份',width:60,align:'right'},
+				{field:'email',title:'邮箱',width:100},
+			]],
+			fitColumns: true
+		">
+        </select>
         &nbsp;资源类型:&nbsp;<input class="easyui-combobox" id="s_articleTypeId" name="articleTypeId" style="width: 140px"
                                 editable="true"
                                 data-options="panelHeight:'auto',valueField:'id',textField:'name',url:'/admin/articleType/comboList'"/>
         &nbsp;审核状态：&nbsp;
-        <select id="s_state" class="easyui-combobox" name="type" style="width:130px;" panelHeight="auto">
+        <select id="s_state" class="easyui-combobox" name="type" style="width:100px;" panelHeight="auto">
             <option value="">请选择...</option>
             <option value="1">未审核</option>
             <option value="2">审核通过</option>
             <option value="3">审核不通过</option>
         </select>
         &nbsp;是否有效：&nbsp;
-        <select id="s_isUseful" class="easyui-combobox" name="type" style="width:130px;" panelHeight="auto">
+        <select id="s_isUseful" class="easyui-combobox" name="type" style="width:100px;" panelHeight="auto">
             <option value="">请选择...</option>
             <option value="1">有效</option>
             <option value="0">无效</option>

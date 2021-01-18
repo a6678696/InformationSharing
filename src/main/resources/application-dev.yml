@@ -32,7 +32,7 @@ spring:
     #自己的邮箱
     username: 1203007469@qq.com
     #授权码
-    password: jhdzwxbnpfzxhsss
+    password: aaaaaaaaaaaaaaaaaa
     default-encoding: utf-8
     protocol: smtp
     properties:

@@ -14,12 +14,12 @@
 
         function searchDownloadMessage() {
             $("#dg").datagrid('load', {
-                "userId": $("#s_userId").val()
+                "userId": $("#s_userId").combogrid("getValue")
             });
         }
 
         function resetValue() {
-            $("#s_userId").combobox("setValue", "");
+            $("#s_userId").combogrid("setValue", "");
         }
 
         function deleteDownloadMessage() {
@@ -71,8 +71,22 @@
     </div>
     <div>
         &nbsp;用户名：&nbsp;
-        <input class="easyui-combobox" id="s_userId" name="userId" style="width: 140px" editable="true"
-               data-options="panelHeight:'auto',valueField:'id',textField:'userName',url:'/admin/user/comboList'"/>
+        <select id="s_userId" name="userId" class="easyui-combogrid" style="width:140px" data-options="
+			panelWidth: 800,
+			idField: 'id',
+			textField: 'userName',
+			url: '/admin/user/comboList',
+			method: 'get',
+			columns: [[
+				{field:'id',title:'编号',width:40},
+				{field:'userName',title:'用户名',width:60},
+				{field:'nickName',title:'昵称',width:60,align:'right'},
+				{field:'roleName',title:'身份',width:60,align:'right'},
+				{field:'email',title:'邮箱',width:100},
+			]],
+			fitColumns: true
+		">
+        </select>
         <a href="javascript:searchDownloadMessage()" class="easyui-linkbutton" iconCls="icon-search" plain="true">搜索</a>
         <a href="javascript:resetValue()" class="easyui-linkbutton" iconCls="icon-reset" plain="true">重置</a>
     </div>
