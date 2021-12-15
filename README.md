@@ -4,7 +4,7 @@ GitHub地址：https://github.com/a6678696/InformationSharing
 
 ### 使用的技术
 
-本项目核心技术采用Spring Boot+Mybatis；开发工具idea；数据库MySQL5.6；模版引擎采用的是Thymeleaf；安全框架采用SpringSecurity；在线编辑器CKEditor；Lucene全文检索；Quartz定时任务；[JavaMail实现QQ邮箱发送邮件](https://blog.zoutl.cn/2021/01/04/64/)
+本项目核心技术采用Spring Boot+Mybatis；开发工具idea；数据库MySQL5.6；模版引擎采用的是Thymeleaf；安全框架采用SpringSecurity；在线编辑器CKEditor；Lucene全文检索；Quartz定时任务；[基于JavaMail实现用QQ邮箱发送邮件 ](https://blog.zoutl.cn/64.html)
 
 ### 功能介绍
 
