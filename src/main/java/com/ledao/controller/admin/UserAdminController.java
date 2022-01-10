@@ -3,7 +3,6 @@ package com.ledao.controller.admin;
 import com.ledao.entity.PageBean;
 import com.ledao.entity.User;
 import com.ledao.service.UserService;
-import com.ledao.util.MyEncryption;
 import com.ledao.util.StringUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -74,7 +73,7 @@ public class UserAdminController {
         map.put("key", 1);
         List<User> userList = userService.list(map);
         for (User user1 : userList) {
-            user1.setPassword(MyEncryption.jiemi(user1.getPassword()));
+            user1.setPassword(user1.getPassword());
         }
         Long total = userService.getTotal(map);
         resultMap.put("rows", userList);
@@ -111,7 +110,7 @@ public class UserAdminController {
                         resultMap.put("errorInfo", "该用户名已被注册,请重新输入!!");
                     } else {
                         resultMap.put("success", true);
-                        user.setPassword(MyEncryption.jiami(user.getPassword()));
+                        user.setPassword(user.getPassword());
                         userService.add(user);
                     }
                 }
@@ -130,7 +129,7 @@ public class UserAdminController {
                     resultMap.put("errorInfo", "密码和确认密码不一样,请重新输入!!");
                 } else {
                     resultMap.put("success", true);
-                    user.setPassword(MyEncryption.jiami(user.getPassword()));
+                    user.setPassword(user.getPassword());
                     userService.update(user);
                 }
             }

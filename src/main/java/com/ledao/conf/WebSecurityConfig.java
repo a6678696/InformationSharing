@@ -2,7 +2,6 @@ package com.ledao.conf;
 
 import com.ledao.entity.User;
 import com.ledao.service.UserService;
-import com.ledao.util.MyEncryption;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -38,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .passwordEncoder(new BCryptPasswordEncoder())
                 .withUser("admin")
-                .password(new BCryptPasswordEncoder().encode(MyEncryption.jiemi(user.getPassword())))
+                .password(new BCryptPasswordEncoder().encode(user.getPassword()))
                 .roles("ADMIN");
     }
 
