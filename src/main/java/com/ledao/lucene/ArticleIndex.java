@@ -19,6 +19,7 @@ import org.apache.lucene.store.FSDirectory;
 import java.io.StringReader;
 import java.nio.file.Paths;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 

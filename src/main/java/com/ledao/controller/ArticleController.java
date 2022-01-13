@@ -24,6 +24,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -194,6 +195,16 @@ public class ArticleController {
         mav.addObject("mainPage", "page/articleResult");
         mav.addObject("mainPageKey", "#b");
         List<Article> articleList = articleIndex.searchArticle(q);
+        for (Article article : articleList) {
+            article.setState(articleService.findById(article.getId()).getState());
+        }
+        Iterator<Article> iterator = articleList.iterator();
+        while (iterator.hasNext()) {
+            Article article = iterator.next();
+            if (article.getState() == 1) {
+                iterator.remove();
+            }
+        }
         for (Article article : articleList) {
             Article trueArticle = articleService.findById(article.getId());
             article.setClick(trueArticle.getClick());
