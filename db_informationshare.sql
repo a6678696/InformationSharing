@@ -1,6 +1,6 @@
 /*
-SQLyog Ultimate v12.09 (64 bit)
-MySQL - 5.6.50-log : Database - db_informationshare
+SQLyog Ultimate v12.08 (64 bit)
+MySQL - 5.6.24 : Database - db_informationshare
 *********************************************************************
 */
 
@@ -12,7 +12,7 @@ MySQL - 5.6.50-log : Database - db_informationshare
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`db_informationshare` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`db_informationshare` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
 USE `db_informationshare`;
 
@@ -46,7 +46,7 @@ CREATE TABLE `t_article` (
 
 /*Data for the table `t_article` */
 
-insert  into `t_article`(`id`,`name`,`publishDate`,`userId`,`articleTypeId`,`points`,`summary`,`content`,`downloadLink`,`password`,`isHot`,`state`,`reason`,`checkDate`,`isUseful`,`click`) values (57,'java编程思想','2021-01-10 22:58:56',34,1,2,'java编程思想\n','<p><a href=\"http://localhost:8080/article/23\" title=\"java编程思想\">java编程思想</a></p>\r\n','111','111',1,3,'链接失效','2021-01-17 21:42:54',0,19),(58,'拳皇版超级玛丽13可执行文件','2021-01-10 23:00:53',34,1,4,'拳皇版超级玛丽13可执行文件\n','<p>拳皇版超级玛丽13可执行文件</p>\r\n','11','11',1,2,NULL,NULL,0,11),(59,'2020年java常见笔试面试题汇总(附答案)','2021-01-10 23:01:14',34,1,5,'2020年java常见笔试面试题汇总(附答案)\n','<p>2020年java常见笔试面试题汇总(附答案)</p>\r\n','111','11',1,2,NULL,NULL,1,28),(60,'常用日期函数','2021-01-10 23:01:36',34,2,5,'常用日期函数\n','<p>常用日期函数</p>\r\n','11','11',1,2,NULL,NULL,1,14),(61,'王二暖Oracle视频教程 下载','2021-01-10 23:02:24',34,2,3,'王二暖Oracle视频教程 下载\n','<p>王二暖Oracle视频教程 下载</p>\r\n','11','11',1,2,NULL,NULL,0,20),(62,'Mysql从入门到精通视频教程（共29集）下载','2021-01-10 23:02:56',34,2,5,'Mysql从入门到精通视频教程（共29集）下载\n','<p>Mysql从入门到精通视频教程（共29集）下载</p>\r\n','11','11',1,2,NULL,NULL,1,29),(63,'Postgresql数据库优化视频教程 下载','2021-01-10 23:03:13',34,2,5,'Postgresql数据库优化视频教程 下载\n','<p>Postgresql数据库优化视频教程 下载</p>\r\n','1','1',1,2,NULL,NULL,1,21),(64,'Oracle Rachel操作手册','2021-01-10 23:03:46',34,2,4,'Oracle Rachel操作手册\n','<p>Oracle Rachel操作手册</p>\r\n','1','1',1,1,NULL,NULL,1,0),(65,'mysql高级mycat集群视频&redis视频视频教程 下载','2021-01-10 23:04:06',34,2,3,'mysql高级mycat集群视频&amp;redis视频视频教程 下载\n','<p>mysql高级mycat集群视频&amp;redis视频视频教程 下载</p>\r\n','1','1',1,3,'内容包含广告','2021-01-17 21:14:16',1,1),(66,'50份优秀Java求职者简历','2021-01-10 23:04:53',35,1,4,'50份优秀Java求职者简历\n','<p>50份优秀Java求职者简历</p>\r\n','1','1',1,2,NULL,NULL,1,29),(67,'高级架构师进阶24天视频教程','2021-01-10 23:05:07',35,1,4,'高级架构师进阶24天视频教程\n','<p>高级架构师进阶24天视频教程</p>\r\n','1','1',1,2,NULL,NULL,1,31),(68,'从零开始学java','2021-01-10 23:05:19',35,1,5,'从零开始学java\n','<p>从零开始学java</p>\r\n','1','1',1,2,NULL,NULL,1,43),(69,'刘道成MySQL系列教程','2021-01-10 23:05:34',35,2,4,'刘道成MySQL系列教程\n','<p>刘道成MySQL系列教程</p>\r\n','1','1',1,2,NULL,NULL,1,33),(70,'mybatis教程pdf合集','2021-01-10 23:05:51',35,2,3,'mybatis教程pdf合集\n','<p>mybatis教程pdf合集</p>\r\n','11','1',1,2,NULL,NULL,1,44),(71,'黑马JavaEE 57期','2021-01-10 23:06:15',35,4,4,'黑马JavaEE 57期\n','<p>黑马JavaEE 57期</p>\r\n','1','1',1,2,NULL,NULL,1,39),(72,'SSM整合案例【企业权限管理系统】视频教程','2021-01-10 23:06:30',35,4,4,'SSM整合案例【企业权限管理系统】视频教程\n','<p><a href=\"http://download.java1234.com/article/1942\" target=\"_blank\" title=\"SSM整合案例【企业权限管理系统】视频教程\">SSM整合案例【企业权限管理系统】视频教程</a></p>\r\n','1','1',1,2,NULL,NULL,1,55),(73,'Vue2.0+Node.js+MongoDB全栈打造商城系统视','2021-01-10 23:07:29',35,3,2,'Vue2.0+Node.js+MongoDB全栈打造商城系统视\n','<p>Vue2.0+Node.js+MongoDB全栈打造商城系统视</p>\r\n','1','1',1,2,NULL,NULL,1,44),(74,'Vue项目实战教程','2021-01-10 23:07:42',35,3,5,'Vue项目实战教程\n','<p>Vue项目实战教程</p>\r\n','1','1',1,2,NULL,NULL,1,53),(75,'MUI全接触','2021-01-10 23:07:55',35,3,7,'MUI全接触\n','<p>MUI全接触</p>\r\n','1','1',1,2,NULL,NULL,1,109),(76,'web打印分页设置','2021-01-10 23:12:11',34,3,5,'web打印分页设置\n','<p><a href=\"http://download.java1234.com/article/1845\" target=\"_blank\" title=\"web打印分页设置\">web打印分页设置</a></p>\r\n','1','1',0,2,'111','2021-01-18 14:27:55',1,2),(92,'Web前端技术','2021-01-17 22:49:01',34,3,4,'Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术\n\n\n\n\n\n&nbsp;\n','<p>Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术</p>\r\n\r\n<p><img alt=\"\" src=\"/static/images/articleImage/20210117224856.jpg\" style=\"height:457px; width:700px\" /></p>\r\n\r\n<p><img alt=\"\" src=\"/static/images/articleImage/20210118141517.jpg\" style=\"height:62px; width:700px\" /></p>\r\n\r\n<p>&nbsp;</p>\r\n','1','1',0,2,'无','2021-01-18 21:56:32',1,203);
+insert  into `t_article`(`id`,`name`,`publishDate`,`userId`,`articleTypeId`,`points`,`summary`,`content`,`downloadLink`,`password`,`isHot`,`state`,`reason`,`checkDate`,`isUseful`,`click`) values (57,'java编程思想','2021-01-10 22:58:56',34,1,2,'java编程思想\n','<p><a href=\"http://localhost:8080/article/23\" title=\"java编程思想\">java编程思想</a></p>\r\n','111','111',1,3,'链接失效','2021-01-17 21:42:54',0,19),(58,'拳皇版超级玛丽13可执行文件','2021-01-10 23:00:53',34,1,4,'拳皇版超级玛丽13可执行文件\n','<p>拳皇版超级玛丽13可执行文件</p>\r\n','11','11',1,2,NULL,NULL,0,11),(59,'2020年java常见笔试面试题汇总(附答案)','2021-01-10 23:01:14',34,1,5,'2020年java常见笔试面试题汇总(附答案)\n','<p>2020年java常见笔试面试题汇总(附答案)</p>\r\n','111','11',1,2,NULL,NULL,1,28),(60,'常用日期函数','2021-01-10 23:01:36',34,2,5,'常用日期函数\n','<p>常用日期函数</p>\r\n','11','11',1,2,NULL,NULL,1,14),(61,'王二暖Oracle视频教程 下载','2021-01-10 23:02:24',34,2,3,'王二暖Oracle视频教程 下载\n','<p>王二暖Oracle视频教程 下载</p>\r\n','11','11',1,2,NULL,NULL,0,20),(62,'Mysql从入门到精通视频教程（共29集）下载','2021-01-10 23:02:56',34,2,5,'Mysql从入门到精通视频教程（共29集）下载\n','<p>Mysql从入门到精通视频教程（共29集）下载</p>\r\n','11','11',1,2,NULL,NULL,1,29),(63,'Postgresql数据库优化视频教程 下载','2021-01-10 23:03:13',34,2,5,'Postgresql数据库优化视频教程 下载\n','<p>Postgresql数据库优化视频教程 下载</p>\r\n','1','1',1,2,NULL,NULL,1,21),(64,'Oracle Rachel操作手册','2021-01-10 23:03:46',34,2,4,'Oracle Rachel操作手册\n','<p>Oracle Rachel操作手册</p>\r\n','1','1',1,1,NULL,NULL,1,0),(65,'mysql高级mycat集群视频&redis视频视频教程 下载','2021-01-10 23:04:06',34,2,3,'mysql高级mycat集群视频&amp;redis视频视频教程 下载\n','<p>mysql高级mycat集群视频&amp;redis视频视频教程 下载</p>\r\n','1','1',1,3,'内容包含广告','2021-01-17 21:14:16',1,1),(66,'50份优秀Java求职者简历','2021-01-10 23:04:53',35,1,4,'50份优秀Java求职者简历\n','<p>50份优秀Java求职者简历</p>\r\n','1','1',1,2,NULL,NULL,1,29),(67,'高级架构师进阶24天视频教程','2021-01-10 23:05:07',35,1,4,'高级架构师进阶24天视频教程\n','<p>高级架构师进阶24天视频教程</p>\r\n','1','1',1,2,NULL,NULL,1,31),(68,'从零开始学java','2021-01-10 23:05:19',35,1,5,'从零开始学java\n','<p>从零开始学java</p>\r\n','1','1',1,2,NULL,NULL,1,43),(69,'刘道成MySQL系列教程','2021-01-10 23:05:34',35,2,4,'刘道成MySQL系列教程\n','<p>刘道成MySQL系列教程</p>\r\n','1','1',1,2,NULL,NULL,1,33),(70,'mybatis教程pdf合集','2021-01-10 23:05:51',35,2,3,'mybatis教程pdf合集\n','<p>mybatis教程pdf合集</p>\r\n','11','1',1,2,NULL,NULL,1,44),(71,'黑马JavaEE 57期','2021-01-10 23:06:15',35,4,4,'黑马JavaEE 57期\n','<p>黑马JavaEE 57期</p>\r\n','1','1',1,2,NULL,NULL,1,39),(72,'SSM整合案例【企业权限管理系统】视频教程','2021-01-10 23:06:30',35,4,4,'SSM整合案例【企业权限管理系统】视频教程\n','<p><a href=\"http://download.java1234.com/article/1942\" target=\"_blank\" title=\"SSM整合案例【企业权限管理系统】视频教程\">SSM整合案例【企业权限管理系统】视频教程</a></p>\r\n','1','1',1,2,NULL,NULL,1,55),(73,'Vue2.0+Node.js+MongoDB全栈打造商城系统视','2021-01-10 23:07:29',35,3,2,'Vue2.0+Node.js+MongoDB全栈打造商城系统视\n','<p>Vue2.0+Node.js+MongoDB全栈打造商城系统视</p>\r\n','1','1',1,2,NULL,NULL,1,44),(74,'Vue项目实战教程','2021-01-10 23:07:42',35,3,5,'Vue项目实战教程\n','<p>Vue项目实战教程</p>\r\n','1','1',1,2,NULL,NULL,1,53),(75,'MUI全接触','2021-01-10 23:07:55',35,3,7,'MUI全接触\n','<p>MUI全接触</p>\r\n','1','1',1,2,NULL,NULL,1,109),(76,'web打印分页设置','2021-01-10 23:12:11',34,3,5,'web打印分页设置\n','<p><a href=\"http://download.java1234.com/article/1845\" target=\"_blank\" title=\"web打印分页设置\">web打印分页设置</a></p>\r\n','1','1',0,2,'111','2021-01-18 14:27:55',1,2),(92,'Web前端技术','2021-01-17 22:49:01',34,3,4,'Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术\n\n\n\n\n\n&nbsp;\n','<p>Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术Web前端技术</p>\r\n\r\n<p><img alt=\"\" src=\"/static/images/articleImage/20210117224856.jpg\" style=\"height:457px; width:700px\" /></p>\r\n\r\n<p><img alt=\"\" src=\"/static/images/articleImage/20210118141517.jpg\" style=\"height:62px; width:700px\" /></p>\r\n\r\n<p>&nbsp;</p>\r\n','1','1',0,2,'无','2022-01-08 02:17:15',1,204);
 
 /*Table structure for table `t_article_type` */
 
@@ -58,7 +58,7 @@ CREATE TABLE `t_article_type` (
   `remark` varchar(50) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '描述',
   `sortNum` int(11) DEFAULT NULL COMMENT '排列顺序',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COMMENT='t_article_type';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='t_article_type';
 
 /*Data for the table `t_article_type` */
 
@@ -122,7 +122,7 @@ CREATE TABLE `t_information` (
   KEY `id` (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `t_information_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `t_user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COMMENT='int_formation';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='int_formation';
 
 /*Data for the table `t_information` */
 
@@ -139,7 +139,7 @@ CREATE TABLE `t_link` (
   `sortNum` int(11) DEFAULT NULL COMMENT '排列序号',
   PRIMARY KEY (`id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='t_link';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='t_link';
 
 /*Data for the table `t_link` */
 
@@ -162,11 +162,11 @@ CREATE TABLE `t_user` (
   `roleName` varchar(50) DEFAULT NULL,
   `registerDate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_user` */
 
-insert  into `t_user`(`id`,`userName`,`password`,`nickName`,`email`,`imageName`,`points`,`isVip`,`isOff`,`roleName`,`registerDate`) values (1,'admin','234567','乐道','1203007469@qq.com','20210114225430.jpg',10000,1,0,'管理员','2021-01-03 23:16:40'),(34,'111','222222','LeDao','3495197980@qq.com','20210108235216.jpg',100,0,0,'VIP用户','2021-01-07 02:06:22'),(35,'222','333333','222','12030074169@qq.com','20210107021707.PNG',102,0,0,'VIP用户','2021-01-07 02:17:07'),(36,'333','444444','乐道乐','12030074619@qq.com','20210109172637.jfif',100,0,0,'普通用户','2021-01-09 17:26:37'),(37,'444','555555','444','12031007469@qq.com','20210111025503.jpg',100,0,0,'普通用户','2021-01-11 02:55:03'),(38,'555','666666','555','f1203007469@gmail.com','20210111025655.jpg',100,0,0,'普通用户','2021-01-11 02:56:55'),(39,'666','777777','666','zou66786961@163.com','20210111025751.jpg',100,0,0,'普通用户','2021-01-11 02:57:51'),(40,'777','888888','777','f12030074691@gmail.com','20210113053514.png',100,0,0,'普通用户','2021-01-13 05:35:14'),(41,'888','999999','888','zou667869611@163.com',NULL,100,0,1,'普通用户','2021-01-14 04:35:24');
+insert  into `t_user`(`id`,`userName`,`password`,`nickName`,`email`,`imageName`,`points`,`isVip`,`isOff`,`roleName`,`registerDate`) values (1,'admin','123456','乐道','1203007469@qq.com','20210114225430.jpg',10000,1,0,'管理员','2021-01-03 23:16:40'),(34,'111','111111','LeDao','3495197980@qq.com','20210108235216.jpg',100,0,0,'VIP用户','2021-01-07 02:06:22'),(35,'222','222222','222','12030074169@qq.com','20210107021707.PNG',102,0,0,'VIP用户','2021-01-07 02:17:07'),(36,'333','333333','乐道乐','12030074619@qq.com','20210109172637.jfif',100,0,0,'普通用户','2021-01-09 17:26:37'),(37,'444','444444','444','12031007469@qq.com','20210111025503.jpg',100,0,0,'普通用户','2021-01-11 02:55:03'),(38,'555','555555','555','f1203007469@gmail.com','20210111025655.jpg',100,0,0,'普通用户','2021-01-11 02:56:55'),(39,'666','666666','666','zou66786961@163.com','20210111025751.jpg',100,0,0,'普通用户','2021-01-11 02:57:51'),(40,'777','777777','777','f12030074691@gmail.com','20210113053514.png',100,0,0,'普通用户','2021-01-13 05:35:14'),(41,'888','888888','888','zou667869611@163.com',NULL,100,0,1,'普通用户','2021-01-14 04:35:24');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
